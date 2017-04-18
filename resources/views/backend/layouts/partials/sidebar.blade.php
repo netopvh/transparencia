@@ -27,13 +27,13 @@
                                                                                 title="Main pages"></i></li>
                     <li class="{{ isUrlActive('/') }}"><a href="{{ route('admin.home') }}"><i class="icon-home4"></i> <span>Início</span></a></li>
                     <li class="{{ isUrlActive('admin/files') }}"><a href="{{ route('admin.arquivos.index') }}"><i class="icon-file-spreadsheet"></i> <span>Gerenciador de Arquivos</span></a></li>
-                    <li class="{{ arUrlActive(['organization','menu','paginas']) }}">
+                    <li class="{{ arUrlActive(['organization','menu','paginas','remunera']) }}">
                         <a href="#"><i class="icon-stack"></i> <span>Páginas Dinámicas</span></a>
-                        <ul class="{{ boolReturn(['organization','menu','paginas']) ? '':'hidden-ul' }}">
+                        <ul class="{{ boolReturn(['organization','menu','paginas','remunera']) ? '':'hidden-ul' }}">
                             <li class="{{ isUrlActive('admin/organization') }}"><a href="{{ route('admin.casas.index') }}"><i class="icon-office"></i> Casas</a></li>
                             <li class="{{ isUrlActive('admin/menu') }}"><a href="{{ route('admin.menus.index') }}"><i class="icon-more2"></i> Menu</a></li>
                             <li class="{{ isUrlActive('admin/paginas') }}"><a href="{{ route('admin.paginas.index') }}"><i class="icon-printer4"></i>Páginas</a></li>
-                            <li><a href=""><i class="icon-tree7"></i>Estrutura Remuneratória</a></li>
+                            <li class="{{ isUrlActive('admin/remunera') }}"><a href="{{ route('admin.remunera.index') }}"><i class="icon-tree7"></i>Estrutura Remuneratória</a></li>
                             <li><a href=""><i class="icon-profile"></i>Dirigentes</a></li>
                             <li><a href=""><i class="icon-man-woman"></i>Corpo Técnico</a></li>
                         </ul>

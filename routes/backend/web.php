@@ -55,6 +55,12 @@ Route::group(['namespace' => 'Application'], function(){
         Route::get('/{id}','PaginaController@edit')->name('admin.paginas.edit');
         Route::patch('/{id}','PaginaController@update')->name('admin.paginas.update');
     });
+    Route::group(['prefix' => 'remunera'], function(){
+        Route::get('/','RemuneratoriaController@index')->name('admin.remunera.index');
+        Route::post('/','RemuneratoriaController@store')->name('admin.remunera.store');
+        Route::get('/{id}','RemuneratoriaController@edit')->name('admin.remunera.edit');
+        Route::patch('/{id}','RemuneratoriaController@update')->name('admin.remunera.update');
+    });
     Route::group(['prefix'=>'files'], function(){
         Route::get('/','ArquivoController@index')->name('admin.arquivos.index');
     });

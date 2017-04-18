@@ -13,8 +13,14 @@ class CreateEstruturaRemuneratoriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('estrutura_remuneratorias', function (Blueprint $table) {
+        Schema::create('estrutura_remuneratoria', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('casa_id')->unsigned();
+            $table->foreign('casa_id')->references('id')->on('casas');
+            $table->string('cargo');
+            $table->decimal('ponto_ini',10,2);
+            $table->decimal('ponto_fin',10,2);
+            $table->integer('empregados');
             $table->timestamps();
         });
     }
@@ -26,6 +32,6 @@ class CreateEstruturaRemuneratoriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estrutura_remuneratorias');
+        Schema::dropIfExists('estrutura_remuneratoria');
     }
 }

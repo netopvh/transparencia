@@ -45,8 +45,22 @@ class RemuneratoriaController extends Controller
 
     public function index()
     {
-        return view('backend.modules.paginas.index')
-            ->withPaginas($this->pagina->all());
+        return view('backend.modules.remunera.index')
+            ->withRemuneracoes($this->remuneratoria->paginate(5))
+            ->withCasas($this->casa->all());
+    }
+
+    public function store(Request $request)
+    {
+        try{
+            if ($this->remuneratoria->create($request->all())){
+                notify('Registro Cadastrado com sucesso!','success');
+                return redirect()->route('admin.remunera.index');
+            }
+        }catch (GeneralException $e){
+            notify('Erro:'.$e->getMessage(),'danger');
+            return redirect()->route('admin.remunera.index');
+        }
     }
     
 }

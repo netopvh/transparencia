@@ -36,6 +36,37 @@ class RemuneratoriaRepositoryEloquent extends BaseRepository implements Remunera
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    
+    /**
+     * Insere um novo registro no banco de dados
+     *
+     * @param array $attributes
+     * @throws GeneralException
+     */
+    public function create(array $attributes)
+    {
+
+        //Efetua Validação do Registro
+        if (!is_null($this->validator)) {
+
+            $attributes = $this->model->newInstance()->forceFill($attributes)->makeVisible($this->model->getHidden())->toArray();
+
+            $this->validator->with($attributes)->passesOrFail(ValidatorInterface::RULE_CREATE);
+        }
+
+        // Verifica se existe o registro no banco
+        $result = $this->model->query()->where('cargo',$attributes['cargo'])->get()->count();
+
+        if ($result >= 1){
+            throw new GeneralException('Registro já cadastrado no sistema!');
+        }
+
+
+        $model = $this->model->newInstance($attributes);
+        if ($model->save()){
+            return true;
+        }else{
+            throw new GeneralException('Erro ao cadastrar registro no banco de dados');
+        }
+    }
 
 }

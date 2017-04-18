@@ -15,6 +15,9 @@ class CreateDirigentesTable extends Migration
     {
         Schema::create('dirigentes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('casa_id')->unsigned();
+            $table->foreign('casa_id')->references('id')->on('casas');
+            $table->string('nome');
             $table->timestamps();
         });
     }

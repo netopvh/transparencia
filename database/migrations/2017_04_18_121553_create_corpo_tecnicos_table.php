@@ -13,8 +13,11 @@ class CreateCorpoTecnicosTable extends Migration
      */
     public function up()
     {
-        Schema::create('corpo_tecnicos', function (Blueprint $table) {
+        Schema::create('corpo_tecnico', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('casa_id')->unsigned();
+            $table->foreign('casa_id')->references('id')->on('casas');
+            $table->string('nome');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateCorpoTecnicosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('corpo_tecnicos');
+        Schema::dropIfExists('corpo_tecnico');
     }
 }
