@@ -1,0 +1,73 @@
+.inativo {
+    background: lightgray!important;
+}
+#mainHeader-2 .ldo-title{
+    font-weight: bold; 
+    margin-bottom: 0;
+    padding: 0;
+    color: #000;
+}
+.logo-fiero{
+    background-image: url("../img/fiero.png");
+    background-repeat: no-repeat;
+}
+.logo-casas{
+    font-family:"Arial Black";
+    font-style: italic;
+    font-weight: bold;
+}
+.breadcrumb-local {
+    margin: 0px 0px 0px 0px;
+    padding: 5px 15px 5px 15px;
+}
+.breadcrumb-local li {
+    margin: 0;
+    display: inline-block;
+    font-size: 12px;
+}
+.breadcrumb-local.gradient li * {color:#fff !important}
+
+.breadcrumb-local * { vertical-align: middle; }
+.breadcrumb-local li span i { font-size: 12px; }
+.breadcrumb-local li a { color: #5c5c5c; }
+
+.materia{
+    font-size:12px;
+}
+/** Modificação do Butão Sucesso */
+.btn-success{
+    color:#fff;
+    background-color:#01A62D;
+    border-color:#4cae4c;
+}
+.btn-success.focus,.btn-success:focus{
+     color:#fff;
+     background-color:#449d44;
+     border-color:#255625;
+ }
+.btn-success:hover{
+    color:#fff;
+    background-color:#449d44;
+    border-color:#398439;
+}
+.btn-success.active,.btn-success:active,.open>.dropdown-toggle.btn-success{
+    color:#fff;
+    background-color:#449d44;
+    border-color:#398439;
+}
+.btn-success.active.focus,.btn-success.active:focus,.btn-success.active:hover,.btn-success:active.focus,.btn-success:active:focus,.btn-success:active:hover,.open>.dropdown-toggle.btn-success.focus,.open>.dropdown-toggle.btn-success:focus,.open>.dropdown-toggle.btn-success:hover{
+    color:#fff;
+    background-color:#398439;
+    border-color:#255625;
+}
+.btn-success.active,.btn-success:active,.open>.dropdown-toggle.btn-success{
+     background-image:none;
+ }
+.btn-success.disabled.focus,.btn-success.disabled:focus,.btn-success.disabled:hover,.btn-success[disabled].focus,.btn-success[disabled]:focus,.btn-success[disabled]:hover,fieldset[disabled] .btn-success.focus,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success:hover{
+    background-color:#5cb85c;
+    border-color:#4cae4c;
+}
+.btn-success .badge{
+    color:#5cb85c;
+    background-color:#fff;
+}
