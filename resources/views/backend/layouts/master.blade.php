@@ -66,6 +66,7 @@
 <script type="text/javascript" src="{{ asset('backend/assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('backend/assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('backend/assets/js/plugins/forms/validation/validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('backend/assets/js/plugins/forms/validation/additional_methods.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('backend/assets/js/plugins/forms/validation/localization/messages_pt_BR.min.js') }}"></script>
 @yield('scripts-after')
 <script type="text/javascript" src="{{ asset('backend/assets/js/core/app.js') }}"></script>

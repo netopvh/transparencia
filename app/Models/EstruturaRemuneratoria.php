@@ -11,4 +11,9 @@ class EstruturaRemuneratoria extends Model
 
     protected $fillable = ['casa_id','cargo','ponto_ini','ponto_fin','empregados'];
 
+    public function casa()
+    {
+        return $this->belongsTo(Casa::class);
+    }
+
 }

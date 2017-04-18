@@ -9,4 +9,9 @@ class CorpoTecnico extends Model
     protected $table = "corpo_tecnico";
 
     protected $fillable = ['casa_id','nome'];
+
+    public function casa()
+    {
+        return $this->belongsTo(Casa::class);
+    }
 }

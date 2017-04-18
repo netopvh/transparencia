@@ -62,20 +62,11 @@ $(function () {
 
     });
 
-    var inicial = $("input[name='ponto_ini']");
-    var final = $("input[name='ponto_fin']");
 
-    inicial.maskMoney();
-    final.maskMoney();
-    $("form").submit(function() {
-        inicial.val(inicial.maskMoney('unmasked')[0]);
-        final.val(final.maskMoney('unmasked')[0]);
-    });
-
-    var cargo = $("input[name='cargo']");
+    var nome = $("input[name='nome']");
 
     $('.upper').bind('keyup',function (e) {
-        cargo.val((cargo.val()).toUpperCase());
+        nome.val((nome.val()).toUpperCase());
     });
 });
 

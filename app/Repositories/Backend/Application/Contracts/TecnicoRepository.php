@@ -11,4 +11,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface TecnicoRepository extends RepositoryInterface
 {
 
+    public function findById($id);
+
 }

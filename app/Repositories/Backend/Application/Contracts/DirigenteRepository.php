@@ -10,5 +10,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface DirigenteRepository extends RepositoryInterface
 {
-
+    public function findById($id);
 }

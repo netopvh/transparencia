@@ -58,8 +58,26 @@ Route::group(['namespace' => 'Application'], function(){
     Route::group(['prefix' => 'remunera'], function(){
         Route::get('/','RemuneratoriaController@index')->name('admin.remunera.index');
         Route::post('/','RemuneratoriaController@store')->name('admin.remunera.store');
+        Route::get('/import','RemuneratoriaController@viewImport')->name('admin.remunera.import');
+        Route::post('/','RemuneratoriaController@storeImport')->name('admin.remunera.importing');
         Route::get('/{id}','RemuneratoriaController@edit')->name('admin.remunera.edit');
         Route::patch('/{id}','RemuneratoriaController@update')->name('admin.remunera.update');
+    });
+    Route::group(['prefix' => 'dirigentes'], function(){
+        Route::get('/','DirigenteController@index')->name('admin.dirigentes.index');
+        Route::post('/','DirigenteController@store');
+        //Route::get('/import','DirigenteController@viewImport')->name('admin.dirigentes.import');
+        //Route::post('/','DirigenteController@storeImport')->name('admin.dirigentes.importing');
+        Route::get('/{id}','DirigenteController@edit')->name('admin.dirigentes.edit');
+        Route::patch('/{id}','DirigenteController@update')->name('admin.dirigentes.update');
+    });
+    Route::group(['prefix' => 'tecnicos'], function(){
+        Route::get('/','TecnicoController@index')->name('admin.tecnicos.index');
+        Route::post('/','TecnicoController@store');
+        //Route::get('/import','TecnicoController@viewImport')->name('admin.tecnicos.import');
+        //Route::post('/','TecnicoController@storeImport')->name('admin.tecnicos.importing');
+        Route::get('/{id}','TecnicoController@edit')->name('admin.tecnicos.edit');
+        Route::patch('/{id}','TecnicoController@update')->name('admin.tecnicos.update');
     });
     Route::group(['prefix'=>'files'], function(){
         Route::get('/','ArquivoController@index')->name('admin.arquivos.index');

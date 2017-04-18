@@ -175,6 +175,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -241,6 +242,7 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Notify'  => Arcanedev\Notify\Facades\Notify::class,
         'ChannelLog'  =>  App\Contracts\Facades\ChannelLog::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

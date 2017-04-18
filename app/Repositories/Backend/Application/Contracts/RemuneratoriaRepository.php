@@ -11,4 +11,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface RemuneratoriaRepository extends RepositoryInterface
 {
 
+    public function findById($id);
+    public function importRemuneracoes($attributes, $casa);
+    
 }

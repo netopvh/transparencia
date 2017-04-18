@@ -3,6 +3,7 @@
 namespace App\Repositories\Backend\Application;
 
 use App\Exceptions\Access\GeneralException;
+use Maatwebsite\Excel\Excel;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
@@ -69,4 +70,56 @@ class RemuneratoriaRepositoryEloquent extends BaseRepository implements Remunera
         }
     }
 
+    /**
+     * Atualiza Registro do Banco de Dadnos
+     *
+     * @param array $attributes
+     * @param $id
+     * @return bool
+     * @throws GeneralException
+     */
+    public function update(array $attributes, $id)
+    {
+        //Efetua Validação do Registro
+        if (!is_null($this->validator)) {
+
+            $attributes = $this->model->newInstance()->forceFill($attributes)->makeVisible($this->model->getHidden())->toArray();
+
+            $this->validator->with($attributes)->passesOrFail(ValidatorInterface::RULE_CREATE);
+        }
+
+        $model = $this->model->find($id);
+        $model->fill($attributes);
+        if ($model->save()){
+            return true;
+        }else{
+            throw new GeneralException('Erro ao gravar registro no banco de dados');
+        }
+    }
+
+    /**
+     * Localiza registro no banco de dados
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @throws GeneralException
+     */
+    public function findById($id)
+    {
+        $result = $this->model->with('casa')->find($id);
+        if(is_null($result)){
+            throw new GeneralException('Nenhum registro localizado no banco de dados!');
+        }
+
+        return $result;
+    }
+
+    public function importRemuneracoes($attributes, $casa)
+    {
+
+        dd($attributes);
+        foreach ($attributes as $item) {
+
+        }
+    }
 }
