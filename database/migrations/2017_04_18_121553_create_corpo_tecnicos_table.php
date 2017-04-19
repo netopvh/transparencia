@@ -18,6 +18,7 @@ class CreateCorpoTecnicosTable extends Migration
             $table->integer('casa_id')->unsigned();
             $table->foreign('casa_id')->references('id')->on('casas');
             $table->string('nome');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

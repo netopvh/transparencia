@@ -20,7 +20,8 @@ class CreateEstruturaRemuneratoriasTable extends Migration
             $table->string('cargo');
             $table->decimal('ponto_ini',10,2);
             $table->decimal('ponto_fin',10,2);
-            $table->integer('empregados');
+            $table->integer('empregados')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

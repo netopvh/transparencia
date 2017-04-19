@@ -58,6 +58,13 @@
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li><a href="{{ route('admin.remunera.edit', ['id' => $remunera->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
+                                                    <li>
+                                                        <form action="" method="post">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('delete') }}
+                                                            <button  type="submit" class="button-clean"><i class="icon-trash space-right"></i> Excluir</button>
+                                                        </form>
+                                                    </li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -66,7 +73,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="3" class="text-center">Sem Registros Cadastrados</td>
+                                <td colspan="7" class="text-center"><span class="text-bold">Sem Registros Cadastrados</span></td>
                             </tr>
                         @endif
                         </tbody>
@@ -90,7 +97,7 @@
                         </div>
                     @endif
                     <div class="panel-body">
-                        <form action="" method="post" class="form-validate">
+                        <form action="{{ route('admin.remunera.index') }}" method="post" class="form-validate">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-xs-5">

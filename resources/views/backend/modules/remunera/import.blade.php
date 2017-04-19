@@ -31,7 +31,7 @@
                         <span class="text-size-large"><span class="text-danger">Atenção! </span> Para que seja realizada a importação de informações para o
                         banco de dados, é necessário que o arquivo esteja em formato .CSV, contendo apenas dados.</span>
                         <br><br>
-                        <form action="{{ route('admin.remunera.importing') }}" method="post"
+                        <form action="{{ route('admin.remunera.import') }}" method="post"
                               enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row">
@@ -39,16 +39,6 @@
                                     <div class="form-group">
                                         <label>Arquivo:</label>
                                         <input type="file" class="form-control" name="arquivo">
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="form-group">
-                                        <label>Casa:</label>
-                                        <select name="casa_id" class="form-control">
-                                            @foreach($casas as $casa)
-                                                <option value="{{ $casa->id }}">{{ $casa->name }}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                 </div>
                             </div>

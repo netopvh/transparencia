@@ -69,7 +69,7 @@ class TecnicoController extends Controller
     public function edit($id)
     {
         try{
-            return view('backend.modules.dirigentes.edit')
+            return view('backend.modules.tecnicos.edit')
                 ->withTecnico($this->tecnico->findById($id))
                 ->withCasas($this->casa->all());
         }catch (GeneralException $e){

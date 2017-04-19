@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use App\Importer\RemuneratoriaImport;
 use App\Contracts\Facades\ChannelLog as Log;
 use Maatwebsite\Excel\Facades\Excel;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class RemuneratoriaController extends Controller
 {
@@ -79,44 +79,21 @@ class RemuneratoriaController extends Controller
      */
     public function viewImport()
     {
-        return view('backend.modules.remunera.import')
-            ->withcasas($this->casa->all());
+        return view('backend.modules.remunera.import');
     }
 
     public function storeImport(Request $request)
     {
         try {
-            $insert = [];
-            if ($request->hasFile('arquivo')) {
-                $path = $request->file('arquivo')->getRealPath();
-
-                $data = Excel::load($path, function ($reader) {
-                })->get();
-
-                if (!empty($data) && $data->count()) {
-                    foreach ($data->toArray() as $key => $value) {
-                        if (!empty($value)) {
-                            foreach ($value as $v) {
-                                $insert[] = [
-                                    'casa_id' => $v['casa_id'],
-                                    'cargo' => $v['cargo'],
-                                    'ponto_ini' => $v['ponto_ini'],
-                                    'ponto_fin' => $v['ponto_fin'],
-                                    'empregados' => $v['empregados']
-                                ];
-                            }
-                        }
-                    }
-                    dd($insert);
-
-                    if (!empty($insert)) {
-                        DB::table('estrutura_remuneratoria')->insert($insert);
-                        return back()->with('success', 'Insert Record successfully.');
-                    }
-
-                }
-
-            }
+           if ($request->hasFile('arquivo')){
+               Excel::load($request->file('arquivo'), function($reader){
+                   $reader->each(function($sheet){
+                       DB::table('estrutura_remuneratoria')->insert($sheet->toArray());
+                   });
+               });
+               notify('Arquivos importados com sucesso!', 'success');
+               return redirect()->route('admin.remunera.index');
+           }
 
         } catch (GeneralException $e) {
             notify('Erro:' . $e->getMessage(), 'danger');

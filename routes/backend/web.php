@@ -57,9 +57,9 @@ Route::group(['namespace' => 'Application'], function(){
     });
     Route::group(['prefix' => 'remunera'], function(){
         Route::get('/','RemuneratoriaController@index')->name('admin.remunera.index');
-        Route::post('/','RemuneratoriaController@store')->name('admin.remunera.store');
+        Route::post('/','RemuneratoriaController@store');
         Route::get('/import','RemuneratoriaController@viewImport')->name('admin.remunera.import');
-        Route::post('/','RemuneratoriaController@storeImport')->name('admin.remunera.importing');
+        Route::post('/import','RemuneratoriaController@storeImport');
         Route::get('/{id}','RemuneratoriaController@edit')->name('admin.remunera.edit');
         Route::patch('/{id}','RemuneratoriaController@update')->name('admin.remunera.update');
     });
