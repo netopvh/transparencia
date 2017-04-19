@@ -62,6 +62,7 @@ Route::group(['namespace' => 'Application'], function(){
         Route::post('/import','RemuneratoriaController@storeImport');
         Route::get('/{id}','RemuneratoriaController@edit')->name('admin.remunera.edit');
         Route::patch('/{id}','RemuneratoriaController@update')->name('admin.remunera.update');
+        Route::delete('/{id}','RemuneratoriaController@delete')->name('admin.remunera.delete');
     });
     Route::group(['prefix' => 'dirigentes'], function(){
         Route::get('/','DirigenteController@index')->name('admin.dirigentes.index');
@@ -70,6 +71,7 @@ Route::group(['namespace' => 'Application'], function(){
         //Route::post('/','DirigenteController@storeImport')->name('admin.dirigentes.importing');
         Route::get('/{id}','DirigenteController@edit')->name('admin.dirigentes.edit');
         Route::patch('/{id}','DirigenteController@update')->name('admin.dirigentes.update');
+        Route::delete('/{id}','DirigenteController@delete')->name('admin.dirigentes.delete');
     });
     Route::group(['prefix' => 'tecnicos'], function(){
         Route::get('/','TecnicoController@index')->name('admin.tecnicos.index');

@@ -11,7 +11,7 @@ try {
     }else{
         while ($valores = fgetcsv($arquivo,2048,";")){
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam('nome', $valores[0], PDO::PARAM_STR);
+            $stmt->bindParam('nome', $valores[0], PDO::PARAM_);
             $stmt->bindParam('casa', $valores[1], PDO::PARAM_INT);
             $stmt->execute();
         }

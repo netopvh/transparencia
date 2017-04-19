@@ -46,8 +46,8 @@
                                     <td>{{ $remunera->id }}</td>
                                     <td>{{ $remunera->cargo }}</td>
                                     <td>{{ $remunera->casa->name }}</td>
-                                    <td>{{ $remunera->ponto_ini }}</td>
-                                    <td>{{ $remunera->ponto_fin }}</td>
+                                    <td>R$ {{ number_format($remunera->ponto_ini,2,',','.') }}</td>
+                                    <td>R$ {{ number_format($remunera->ponto_fin,2,',','.') }}</td>
                                     <td>{{ $remunera->empregados }}</td>
                                     <td class="text-center">
                                         <ul class="icons-list">
@@ -59,7 +59,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li><a href="{{ route('admin.remunera.edit', ['id' => $remunera->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
                                                     <li>
-                                                        <form action="" method="post">
+                                                        <form action="{{ route('admin.remunera.delete', ['id' => $remunera->id]) }}" method="post">
                                                             {{ csrf_field() }}
                                                             {{ method_field('delete') }}
                                                             <button  type="submit" class="button-clean"><i class="icon-trash space-right"></i> Excluir</button>

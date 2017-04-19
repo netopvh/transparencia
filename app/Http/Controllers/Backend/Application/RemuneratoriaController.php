@@ -58,6 +58,8 @@ class RemuneratoriaController extends Controller
     }
 
     /**
+     * Armazena informações no banco
+     *
      * @param Request $request
      * @return mixed
      */
@@ -75,6 +77,8 @@ class RemuneratoriaController extends Controller
     }
 
     /**
+     * Exibe a view de importação de dados
+     *
      * @return mixed
      */
     public function viewImport()
@@ -82,10 +86,17 @@ class RemuneratoriaController extends Controller
         return view('backend.modules.remunera.import');
     }
 
+    /**
+     * Importa Dados para o banco de dados a partir de arquivo do excel
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function storeImport(Request $request)
     {
         try {
            if ($request->hasFile('arquivo')){
+               DB::table('estrutura_remuneratoria')->truncate();
                Excel::load($request->file('arquivo'), function($reader){
                    $reader->each(function($sheet){
                        DB::table('estrutura_remuneratoria')->insert($sheet->toArray());
@@ -102,6 +113,8 @@ class RemuneratoriaController extends Controller
     }
 
     /**
+     * Localiza registro para edição
+     *
      * @param $id
      * @return mixed
      */
@@ -118,6 +131,8 @@ class RemuneratoriaController extends Controller
     }
 
     /**
+     * Atualiza registro no banco de dados
+     *
      * @param Request $request
      * @param $id
      * @return mixed
@@ -131,6 +146,14 @@ class RemuneratoriaController extends Controller
             }
         } catch (GeneralException $e) {
             notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.remunera.index');
+        }
+    }
+
+    public function delete($id)
+    {
+        if($this->remuneratoria->delete($id)){
+            notify('Registro removido com sucesso!', 'success');
             return redirect()->route('admin.remunera.index');
         }
     }

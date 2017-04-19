@@ -10,10 +10,10 @@
     <br>
     <div class="content">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
-                        <h5 class="panel-title">Importar Registros de Arquivo CSV</h5>
+                        <h5 class="panel-title">Importar Registros de Planilha Excel</h5>
 
                         <div class="heading-elements">
                             <ul class="icons-list">
@@ -29,7 +29,31 @@
                     @endif
                     <div class="panel-body">
                         <span class="text-size-large"><span class="text-danger">Atenção! </span> Para que seja realizada a importação de informações para o
-                        banco de dados, é necessário que o arquivo esteja em formato .CSV, contendo apenas dados.</span>
+                        banco de dados, é necessário que o arquivo esteja em formato .XLSX ou .XLS, contendo apenas uma planilha com os dados dados.</span>
+                        Siga o modelo abaixo <br><br>
+                        SESI = 1 <br>
+                        SENAI = 2
+                        <br>
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>CASA ID</th>
+                                    <th>CARGO</th>
+                                    <th>PONTO INI</th>
+                                    <th>PONTO FIN</th>
+                                    <th>EMPREGADOS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>ASSISTENTE ADMINISTRATIVO</td>
+                                    <td>999,99</td>
+                                    <td>999,99</td>
+                                    <td>10</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <br><br>
                         <form action="{{ route('admin.remunera.import') }}" method="post"
                               enctype="multipart/form-data">
@@ -43,8 +67,9 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-4">
-                                    <button type="submit" class="btn btn-primary">Enviar Arquivo</button>
+                                <div class="col-xs-6">
+                                    <button type="submit" class="btn btn-primary"><i class="icon-upload"></i> Enviar Arquivo</button>
+                                    <a href="{{ url()->previous() }}" class="btn btn-info"><i class="icon-reply"></i> Voltar</a>
                                 </div>
                             </div>
                         </form>

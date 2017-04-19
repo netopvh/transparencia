@@ -90,5 +90,10 @@ class DirigenteController extends Controller
             return redirect()->route('admin.dirigentes.index');
         }
     }
+
+    public function delete($id)
+    {
+        
+    }
     
 }
