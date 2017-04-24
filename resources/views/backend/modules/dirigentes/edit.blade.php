@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('scripts-after')
-    <script type="text/javascript" src="{{ asset('backend/assets/js/modules/dirigentes.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/modules/dirigentes.js') }}"></script>
 @stop
 
 @section('content')

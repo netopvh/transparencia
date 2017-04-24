@@ -2,9 +2,9 @@
 
 @section('scripts-after')
     <script type="text/javascript"
-            src="{{ asset('backend/assets/js/plugins/editors/summernote/summernote.min.js') }}"></script>
+            src="{{ asset('public/backend/assets/js/plugins/editors/summernote/summernote.min.js') }}"></script>
     <script type="text/javascript"
-            src="{{ asset('backend/assets/js/plugins/editors/summernote/lang/summernote-pt-BR.js') }}"></script>
+            src="{{ asset('public/backend/assets/js/plugins/editors/summernote/lang/summernote-pt-BR.js') }}"></script>
     <script type="text/javascript" src="{{ asset('backend/assets/js/modules/menu.js') }}"></script>
 
 @stop

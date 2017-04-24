@@ -14,7 +14,7 @@
     <link href="{{ asset('public/backend/assets/css/minified/components.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('public/backend/assets/css/minified/colors.min.css') }}" rel="stylesheet" type="text/css">
     @yield('styles')
-    <link rel="stylesheet" href="{{ asset('backend/assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/backend/assets/css/custom.css') }}">
     <!-- /global stylesheets -->
 
 </head>
