@@ -10,6 +10,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface MenuRepository extends RepositoryInterface
 {
-    public function getMenuCentroSesi();
-    public function getDescritivoSesi();
+    public function getDescritivo($casa);
+    public function getMenuCentro($casa);
 }

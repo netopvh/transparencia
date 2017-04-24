@@ -10,7 +10,7 @@
     <br>
     <div class="content">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
                         <h5 class="panel-title">Listagem de Dirigentes</h5>
@@ -23,8 +23,8 @@
                         </div>
                     </div>
                     <div class="container">
-                        <a href="{{ route('admin.remunera.import') }}" class="btn btn-primary"><i
-                                    class="icon-file-excel"></i> Importar de CSV</a>
+                        <a href="{{ route('admin.dirigentes.import') }}" class="btn btn-primary"><i
+                                    class="icon-file-excel"></i> Importar do Excel</a>
                     </div>
                     <br>
                     <table class="table table-bordered table-condensed">
@@ -53,7 +53,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li><a href="{{ route('admin.dirigentes.edit', ['id' => $dirigente->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
                                                     <li>
-                                                        <form action="" method="post">
+                                                        <form action="{{ route('admin.dirigentes.delete',['id' => $dirigente->id]) }}" method="post">
                                                             {{ csrf_field() }}
                                                             {{ method_field('delete') }}
                                                             <button  type="submit" class="button-clean"><i class="icon-trash space-right"></i> Excluir</button>

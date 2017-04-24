@@ -1,12 +1,7 @@
 @extends('backend.layouts.master')
-@section('scripts-before')
-    <script type="text/javascript" src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
-@stop
-
 
 
 @section('content')
-    {!! Breadcrumbs::render('admin.home') !!}
     <br>
     <div class="content">
         <div class="row">

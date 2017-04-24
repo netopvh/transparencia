@@ -17,6 +17,7 @@ class CreatePaginasTable extends Migration
             $table->increments('id');
             $table->integer('casa_id')->unsigned();
             $table->foreign('casa_id')->references('id')->on('casas');
+            $table->string('slug');
             $table->string('title');
             $table->longText('script');
             $table->timestamps();

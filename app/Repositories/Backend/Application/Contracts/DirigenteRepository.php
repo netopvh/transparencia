@@ -11,4 +11,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface DirigenteRepository extends RepositoryInterface
 {
     public function findById($id);
+    public function cleanDatabase();
+    public function importRecords(array $attributes);
+    public function getAll($casa);
 }

@@ -10,7 +10,6 @@
 @stop
 
 @section('content')
-    {!! Breadcrumbs::render('admin.roles.index') !!}
     <br>
     <div class="content">
         <div class="row">
@@ -74,9 +73,11 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-6">
                                         <button class="btn btn-primary"><i class="icon-safe"></i> Atualizar Registro
                                         </button>
+                                        <a href="{{ url()->previous() }}" class="btn btn-info"><i
+                                                    class="icon-reply"></i> Voltar</a>
                                     </div>
                                 </div>
                             </form>

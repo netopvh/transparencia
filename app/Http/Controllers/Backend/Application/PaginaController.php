@@ -43,10 +43,68 @@ class PaginaController extends Controller
         $this->casa = $casa;
     }
 
+    /**
+     * @return mixed
+     */
     public function index()
     {
         return view('backend.modules.paginas.index')
-            ->withPaginas($this->pagina->all());
+            ->withPaginas($this->pagina->with('casa')->paginate(5));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function create()
+    {
+        return view('backend.modules.paginas.create')
+            ->withCasas($this->casa->all());
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function store(Request $request)
+    {
+        try{
+            if ($this->pagina->create($request->all())){
+                notify('Registro Cadastrado com sucesso!', 'success');
+                return redirect()->route('admin.paginas.index');
+            }
+        }catch (GeneralException $e){
+            notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.paginas.index');
+        }
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function edit($id)
+    {
+        try{
+            return view('backend.modules.paginas.edit')
+                ->withPagina($this->pagina->findById($id))
+                ->withCasas($this->casa->all());
+        }catch (GeneralException $e){
+            notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.paginas.index');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try{
+            if($this->pagina->update($request->all(), $id)){
+                notify('Registro Cadastrado com sucesso!', 'success');
+                return redirect()->route('admin.paginas.index');
+            }
+        }catch (GeneralException $e){
+            notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.paginas.index');
+        }
     }
     
 }

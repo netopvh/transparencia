@@ -75,7 +75,6 @@
     </script>
 @stop
 @section('content')
-    {!! Breadcrumbs::render('admin.logs.index') !!}
     <br>
     <div class="content">
         <div class="row">

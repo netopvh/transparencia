@@ -3,6 +3,7 @@
 namespace App\Repositories\Backend\Application;
 
 use App\Exceptions\Access\GeneralException;
+use Illuminate\Database\QueryException;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
@@ -109,6 +110,42 @@ class TecnicoRepositoryEloquent extends BaseRepository implements TecnicoReposit
             throw new GeneralException('Nenhum registro localizado no banco de dados!');
         }
 
+        return $result;
+    }
+
+    /**
+     * Limpa todos os registros do banco de dados
+     *
+     * @return bool
+     */
+    public function cleanDatabase()
+    {
+        $this->model->query()->truncate();
+
+        return true;
+    }
+
+    /**
+     * Importa todos os registros para o banco de dados
+     *
+     * @param array $attributes
+     * @throws GeneralException
+     */
+    public function importRecords(array $attributes)
+    {
+        try{
+            $this->model->query()->insert($attributes);
+        }catch (QueryException $e){
+            throw new GeneralException('Não foi possível importar registros! - Cod:'.$e->getCode());
+        }
+    }
+
+    public function getAll($casa)
+    {
+        $result = $this->model->where('casa_id',$casa)->get();
+        if (is_null($result)){
+            throw new GeneralException('Sem Registros Localizados');
+        }
         return $result;
     }
     

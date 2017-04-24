@@ -10,5 +10,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface PaginaRepository extends RepositoryInterface
 {
-
+    public function findById($id);
+    public function findBySlug($slug,$casa);
 }

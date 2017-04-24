@@ -51,7 +51,8 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <button type="submit" class="btn btn-primary"><i class="icon-check"></i> Cadastrar</button>
-                                    <a href="{{ route('admin.tecnicos.index') }}" class="btn btn-info"><i class="icon-reply"></i> Voltar</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-info"><i
+                                                class="icon-reply"></i> Voltar</a>
                                 </div>
                             </div>
                         </form>

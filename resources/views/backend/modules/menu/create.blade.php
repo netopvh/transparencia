@@ -10,7 +10,6 @@
 @stop
 
 @section('content')
-    {!! Breadcrumbs::render('admin.roles.index') !!}
     <br>
     <div class="content">
         <div class="row">

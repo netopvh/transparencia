@@ -6,7 +6,7 @@
         <div class="sidebar-user">
             <div class="category-content">
                 <div class="media">
-                    <a href="#" class="media-left"><img src="{{ asset('backend/assets/images/perfil.png') }}"
+                    <a href="#" class="media-left"><img src="{{ asset('public/backend/assets/images/perfil.png') }}"
                                                         class="img-circle img-sm" alt=""></a>
                     <div class="media-body">
                         <span class="media-heading text-semibold">{{ text_limit(auth()->user()->name,20) }}</span>

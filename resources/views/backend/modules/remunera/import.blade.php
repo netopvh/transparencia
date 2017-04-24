@@ -1,8 +1,6 @@
 @extends('backend.layouts.master')
 
 @section('scripts-after')
-    <script type="text/javascript"
-            src="{{ asset('backend/assets/js/plugins/forms/mask/jquery-maskmoney/src/jquery.maskMoney.js') }}"></script>
     <script type="text/javascript" src="{{ asset('backend/assets/js/modules/remuneratoria.js') }}"></script>
 @stop
 
@@ -56,19 +54,24 @@
                         </table>
                         <br><br>
                         <form action="{{ route('admin.remunera.import') }}" method="post"
-                              enctype="multipart/form-data">
+                              enctype="multipart/form-data" id="formImport" class="form-validate">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-xs-8">
                                     <div class="form-group">
                                         <label>Arquivo:</label>
-                                        <input type="file" class="form-control" name="arquivo">
+                                        <input type="file" class="form-control" name="arquivo" required>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row" id="loader">
+                                <div class="col-xs-4">
+                                    <span><i class="icon-spinner spinner position-left"></i> Enviando arquivo..</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <button type="submit" class="btn btn-primary"><i class="icon-upload"></i> Enviar Arquivo</button>
+                                    <button type="submit" id="button" class="btn btn-primary"><i class="icon-upload"></i> Enviar Arquivo</button>
                                     <a href="{{ url()->previous() }}" class="btn btn-info"><i class="icon-reply"></i> Voltar</a>
                                 </div>
                             </div>

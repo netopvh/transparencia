@@ -14,6 +14,8 @@ use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DirigenteController extends Controller
 {
@@ -93,7 +95,46 @@ class DirigenteController extends Controller
 
     public function delete($id)
     {
-        
+        if($this->dirigente->delete($id)){
+            notify('Registro removido com sucesso!', 'success');
+            return redirect(url()->previous());
+        }
+    }
+
+    /**
+     * Exibe a view de importação de dados
+     *
+     * @return mixed
+     */
+    public function viewImport()
+    {
+        return view('backend.modules.dirigentes.import');
+    }
+
+    /**
+     * Importa Dados para o banco de dados a partir de arquivo do excel
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function storeImport(Request $request)
+    {
+        try {
+            if ($request->hasFile('arquivo')){
+                $this->dirigente->cleanDatabase();
+                Excel::load($request->file('arquivo'), function($reader){
+                    $reader->each(function($sheet){
+                        $this->dirigente->importRecords($sheet->toArray());
+                    });
+                });
+                notify('Arquivos importados com sucesso!', 'success');
+                return redirect()->route('admin.dirigentes.index');
+            }
+
+        } catch (GeneralException $e) {
+            notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.dirigentes.index');
+        }
     }
     
 }

@@ -19,6 +19,7 @@ class CasaTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
     }
 
     /**

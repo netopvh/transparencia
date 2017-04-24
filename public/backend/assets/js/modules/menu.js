@@ -31,7 +31,7 @@ $(function () {
     // ------------------------------
 
     // Initialize
-    var validator = $(".form-validate-jquery").validate({
+    var validator = $(".form-validate").validate({
         ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
         errorClass: 'validation-error-label',
         successClass: 'validation-valid-label',

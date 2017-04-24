@@ -51,17 +51,27 @@ $(function () {
         validClass: "validation-valid-label",
         rules: {
             arquivo: {
-                extension: "csv"
+                extension: "xlsx"
             }
         },
         messages: {
             arquivo: {
-                extension: "Permitido apenas arquivos no formato CSV"
+                extension: "Permitido apenas arquivos no formato XSLX/XLS"
             }
         }
 
     });
 
+    var button = $('#button');
+    var form = $('#formImport');
+    var loader = $('#loader');
+    loader.hide();
+    form.submit(function () {
+        if (validator.numberOfInvalids() < 1){
+            loader.show();
+            button.prop('disabled', true);
+        }
+    });
 
     var nome = $("input[name='nome']");
 

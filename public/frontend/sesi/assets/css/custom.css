@@ -31,8 +31,10 @@
 .breadcrumb-local li span i { font-size: 12px; }
 .breadcrumb-local li a { color: #5c5c5c; }
 
-.materia{
-    font-size:12px;
+.materia {
+    color: #222;
+    font-size: 13px;
+    line-height: 21px;
 }
 /** Modificação do Butão Sucesso */
 .btn-success{
@@ -70,4 +72,20 @@
 .btn-success .badge{
     color:#5cb85c;
     background-color:#fff;
+}
+.btn-transparencia {
+
+    background: #009543 !important;
+
+
+    border-color: #009543 !important;
+
+    border-radius: 0 !important;
+    color: #fff !important;
+}
+.btn-transparencia:hover {
+    color: #fff !important;
+}
+.menu-estrutura p a{
+    font-size:14px;
 }

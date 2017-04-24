@@ -23,8 +23,8 @@
                         </div>
                     </div>
                     <div class="container">
-                        <a href="{{ route('admin.remunera.import') }}" class="btn btn-primary"><i
-                                    class="icon-file-excel"></i> Importar de CSV</a>
+                        <a href="{{ route('admin.tecnicos.import') }}" class="btn btn-primary"><i
+                                    class="icon-file-excel"></i> Importar do Excel</a>
                     </div>
                     <br>
                     <table class="table table-bordered table-condensed">

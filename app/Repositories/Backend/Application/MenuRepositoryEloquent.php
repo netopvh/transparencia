@@ -89,13 +89,13 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
     /**
      * @return mixed
      */
-    public function getDescritivoSesi()
+    public function getDescritivo($casa)
     {
         return $this->model->query()
             ->join('casas','casas.id','menus.casa_id')
             ->select('menus.script',
                 'menus.bloco')
-            ->where('casas.name','SESI')
+            ->where('casas.name',$casa)
             ->where('menus.bloco','D')
             ->orderBy('casas.name','desc')
             ->first();
@@ -104,13 +104,13 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
     /**
      * @return mixed
      */
-    public function getMenuCentroSesi()
+    public function getMenuCentro($casa)
     {
         return $this->model->query()
             ->join('casas','casas.id','menus.casa_id')
             ->select('menus.script',
                 'menus.bloco')
-            ->where('casas.name','SESI')
+            ->where('casas.name',$casa)
             ->where('menus.bloco','C')
             ->orderBy('casas.name','desc')
             ->first();

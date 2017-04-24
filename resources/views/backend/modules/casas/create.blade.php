@@ -1,13 +1,10 @@
 @extends('backend.layouts.master')
+
 @section('scripts-after')
-    <script src="{{ asset('backend/assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/plugins/forms/validation/validate.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/plugins/forms/validation/localization/messages_pt_BR.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/modules/casas.js') }}"></script>
 @stop
 
 @section('content')
-    {!! Breadcrumbs::render('admin.roles.create') !!}
     <br>
     <div class="content">
         <div class="row">
@@ -25,10 +22,10 @@
                     </div>
 
                     <div class="panel-body">
-                        <form action="{{ route('admin.casas.store') }}" class="form-validate-jquery" method="post"
+                        <form action="{{ route('admin.casas.store') }}" class="form-validate" method="post"
                               autocomplete="off">
                             {{ csrf_field() }}
-                            <!-- Inicio do Form -->
+                                    <!-- Inicio do Form -->
                             <div class="row">
                                 <div class="col-sm-10">
                                     <div class="form-group">
@@ -45,8 +42,8 @@
                                     <button type="submit" class="btn btn-primary"><i class="icon-database-check"></i>
                                         Salvar
                                     </button>
-                                    <a href="{{ route('admin.casas.index') }}" class="btn btn-danger"><i class="icon-undo"></i>
-                                        Voltar</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-info"><i
+                                                class="icon-reply"></i> Voltar</a>
                                 </div>
                             </div>
                         </form>

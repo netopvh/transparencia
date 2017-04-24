@@ -7,7 +7,6 @@
 @stop
 
 @section('content')
-    {!! Breadcrumbs::render('admin.roles.edit') !!}
     <br>
     <div class="content">
         <div class="row">
@@ -52,9 +51,8 @@
                                     <button type="submit" class="btn btn-primary"><i class="icon-database-check"></i>
                                         Salvar
                                     </button>
-                                    <a href="{{ route('admin.casas.index') }}" class="btn btn-danger"><i
-                                                class="icon-undo"></i>
-                                        Voltar</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-info"><i
+                                                class="icon-reply"></i> Voltar</a>
                                 </div>
                             </div>
                         </form>

@@ -9,12 +9,12 @@
         Lei de Diretrizes Orçamentárias - Institucional SENAI - Portal da indústria
     </title>
     <link rel="shortcut icon" type="image/png" href="https://static-cms-si.s3.amazonaws.com/img/favicon.png?">
-    <link rel="stylesheet" href="{{ asset('frontend/sesi/assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/sesi/assets/css/components.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/sesi/assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/frontend/sesi/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/frontend/sesi/assets/css/components.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/frontend/sesi/assets/css/custom.css') }}">
 
-<body class="casa-cni" id="institucional">
+<body>
 <!-- Fixed top bar -->
 <div class="top-bar b-18">
     <div class="container">
@@ -24,20 +24,19 @@
                     <ul class="cl">
                         <li>
                             <span class="imoon imoon-menu2"></span>
-                            <a href="{{ route('sesi.index') }}" data-url="/"><i class="fa fa-home"></i></a>
+                            <a href="{{ route('senai.index') }}" data-url="/"><i class="fa fa-home"></i></a>
                         </li>
                         <li class="logo gtm-menucasas ">
-                            <a href="http://www.portaldaindustria.com.br/cni/"><span class="logo-casas">FIERO</span></a>
+                            <a href="http://www.fiero.org.br"><img src="{{ asset('public/frontend/img/fiero.png') }}" alt="FIERO"></a>
                         </li>
                         <li class="logo gtm-menucasas ">
-                            <a href="http://www.portaldaindustria.com.br/sesi/"><span class="logo-casas">SESI</span></a>
+                            <a href="{{ route('sesi.index') }}"><img src="{{ asset('public/frontend/img/sesi.png') }}" alt="SESI"></a>
                         </li>
                         <li class="logo gtm-menucasas ">
-                            <a href="http://www.portaldaindustria.com.br/senai/"><span class="logo-casas">SENAI</span></a>
+                            <a href="{{ route('senai.index') }}"><img src="{{ asset('public/frontend/img/senai.png') }}" alt="SENAI"></a>
                         </li>
                         <li class="logo gtm-menucasas ">
-                            <a href="http://www.portaldaindustria.com.br/iel/"><span
-                                        class="logo-casas">IEL</span></a>
+                            <a href="http://www.ro.iel.org.br"><img src="{{ asset('public/frontend/img/iel.png') }}" alt="IEL"></a>
                         </li>
                         <li class="fr hidden-md hidden-sm hidden-lg" id="mobMenu">
                             <a href="javascript:void(0);"><i class="fa fa-bars"></i></a>
@@ -72,10 +71,10 @@
                         </div>
                     </div>
                     <br>
-                    <h3><span style="color: #008000;"><strong>Lei de Diretrizes Orçamentárias</strong></span></h3>
+                    <h3><span style="color: #008000;"><strong>@yield('title')</strong></span></h3>
                     @yield('content')
-                    <br><br>
-                    <a href class="btn btn-success btn-md btn-transparencia">
+                    <br>
+                    <a href class="btn btn-success btn-md btn-transparencia" role="button">
                         &nbsp; SAC - Serviço de Atendimento ao Consumidor &nbsp;
                     </a>
                 </div>
@@ -263,20 +262,20 @@
         </div>
     </section>
 </footer>
-<script type="text/javascript" src="{{ asset('/frontend/sesi/assets/js/vendors.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/frontend/sesi/assets/js/scripts.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/vendors.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/scripts.min.js') }}"></script>
 <script type="text/javascript">var switchTo5x = true;</script>
-<script type="text/javascript" src="{{ asset('/frontend/sesi/assets/js/buttons.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/buttons.min.js') }}"></script>
 <script type="text/javascript">stLight.options({
         publisher: "2748b646-7a1b-4ee3-9bb8-b935df8709f1",
         doNotHash: false,
         doNotCopy: false,
         hashAddressBar: false
     });</script>
-<script type="text/javascript" src="{{ asset('/frontend/sesi/assets/js/mustache.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/frontend/sesi/assets/js/typeahead.bundle.min.js') }}"></script>
-<script src="{{ asset('/frontend/sesi/assets/js/anmap.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/frontend/sesi/assets/js/brazilLow.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/mustache.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/typeahead.bundle.min.js') }}"></script>
+<script src="{{ asset('public/frontend/sesi/assets/js/anmap.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/frontend/sesi/assets/js/brazilLow.js') }}" type="text/javascript"></script>
 </body>
 
 </html>

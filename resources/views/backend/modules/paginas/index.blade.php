@@ -4,7 +4,7 @@
     <br>
     <div class="content">
         <div class="row">
-            <div class="col-lg-7">
+            <div class="col-lg-8">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
                         <h5 class="panel-title">Gerenciamento de Páginas</h5>
@@ -31,6 +31,8 @@
                         <tr>
                             <th width="70">ID</th>
                             <th>Nome</th>
+                            <th>Casa</th>
+                            <th>Slug</th>
                             <th class="text-center" width="80">Ações</th>
                         </tr>
                         </thead>
@@ -40,6 +42,8 @@
                                 <tr>
                                     <td>{{ $pagina->id }}</td>
                                     <td>{{ $pagina->title }}</td>
+                                    <th>{{ $pagina->casa->name }}</th>
+                                    <td>{{ $pagina->slug }}</td>
                                     <td class="text-center">
                                         <ul class="icons-list">
                                             <li class="dropdown">
@@ -62,6 +66,9 @@
                         @endif
                         </tbody>
                     </table>
+                    <div class="text-center">
+                        {{ $paginas->links() }}
+                    </div>
                 </div>
             </div>
         </div>

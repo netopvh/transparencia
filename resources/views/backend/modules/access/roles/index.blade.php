@@ -1,12 +1,11 @@
 @extends('backend.layouts.master')
 @section('scripts-after')
-    <script src="{{ asset('backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/plugins/forms/validation/validate.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/js/plugins/forms/validation/validate.min.js') }}"></script>
 
 @stop
 
 @section('content')
-    {!! Breadcrumbs::render('admin.roles.index') !!}
     <br>
     <div class="content">
         <div class="row">

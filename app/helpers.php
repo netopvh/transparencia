@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
+
 if (! function_exists('text_limit')){
 
     function text_limit($text, $limit = 20)
@@ -79,6 +81,21 @@ if(! function_exists('mask')){
         }
 
         return $mask;
+
+    }
+
+}
+
+if(! function_exists('getCasaId')){
+
+    function getCasaId($casa){
+
+        $result = '';
+        if (!empty($casa)){
+            $result = DB::table('casas')->where('name',$casa)->first();
+        }
+
+        return $result->id;
 
     }
 

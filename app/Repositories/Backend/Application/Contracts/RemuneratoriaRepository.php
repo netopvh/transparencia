@@ -12,6 +12,8 @@ interface RemuneratoriaRepository extends RepositoryInterface
 {
 
     public function findById($id);
-    public function importRemuneracoes($attributes, $casa);
+    public function cleanDatabase();
+    public function importRecords(array $attributes);
+    public function getAll($casa);
     
 }

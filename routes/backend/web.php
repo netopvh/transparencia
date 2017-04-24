@@ -67,8 +67,8 @@ Route::group(['namespace' => 'Application'], function(){
     Route::group(['prefix' => 'dirigentes'], function(){
         Route::get('/','DirigenteController@index')->name('admin.dirigentes.index');
         Route::post('/','DirigenteController@store');
-        //Route::get('/import','DirigenteController@viewImport')->name('admin.dirigentes.import');
-        //Route::post('/','DirigenteController@storeImport')->name('admin.dirigentes.importing');
+        Route::get('/import','DirigenteController@viewImport')->name('admin.dirigentes.import');
+        Route::post('/import','DirigenteController@storeImport');
         Route::get('/{id}','DirigenteController@edit')->name('admin.dirigentes.edit');
         Route::patch('/{id}','DirigenteController@update')->name('admin.dirigentes.update');
         Route::delete('/{id}','DirigenteController@delete')->name('admin.dirigentes.delete');
@@ -76,10 +76,11 @@ Route::group(['namespace' => 'Application'], function(){
     Route::group(['prefix' => 'tecnicos'], function(){
         Route::get('/','TecnicoController@index')->name('admin.tecnicos.index');
         Route::post('/','TecnicoController@store');
-        //Route::get('/import','TecnicoController@viewImport')->name('admin.tecnicos.import');
-        //Route::post('/','TecnicoController@storeImport')->name('admin.tecnicos.importing');
+        Route::get('/import','TecnicoController@viewImport')->name('admin.tecnicos.import');
+        Route::post('/import','TecnicoController@storeImport');
         Route::get('/{id}','TecnicoController@edit')->name('admin.tecnicos.edit');
         Route::patch('/{id}','TecnicoController@update')->name('admin.tecnicos.update');
+        Route::delete('/{id}','TecnicoController@delete')->name('admin.tecnicos.delete');
     });
     Route::group(['prefix'=>'files'], function(){
         Route::get('/','ArquivoController@index')->name('admin.arquivos.index');

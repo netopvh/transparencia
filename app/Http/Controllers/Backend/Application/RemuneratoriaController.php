@@ -76,41 +76,6 @@ class RemuneratoriaController extends Controller
         }
     }
 
-    /**
-     * Exibe a view de importação de dados
-     *
-     * @return mixed
-     */
-    public function viewImport()
-    {
-        return view('backend.modules.remunera.import');
-    }
-
-    /**
-     * Importa Dados para o banco de dados a partir de arquivo do excel
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function storeImport(Request $request)
-    {
-        try {
-           if ($request->hasFile('arquivo')){
-               DB::table('estrutura_remuneratoria')->truncate();
-               Excel::load($request->file('arquivo'), function($reader){
-                   $reader->each(function($sheet){
-                       DB::table('estrutura_remuneratoria')->insert($sheet->toArray());
-                   });
-               });
-               notify('Arquivos importados com sucesso!', 'success');
-               return redirect()->route('admin.remunera.index');
-           }
-
-        } catch (GeneralException $e) {
-            notify('Erro:' . $e->getMessage(), 'danger');
-            return redirect()->route('admin.remunera.index');
-        }
-    }
 
     /**
      * Localiza registro para edição
@@ -154,6 +119,43 @@ class RemuneratoriaController extends Controller
     {
         if($this->remuneratoria->delete($id)){
             notify('Registro removido com sucesso!', 'success');
+            return redirect()->route('admin.remunera.index');
+        }
+    }
+
+
+    /**
+     * Exibe a view de importação de dados
+     *
+     * @return mixed
+     */
+    public function viewImport()
+    {
+        return view('backend.modules.remunera.import');
+    }
+
+    /**
+     * Importa Dados para o banco de dados a partir de arquivo do excel
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function storeImport(Request $request)
+    {
+        try {
+            if ($request->hasFile('arquivo')){
+                $this->remuneratoria->cleanDatabase();
+                Excel::load($request->file('arquivo'), function($reader){
+                    $reader->each(function($sheet){
+                        $this->remuneratoria->importRecords($sheet->toArray());
+                    });
+                });
+                notify('Arquivos importados com sucesso!', 'success');
+                return redirect()->route('admin.remunera.index');
+            }
+
+        } catch (GeneralException $e) {
+            notify('Erro:' . $e->getMessage(), 'danger');
             return redirect()->route('admin.remunera.index');
         }
     }

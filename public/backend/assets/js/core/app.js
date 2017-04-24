@@ -317,7 +317,7 @@ $(function() {
         // Collapsible
         $(this).parent('li').not('.disabled').not($('.sidebar-xs').not('.sidebar-xs-indicator').find('.navigation-main').children('li')).children('ul').slideToggle(250);
 
-         Accordion
+         //Accordion
         if ($('.navigation-main').hasClass('navigation-accordion')) {
            $(this).parent('li').not('.disabled').not($('.sidebar-xs').not('.sidebar-xs-indicator').find('.navigation-main').children('li')).siblings(':has(.has-ul)').children('ul').slideUp(250);
        }

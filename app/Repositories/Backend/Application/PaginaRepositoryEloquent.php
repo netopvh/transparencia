@@ -26,7 +26,7 @@ class PaginaRepositoryEloquent extends BaseRepository implements PaginaRepositor
         return Pagina::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -45,8 +45,8 @@ class PaginaRepositoryEloquent extends BaseRepository implements PaginaRepositor
             $this->validator->with($attributes)->passesOrFail(ValidatorInterface::RULE_CREATE);
         }
 
-        $menu = $this->model->query()->where('bloco',$attributes['bloco'])->where('casa_id',$attributes['casa_id'])->get()->count();
-        if ($menu >= 1){
+        $pagina = $this->model->query()->where('title',$attributes['title'])->where('casa_id',$attributes['casa_id'])->get()->count();
+        if ($pagina >= 1){
             throw new GeneralException("Ops, já existe um registro para o bloco e casa selecionada");
         }
 
@@ -75,10 +75,12 @@ class PaginaRepositoryEloquent extends BaseRepository implements PaginaRepositor
         }
 
 
-        $casa = $this->model->find($id);
-        $casa->fill($attributes);;
 
-        if ($casa->save()){
+        $pagina = $this->model->find($id);
+        $pagina->slug = null;
+        $pagina->fill($attributes);;
+
+        if ($pagina->save()){
             return true;
         }else{
             throw new GeneralException('Erro ao gravar registro no banco');
@@ -86,4 +88,36 @@ class PaginaRepositoryEloquent extends BaseRepository implements PaginaRepositor
 
     }
 
+    /**
+     * Localiza registro no banco de dados
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @throws GeneralException
+     */
+    public function findById($id)
+    {
+        $result = $this->model->with('casa')->find($id);
+        if(is_null($result)){
+            throw new GeneralException('Nenhum registro localizado no banco de dados!');
+        }
+
+        return $result;
+    }
+
+
+    /**
+     *
+     *
+     * SESI METHODS
+     *
+     */
+    public function findBySlug($slug,$casa)
+    {
+        $result = $this->model->where('slug',$slug)->where('casa_id',$casa)->first();
+        if (is_null($result)){
+            throw new GeneralException('Página não localizada');
+        }
+        return $result;
+    }
 }

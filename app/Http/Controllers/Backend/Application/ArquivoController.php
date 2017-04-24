@@ -33,15 +33,4 @@ class ArquivoController extends ElfinderController
             ->with($this->getViewVars());
     }
 
-    /**
-     * Método para inserir novo registro no banco de dados
-     *
-     * @return mixed
-     */
-    public function create()
-    {
-        return view('backend.modules.casas.create');
-    }
-
-
 }

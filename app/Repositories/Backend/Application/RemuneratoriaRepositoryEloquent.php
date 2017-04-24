@@ -3,12 +3,14 @@
 namespace App\Repositories\Backend\Application;
 
 use App\Exceptions\Access\GeneralException;
+use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Excel;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Models\EstruturaRemuneratoria;
 use Prettus\Validator\Contracts\ValidatorInterface;
+
 //use App\Validators\CasaValidator;
 
 /**
@@ -27,7 +29,6 @@ class RemuneratoriaRepositoryEloquent extends BaseRepository implements Remunera
         return EstruturaRemuneratoria::class;
     }
 
-    
 
     /**
      * Boot up the repository, pushing criteria
@@ -55,17 +56,17 @@ class RemuneratoriaRepositoryEloquent extends BaseRepository implements Remunera
         }
 
         // Verifica se existe o registro no banco
-        $result = $this->model->query()->where('cargo',$attributes['cargo'])->get()->count();
+        $result = $this->model->query()->where('cargo', $attributes['cargo'])->get()->count();
 
-        if ($result >= 1){
+        if ($result >= 1) {
             throw new GeneralException('Registro já cadastrado no sistema!');
         }
 
 
         $model = $this->model->newInstance($attributes);
-        if ($model->save()){
+        if ($model->save()) {
             return true;
-        }else{
+        } else {
             throw new GeneralException('Erro ao cadastrar registro no banco de dados');
         }
     }
@@ -90,9 +91,9 @@ class RemuneratoriaRepositoryEloquent extends BaseRepository implements Remunera
 
         $model = $this->model->find($id);
         $model->fill($attributes);
-        if ($model->save()){
+        if ($model->save()) {
             return true;
-        }else{
+        } else {
             throw new GeneralException('Erro ao gravar registro no banco de dados');
         }
     }
@@ -107,19 +108,47 @@ class RemuneratoriaRepositoryEloquent extends BaseRepository implements Remunera
     public function findById($id)
     {
         $result = $this->model->with('casa')->find($id);
-        if(is_null($result)){
+        if (is_null($result)) {
             throw new GeneralException('Nenhum registro localizado no banco de dados!');
         }
 
         return $result;
     }
 
-    public function importRemuneracoes($attributes, $casa)
+    /**
+     * Limpa todos os registros do banco de dados
+     *
+     * @return bool
+     */
+    public function cleanDatabase()
     {
+        $this->model->query()->truncate();
 
-        dd($attributes);
-        foreach ($attributes as $item) {
+        return true;
+    }
 
+    /**
+     * Importa todos os registros para o banco de dados
+     *
+     * @param array $attributes
+     * @throws GeneralException
+     */
+    public function importRecords(array $attributes)
+    {
+        try {
+            $this->model->query()->insert($attributes);
+        } catch (QueryException $e) {
+            throw new GeneralException('Não foi possível importar registros! - Cod:' . $e->getCode());
         }
+    }
+
+
+    public function getAll($casa)
+    {
+        $result = $this->model->where('casa_id',$casa)->get();
+        if (is_null($result)){
+            throw new GeneralException('Sem Registros Localizados');
+        }
+        return $result;
     }
 }
