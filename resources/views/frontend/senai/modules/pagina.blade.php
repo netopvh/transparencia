@@ -1,7 +1,7 @@
 @extends('frontend.senai.layouts.master')
 
 @section('breadcrumb')
-    {!! Breadcrumbs::render('sesi.page', $pagina) !!}
+    {!! Breadcrumbs::render('senai.page', $pagina) !!}
 @stop
 
 @section('title')

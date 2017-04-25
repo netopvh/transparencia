@@ -11,8 +11,15 @@ Breadcrumbs::register('sesi.page',function($breadcrumbs,$page){
     $breadcrumbs->push($page->title,'');
 });
 
-Breadcrumbs::register('sesi.estrutura',function($breadcrumbs,$page){
-    $breadcrumbs->parent('sesi.page');
+// Home
+Breadcrumbs::register('senai.home', function($breadcrumbs)
+{
+    $breadcrumbs->push('Transparência', route('senai.index'));
+});
+
+Breadcrumbs::register('senai.page',function($breadcrumbs,$page){
+    $breadcrumbs->parent('senai.home');
     $breadcrumbs->push($page->title,'');
 });
+
 
