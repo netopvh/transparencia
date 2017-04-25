@@ -97,7 +97,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $user->email = $attributes['email'];
         $user->active = $attributes['active'];
 
-        if (!$user->save()){
+        if ($user->save()){
 
             $user->roles()->detach();
             $user->roles()->attach($attributes['role']);
