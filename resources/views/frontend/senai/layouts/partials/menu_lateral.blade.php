@@ -5,32 +5,32 @@
 
 
     <li>
-        <a href="/sesi/canais/transparencia/lei-de-diretrizes-orcamentarias/" target="_self" style="text-transform: uppercase;">lei de diretrizes orçamentárias</a>
+        <a href="senai/lei-de-diretrizes-orcamentarias-1" target="_self" style="text-transform: uppercase;">lei de diretrizes orçamentárias</a>
     </li>
 
 
     <li>
-        <a href="/sesi/canais/transparencia/demonstracoes-contabeis/" target="_self" style="text-transform: uppercase;">demonstrações contábeis</a>
+        <a href="senai/demonstracoes-contabeis-1" target="_self" style="text-transform: uppercase;">demonstrações contábeis</a>
     </li>
 
 
     <li>
-        <a href="http://www.portaldaindustria.com.br/licitacoes" target="_blank" style="text-transform: uppercase;">licitações e editais</a>
+        <a href="#" target="_blank" style="text-transform: uppercase;">licitações e editais</a>
     </li>
 
 
     <li>
-        <a href="/sesi/canais/transparencia/gratuidade/" target="_self" style="text-transform: uppercase;">gratuidade</a>
+        <a href="#" target="_self" style="text-transform: uppercase;">gratuidade</a>
     </li>
 
 
     <li>
-        <a href="/sesi/canais/transparencia/integridade/" target="_self" style="text-transform: uppercase;">integridade</a>
+        <a href="#" target="_self" style="text-transform: uppercase;">integridade</a>
     </li>
 
 
     <li>
-        <a href="/sesi/canais/transparencia/dados-de-infraestrutura/" target="_self" style="text-transform: uppercase;">Dados de infraestrutura</a>
+        <a href="#" target="_self" style="text-transform: uppercase;">Dados de infraestrutura</a>
     </li>
 
 </ul>

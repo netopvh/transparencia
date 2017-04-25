@@ -2,8 +2,7 @@
 
 @section('scripts-before')
     <script src="{{ asset('public/backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/js/plugins/forms/validation/validate.min.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/js/plugins/forms/validation/localization/messages_pt_BR.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/js/modules/users.js') }}"></script>
 @stop
 
 @section('content')

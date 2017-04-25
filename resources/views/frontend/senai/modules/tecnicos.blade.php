@@ -1,13 +1,13 @@
-@extends('frontend.sesi.layouts.master')
+@extends('frontend.senai.layouts.master')
 
 @section('breadcrumb')
     <ul class="breadcrumb-local bg-cinza-claro">
         <li>
-            <a href="{{ route('sesi.index') }}" class="casa-color">Transparência</a>
+            <a href="{{ route('senai.index') }}" class="casa-color">Transparência</a>
         </li>
         <span class="casa-color"> > </span>
         <li>
-            <a href="../lei-de-diretrizes-orcamentarias" class="casa-color">Lei de Diretrizes Orçamentárias</a>
+            <a href="../lei-de-diretrizes-orcamentarias-1" class="casa-color">Lei de Diretrizes Orçamentárias</a>
         </li>
         <span class="casa-color"> > </span>
         <li>

@@ -55,7 +55,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h3 class="ldo-title">TRANSPARÊNCIA SESI</h3>
+                <h3 class="ldo-title">TRANSPARÊNCIA SENAI</h3>
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <br>
-                    <h3><span style="color: #008000;"><strong>@yield('title')</strong></span></h3>
+                    <h3><span style="color: #FA911A;"><strong>@yield('title')</strong></span></h3>
                     @yield('content')
                     <br>
                     <a href class="btn btn-default btn-md btn-transparencia" role="button">
@@ -81,7 +81,7 @@
             </section>
             <aside class="col-xs-12 col-md-3 aside-menu-2">
 
-                @include('frontend.sesi.layouts.partials.menu_lateral')
+                @include('frontend.senai.layouts.partials.menu_lateral')
 
                 <div class="canal-01-aside col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                 </div>

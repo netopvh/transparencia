@@ -62,7 +62,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $this->model->password = bcrypt($attributes['password']);
         $this->model->email = $attributes['email'];
 
-        if (!$this->model->save()){
+        if ($this->model->save()){
 
             $this->model->attachRole($attributes['role']);
 
