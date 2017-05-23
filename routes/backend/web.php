@@ -72,6 +72,7 @@ Route::group(['namespace' => 'Application'], function(){
         Route::get('/{id}','DirigenteController@edit')->name('admin.dirigentes.edit');
         Route::patch('/{id}','DirigenteController@update')->name('admin.dirigentes.update');
         Route::delete('/{id}','DirigenteController@delete')->name('admin.dirigentes.delete');
+        Route::post('/files','DirigenteController@filesImporter')->name('admin.dirigentes.files');
     });
     Route::group(['prefix' => 'tecnicos'], function(){
         Route::get('/','TecnicoController@index')->name('admin.tecnicos.index');

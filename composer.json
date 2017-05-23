@@ -11,15 +11,16 @@
         "barryvdh/laravel-elfinder": "^0.3.10",
         "cviebrock/eloquent-sluggable": "^4.2",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
+        "greg0ire/enum": "^3.4",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "league/fractal": "^0.15.0",
+        "maatwebsite/excel": "^2.1",
         "predis/predis": "^1.1",
         "prettus/l5-repository": "^2.6",
         "rap2hpoutre/laravel-log-viewer": "^0.8.1",
-        "zizaco/entrust": "^1.7",
-        "greg0ire/enum": "^3.4",
-        "maatwebsite/excel": "^2.1"
+        "spatie/flysystem-dropbox": "^1.0",
+        "zizaco/entrust": "^1.7"
     },
     "require-dev": {
         "filp/whoops": "^2.1",

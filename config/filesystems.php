@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'uploads' => [
+            'driver' => 'dropbox',
+            'authorizationToken' => 'wvL_BQ13SsAAAAAAAAAACK372_yYOsLxb6GnBb7V9hc07uUehoFwXlKMDje0QhNO',
+        ],
+
         'exports' => [
             'driver' => 'local',
             'root' => storage_path('app/exports'),
@@ -55,8 +60,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path('files/diversos'),
             'visibility' => 'public',
         ],
 

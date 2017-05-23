@@ -188,6 +188,7 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\BackendRouteServiceProvider::class,
         App\Providers\FrontendRouteServiceProvider::class,
+        App\Providers\DropboxServiceProvider::class,
 
     ],
 
