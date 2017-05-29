@@ -8,6 +8,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use App\Models\Menu;
 use Prettus\Validator\Contracts\ValidatorInterface;
+
 //use App\Validators\CasaValidator;
 
 /**
@@ -26,7 +27,6 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
         return Menu::class;
     }
 
-    
 
     /**
      * Boot up the repository, pushing criteria
@@ -45,15 +45,15 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
             $this->validator->with($attributes)->passesOrFail(ValidatorInterface::RULE_CREATE);
         }
 
-        $menu = $this->model->query()->where('bloco',$attributes['bloco'])->where('casa_id',$attributes['casa_id'])->get()->count();
-        if ($menu >= 1){
+        $menu = $this->model->query()->where('bloco', $attributes['bloco'])->where('casa_id', $attributes['casa_id'])->get()->count();
+        if ($menu >= 1) {
             throw new GeneralException("Ops, já existe um registro para o bloco e casa selecionada");
         }
 
         $model = $this->model->newInstance($attributes);
-        if ($model->save()){
+        if ($model->save()) {
             return true;
-        }else{
+        } else {
             throw new GeneralException('Erro ao gravar registro no banco');
         }
     }
@@ -78,42 +78,72 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
         $casa = $this->model->find($id);
         $casa->fill($attributes);;
 
-        if ($casa->save()){
+        if ($casa->save()) {
             return true;
-        }else{
+        } else {
             throw new GeneralException('Erro ao gravar registro no banco');
         }
 
     }
 
     /**
+     * @param $casa
      * @return mixed
      */
     public function getDescritivo($casa)
     {
         return $this->model->query()
-            ->join('casas','casas.id','menus.casa_id')
+            ->join('casas', 'casas.id', 'menus.casa_id')
             ->select('menus.script',
                 'menus.bloco')
-            ->where('casas.name',$casa)
-            ->where('menus.bloco','D')
-            ->orderBy('casas.name','desc')
+            ->where('casas.name', $casa)
+            ->where('menus.bloco', 'D')
+            ->orderBy('casas.name', 'desc')
             ->first();
     }
 
     /**
+     * @param $casa
      * @return mixed
      */
     public function getMenuCentro($casa)
     {
         return $this->model->query()
-            ->join('casas','casas.id','menus.casa_id')
+            ->join('casas', 'casas.id', 'menus.casa_id')
             ->select('menus.script',
                 'menus.bloco')
-            ->where('casas.name',$casa)
-            ->where('menus.bloco','C')
-            ->orderBy('casas.name','desc')
+            ->where('casas.name', $casa)
+            ->where('menus.bloco', 'C')
+            ->orderBy('casas.name', 'desc')
             ->first();
     }
 
+    /**
+     * @param $casa
+     * @return mixed
+     */
+    public function getMenuCasa($casa)
+    {
+        $result = $this->model->query()
+        ->join('casas', 'casas.id', 'menus.casa_id')
+        ->select('menus.script',
+            'menus.bloco')
+        ->where('casas.name', $casa)
+        ->where('menus.bloco', 'D')
+        ->orderBy('casas.name', 'desc')
+        ->first();
+
+        return $result;
+    }
+
+    /**
+     * @param $casa
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getAllMenuCasa($casa)
+    {
+        return $this->model->query()
+            ->where('casa_id',getCasaId($casa))
+            ->get();
+    }
 }

@@ -31,7 +31,9 @@
                         <a href="#"><i class="icon-stack"></i> <span>Páginas Dinámicas</span></a>
                         <ul class="{{ boolReturn(['organization','menu','paginas','remunera','dirigentes','tecnicos']) ? '':'hidden-ul' }}">
                             <li class="{{ isUrlActive('admin/organization') }}"><a href="{{ route('admin.casas.index') }}"><i class="icon-office"></i> Casas</a></li>
-                            <li class="{{ isUrlActive('admin/menu') }}"><a href="{{ route('admin.menus.index') }}"><i class="icon-more2"></i> Menu</a></li>
+                            <li class="{{ isUrlActive('admin/menu') }}">
+                                <a href="{{ route('admin.menus.index') }}"><i class="icon-more2"></i> Menu</a>
+                            </li>
                             <li class="{{ isUrlActive('admin/paginas') }}"><a href="{{ route('admin.paginas.index') }}"><i class="icon-printer4"></i>Páginas</a></li>
                             <li class="{{ isUrlActive('admin/remunera') }}"><a href="{{ route('admin.remunera.index') }}"><i class="icon-tree7"></i>Estrutura Remuneratória</a></li>
                             <li class="{{ isUrlActive('admin/dirigentes') }}"><a href="{{ route('admin.dirigentes.index') }}"><i class="icon-profile"></i>Dirigentes</a></li>
@@ -55,8 +57,8 @@
                                     <li class="{{ isUrlActive('admin/roles') }}"><a href="{{ route('admin.roles.index') }}"><i
                                                     class="icon-users4"></i> Perfis</a></li>
                                 @endif
-                                    <li class="{{ isUrlActive('admin/roles') }}"><a href="{{ route('admin.roles.index') }}"><i
-                                                    class="icon-cog6"></i> Parâmetros do Sistema</a></li>
+                                <li class="{{ isUrlActive('admin/roles') }}"><a href="{{ route('admin.roles.index') }}"><i
+                                                class="icon-cog6"></i> Parâmetros do Sistema</a></li>
                                 @if(Entrust::can('manage-logs') || user_role() == true)
                                     <li class="{{ isUrlActive('admin/logs') }}"><a href="{{ route('admin.logs.index') }}"><i
                                                     class="icon-comment"></i> Logs</a></li>

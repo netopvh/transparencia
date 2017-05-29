@@ -12,4 +12,5 @@ interface MenuRepository extends RepositoryInterface
 {
     public function getDescritivo($casa);
     public function getMenuCentro($casa);
+    public function getAllMenuCasa($casa);
 }

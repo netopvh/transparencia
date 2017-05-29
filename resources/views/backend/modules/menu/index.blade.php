@@ -9,7 +9,7 @@
     <br>
     <div class="content">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
                         <h5 class="panel-title">Gerenciamento de Menu</h5>
@@ -31,39 +31,88 @@
                                     class="icon-plus-circle2"></i> Cadastrar</a>
                     </div>
                     <br>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th width="70">ID</th>
-                            <th>Nome</th>
-                            <th>Casa</th>
-                            <th class="text-center" width="80">Ações</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($menus as $menu)
-                            <tr>
-                                <td>{{ $menu->id }}</td>
-                                <td>{{ $menu->description }}</td>
-                                <td>{{ $menu->casa->name }}</td>
-                                <td class="text-center">
-                                    <ul class="icons-list">
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
+                    <div class="panel-body">
+                        <div class="tabbable tab-content-bordered">
+                            <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
+                                <li class="active"><a href="#bordered-justified-tab1" data-toggle="tab">SESI</a></li>
+                                <li><a href="#bordered-justified-tab2" data-toggle="tab">SENAI</a></li>
+                            </ul>
 
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="{{ route('admin.menus.edit', ['id' => $menu->id]) }}"><i
-                                                                class="icon-pencil7"></i> Editar</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            <div class="tab-content">
+                                <div class="tab-pane has-padding active" id="bordered-justified-tab1">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th width="70">ID</th>
+                                            <th>Nome</th>
+                                            <th>Casa</th>
+                                            <th class="text-center" width="80">Ações</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($menu_sesi as $sesi)
+                                            <tr>
+                                                <td>{{ $sesi->id }}</td>
+                                                <td>{{ $sesi->description }}</td>
+                                                <td>{{ $sesi->casa->name }}</td>
+                                                <td class="text-center">
+                                                    <ul class="icons-list">
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <i class="icon-menu9"></i>
+                                                            </a>
+
+                                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                                <li><a href="{{ route('admin.menus.edit', ['id' => $sesi->id]) }}"><i
+                                                                                class="icon-pencil7"></i> Editar</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="tab-pane has-padding" id="bordered-justified-tab2">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th width="70">ID</th>
+                                            <th>Nome</th>
+                                            <th>Casa</th>
+                                            <th class="text-center" width="80">Ações</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($menu_senai as $senai)
+                                            <tr>
+                                                <td>{{ $senai->id }}</td>
+                                                <td>{{ $senai->description }}</td>
+                                                <td>{{ $senai->casa->name }}</td>
+                                                <td class="text-center">
+                                                    <ul class="icons-list">
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <i class="icon-menu9"></i>
+                                                            </a>
+
+                                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                                <li><a href="{{ route('admin.menus.edit', ['id' => $senai->id]) }}"><i
+                                                                                class="icon-pencil7"></i> Editar</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -48,7 +48,8 @@ class MenuController extends Controller
     public function index()
     {
         return view('backend.modules.menu.index')
-            ->withMenus($this->menu->with('casa')->all());
+            ->withMenuSesi($this->menu->getAllMenuCasa('SESI'))
+            ->withMenuSenai($this->menu->getAllMenuCasa('SENAI'));
     }
 
     /**

@@ -108,4 +108,9 @@ class IndexController extends Controller
             abort(404, $e->getMessage());
         }
     }
+
+    public function getSac()
+    {
+        return view('frontend.senai.modules.sac');
+    }
 }

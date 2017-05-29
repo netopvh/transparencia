@@ -24,7 +24,7 @@
                     <ul class="cl">
                         <li>
                             <span class="imoon imoon-menu2"></span>
-                            <a href="{{ route('senai.index') }}" data-url="/"><i class="fa fa-home"></i></a>
+                            <a href="{{ route('sesi.index') }}" data-url="/"><i class="fa fa-home"></i></a>
                         </li>
                         <li class="logo gtm-menucasas ">
                             <a href="http://www.fiero.org.br"><img src="{{ asset('public/frontend/img/fiero.png') }}" alt="FIERO"></a>
@@ -74,7 +74,7 @@
                     <h3><span style="color: #008000;"><strong>@yield('title')</strong></span></h3>
                     @yield('content')
                     <br>
-                    <a href class="btn btn-success btn-md btn-transparencia" role="button">
+                    <a href="{{ route('sesi.sac') }}" class="btn btn-success btn-md btn-transparencia" role="button">
                         &nbsp; SAC - Serviço de Atendimento ao Consumidor &nbsp;
                     </a>
                 </div>

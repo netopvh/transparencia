@@ -45,7 +45,7 @@
 
 
     <li>
-        <a href="/sesi/canais/transparencia/fale-conosco/" target="_self" style="text-transform: uppercase;">fale conosco</a>
+        <a href="{{ route('sesi.sac') }}" target="_self" style="text-transform: uppercase;">fale conosco</a>
     </li>
 
 
