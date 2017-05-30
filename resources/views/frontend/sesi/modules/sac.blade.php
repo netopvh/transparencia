@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <ul class="breadcrumb-local bg-cinza-claro">
         <li>
-            <a href="{{ route('senai.index') }}" class="casa-color">Transparência</a>
+            <a href="{{ route('sesi.index') }}" class="casa-color">Transparência</a>
         </li>
         <span class="casa-color"> > </span>
         <li>

@@ -27,7 +27,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="container-fluid">
-                            <form action="{{ route('admin.paginas.store') }}" method="post">
+                            <form action="{{ route('admin.paginas.dinamica.store') }}" method="post">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-10">

@@ -46,18 +46,29 @@ class PaginaController extends Controller
     /**
      * @return mixed
      */
-    public function index()
+    public function indexDinamica()
     {
-        return view('backend.modules.paginas.index')
-            ->withPaginas($this->pagina->with('casa')->paginate(5));
+        return view('backend.modules.paginas.dinamica.index')
+            ->withPgSesi($this->pagina->getPageByCasa('SESI'))
+            ->withPgSenai($this->pagina->getPageByCasa('SENAI'));
+    }
+
+    /**
+     * Ação para página estática
+     *
+     * @return mixed
+     */
+    public function indexEstatica()
+    {
+        return view('backend.modules.paginas.estatica.index');
     }
 
     /**
      * @return mixed
      */
-    public function create()
+    public function createDinamica()
     {
-        return view('backend.modules.paginas.create')
+        return view('backend.modules.paginas.dinamica.create')
             ->withCasas($this->casa->all());
     }
 
@@ -65,16 +76,16 @@ class PaginaController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function store(Request $request)
+    public function storeDinamica(Request $request)
     {
         try{
             if ($this->pagina->create($request->all())){
                 notify('Registro Cadastrado com sucesso!', 'success');
-                return redirect()->route('admin.paginas.index');
+                return redirect()->route('admin.paginas.dinamica.index');
             }
         }catch (GeneralException $e){
             notify('Erro:' . $e->getMessage(), 'danger');
-            return redirect()->route('admin.paginas.index');
+            return redirect()->route('admin.paginas.dinamica.index');
         }
     }
 
@@ -82,28 +93,33 @@ class PaginaController extends Controller
      * @param $id
      * @return mixed
      */
-    public function edit($id)
+    public function editDinamica($id)
     {
         try{
-            return view('backend.modules.paginas.edit')
+            return view('backend.modules.paginas.dinamica.edit')
                 ->withPagina($this->pagina->findById($id))
                 ->withCasas($this->casa->all());
         }catch (GeneralException $e){
             notify('Erro:' . $e->getMessage(), 'danger');
-            return redirect()->route('admin.paginas.index');
+            return redirect()->route('admin.paginas.dinamica.index');
         }
     }
 
-    public function update(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function updateDinamica(Request $request, $id)
     {
         try{
             if($this->pagina->update($request->all(), $id)){
                 notify('Registro Cadastrado com sucesso!', 'success');
-                return redirect()->route('admin.paginas.index');
+                return redirect()->route('admin.paginas.dinamica.index');
             }
         }catch (GeneralException $e){
             notify('Erro:' . $e->getMessage(), 'danger');
-            return redirect()->route('admin.paginas.index');
+            return redirect()->route('admin.paginas.dinamica.index');
         }
     }
     

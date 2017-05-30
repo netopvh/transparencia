@@ -36,6 +36,11 @@ class PaginaRepositoryEloquent extends BaseRepository implements PaginaRepositor
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    /**
+     * @param array $attributes
+     * @return bool
+     * @throws GeneralException
+     */
     public function create(array $attributes)
     {
         if (!is_null($this->validator)) {
@@ -119,5 +124,16 @@ class PaginaRepositoryEloquent extends BaseRepository implements PaginaRepositor
             throw new GeneralException('Página não localizada');
         }
         return $result;
+    }
+
+    /**
+     * @param $casa
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getPageByCasa($casa)
+    {
+        return $this->model->query()
+            ->where('casa_id',getCasaId($casa))
+            ->get();
     }
 }

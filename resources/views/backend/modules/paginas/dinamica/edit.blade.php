@@ -27,7 +27,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="container-fluid">
-                            <form action="{{ route('admin.paginas.update',['id' => $pagina->id]) }}" method="post">
+                            <form action="{{ route('admin.paginas.dinamica.update',['id' => $pagina->id]) }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('patch') }}
                                 <div class="row">

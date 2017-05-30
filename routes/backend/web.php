@@ -49,11 +49,12 @@ Route::group(['namespace' => 'Application'], function(){
         Route::patch('/{id}','MenuController@update')->name('admin.menus.update');
     });
     Route::group(['prefix' => 'paginas'], function(){
-        Route::get('/','PaginaController@index')->name('admin.paginas.index');
-        Route::get('/create','PaginaController@create')->name('admin.paginas.create');
-        Route::post('/','PaginaController@store')->name('admin.paginas.store');
-        Route::get('/{id}','PaginaController@edit')->name('admin.paginas.edit');
-        Route::patch('/{id}','PaginaController@update')->name('admin.paginas.update');
+        Route::get('/dinamicas','PaginaController@indexDinamica')->name('admin.paginas.dinamica');
+        Route::get('/dinamicas/create','PaginaController@createDinamica')->name('admin.paginas.dinamica.create');
+        Route::post('/dinamicas','PaginaController@storeDinamica')->name('admin.paginas.dinamica.store');
+        Route::get('/dinamicas/{id}','PaginaController@editDinamica')->name('admin.paginas.dinamica.edit');
+        Route::patch('/dinamicas/{id}','PaginaController@updateDinamica')->name('admin.paginas.dinamica.update');
+        Route::get('/estaticas','PaginaController@indexEstatica')->name('admin.paginas.estatica');
     });
     Route::group(['prefix' => 'remunera'], function(){
         Route::get('/','RemuneratoriaController@index')->name('admin.remunera.index');
