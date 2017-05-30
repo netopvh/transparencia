@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Frontend\Senai;
 
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
 use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use App\Repositories\Backend\Application\Contracts\PaginaRepository;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class IndexController extends Controller
 {
@@ -112,5 +115,19 @@ class IndexController extends Controller
     public function getSac()
     {
         return view('frontend.senai.modules.sac');
+    }
+
+    public function postSac(Request $request)
+    {
+        $mensagem = $request->all();
+
+        Mail::to('angelo.neto@fiero.org.br')->send(new ContactMail($mensagem));
+
+        return redirect()->route('senai.sac');
+    }
+
+    public function getGratuidade()
+    {
+        return view('frontend.senai.modules.gratuidade');
     }
 }

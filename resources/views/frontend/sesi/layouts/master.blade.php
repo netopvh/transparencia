@@ -262,6 +262,8 @@
         </div>
     </section>
 </footer>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/inputmask.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/jquery.inputmask.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/vendors.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/scripts.min.js') }}"></script>
 <script type="text/javascript">var switchTo5x = true;</script>
@@ -272,6 +274,7 @@
         doNotCopy: false,
         hashAddressBar: false
     });</script>
+@yield('scripts')
 <script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/mustache.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('public/frontend/sesi/assets/js/anmap.js') }}" type="text/javascript"></script>

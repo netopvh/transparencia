@@ -113,4 +113,9 @@ class IndexController extends Controller
     {
         return view('frontend.sesi.modules.sac');
     }
+
+    public function getGratuidade()
+    {
+        return view('frontend.sesi.modules.gratuidade');
+    }
 }

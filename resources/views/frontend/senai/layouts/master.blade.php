@@ -262,20 +262,23 @@
         </div>
     </section>
 </footer>
-<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/vendors.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/scripts.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/senai/assets/js/vendors.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/senai/assets/js/scripts.min.js') }}"></script>
 <script type="text/javascript">var switchTo5x = true;</script>
-<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/buttons.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/senai/assets/js/buttons.min.js') }}"></script>
 <script type="text/javascript">stLight.options({
         publisher: "2748b646-7a1b-4ee3-9bb8-b935df8709f1",
         doNotHash: false,
         doNotCopy: false,
         hashAddressBar: false
     });</script>
-<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/mustache.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/typeahead.bundle.min.js') }}"></script>
-<script src="{{ asset('public/frontend/sesi/assets/js/anmap.js') }}" type="text/javascript"></script>
-<script src="{{ asset('public/frontend/sesi/assets/js/brazilLow.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/inputmask.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/jquery.inputmask.js') }}"></script>
+@yield('scripts')
+<script type="text/javascript" src="{{ asset('public/frontend/senai/assets/js/mustache.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/senai/assets/js/typeahead.bundle.min.js') }}"></script>
+<script src="{{ asset('public/frontend/senai/assets/js/anmap.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/frontend/senai/assets/js/brazilLow.js') }}" type="text/javascript"></script>
 </body>
 
 </html>
