@@ -16,6 +16,58 @@
     <script>
         $(document).ready(function () {
             $("#telefone").inputmask({"mask": "(99) 99999-9999"});
+
+            //Custon validation
+            var validator = $(".form-validate").validate({
+                ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+                errorClass: 'validation-error-label',
+                successClass: 'validation-valid-label',
+                highlight: function(element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                unhighlight: function(element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+
+                // Different components require proper error label placement
+                errorPlacement: function(error, element) {
+
+                    // Styled checkboxes, radios, bootstrap switch
+                    if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                        if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                            error.appendTo( element.parent().parent().parent().parent() );
+                        }
+                        else {
+                            error.appendTo( element.parent().parent().parent().parent().parent() );
+                        }
+                    }
+
+                    // Unstyled checkboxes, radios
+                    else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                        error.appendTo( element.parent().parent().parent() );
+                    }
+
+                    // Input with icons and Select2
+                    else if (element.parents('div').hasClass('has-feedback') || element.hasClass('select2-hidden-accessible')) {
+                        error.appendTo( element.parent() );
+                    }
+
+                    // Inline checkboxes, radios
+                    else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                        error.appendTo( element.parent().parent() );
+                    }
+
+                    // Input group, styled file input
+                    else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                        error.appendTo( element.parent().parent() );
+                    }
+
+                    else {
+                        error.insertAfter(element);
+                    }
+                },
+                validClass: "validation-valid-label"
+            });
         });
     </script>
 @stop
@@ -27,22 +79,19 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12">
-            O <b>Serviço Nacional de Aprendizagem Industrial (SENAI)</b> é reconhecido como modelo de educação
-            profissional e pela qualidade dos
-            serviços tecnológicos que promovem a inovação na indústria brasileira. Desde que foi criado, em 1942, o
-            SENAI formou mais de
-            55 milhões de profissionais. Clique aqui para saber mais sobre o SENAI.
+            O Serviço Nacional de Aprendizagem Industrial (SENAI) é um dos cinco maiores complexos de
+            educação profissional do mundo e o maior da América Latina. Seus cursos formam profissionais
+            para 28 áreas da indústria, desde a iniciação profissional, passando pelo qualificação,
+            técnico e aperfeiçoamento, além da aprendizagem industrial.
             <br><br>
-            Caso você queira saber mais sobre cursos e ações do SENAI, você pode buscar informações diretamente em uma
-            unidade no seu estado.
-            <br>
-            Clique aqui para ter acesso aos telefones e endereços de todos os departamentos regionais.
-            <br><br>
-            Preencha os campos abaixo com as informações solicitadas para entrar em contato com o Sistema indústria:
+            As ações de qualificação profissional realizadas pelo SENAI em Rondônia, em seus 57 anos,
+            já formaram mais de 150 mil de trabalhadores em todo o estado. O SENAI também capacita
+            e forma profissionais em cursos a distância, que estão à disposição do estudante 24 horas
+            por dia, sete dias por semana.
             <br><br>
         </div>
     </div>
-    <form action="{{ route('senai.sac') }}" method="post" autocomplete="off">
+    <form action="{{ route('senai.sac') }}" class="form-validate" method="post" autocomplete="off">
         {{ csrf_field() }}
         <div class="row">
             <div class="col-xs-6">
@@ -70,13 +119,13 @@
             <div class="col-xs-3">
                 <div class="form-group">
                     <label>Telefone</label>
-                    <input type="text" id="telefone" class="form-control" name="telefone">
+                    <input type="text" id="telefone" class="form-control" name="telefone" required>
                 </div>
             </div>
             <div class="col-xs-3">
                 <div class="form-group">
                     <label>Estado</label>
-                    <select name="estado" class="form-control" required>
+                    <select name="estado" class="form-control">
                         <option value="">Selecione</option>
                         <option value="RO">RO</option>
                     </select>
@@ -85,7 +134,7 @@
             <div class="col-xs-6">
                 <div class="form-group">
                     <label>Cidade</label>
-                    <select name="cidade" class="form-control" required>
+                    <select name="cidade" class="form-control">
                         <option value="">Selecione</option>
                         <option value="Porto Velho">Porto Velho</option>
                     </select>
@@ -117,20 +166,6 @@
                         <option value="Professor/Pesquisador">Professor/Pesquisador</option>
                         <option value="Trabalhador da Indústria">Trabalhador da Indústria</option>
                         <option value="Outros">Outros</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <div class="form-group">
-                    <label>Instituição</label>
-                    <select name="instituicao" class="form-control">
-                        <option value="">Selecione</option>
-                        <option value="FIERO">FIERO</option>
-                        <option value="SESI">SESI</option>
-                        <option value="SENAI">SENAI</option>
-                        <option value="IEL">IEL</option>
                     </select>
                 </div>
             </div>

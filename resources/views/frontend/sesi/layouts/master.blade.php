@@ -262,8 +262,6 @@
         </div>
     </section>
 </footer>
-<script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/inputmask.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/jquery.inputmask.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/vendors.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/scripts.min.js') }}"></script>
 <script type="text/javascript">var switchTo5x = true;</script>
@@ -273,7 +271,12 @@
         doNotHash: false,
         doNotCopy: false,
         hashAddressBar: false
-    });</script>
+    });
+</script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/inputmask.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/jquery.inputmask.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/validation/validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/validation/localization/messages_pt_BR.min.js') }}"></script>
 @yield('scripts')
 <script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/mustache.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/sesi/assets/js/typeahead.bundle.min.js') }}"></script>

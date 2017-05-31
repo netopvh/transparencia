@@ -274,6 +274,8 @@
     });</script>
 <script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/inputmask.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/plugins/mask/dist/inputmask/jquery.inputmask.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/validation/validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/plugins/validation/localization/messages_pt_BR.min.js') }}"></script>
 @yield('scripts')
 <script type="text/javascript" src="{{ asset('public/frontend/senai/assets/js/mustache.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/senai/assets/js/typeahead.bundle.min.js') }}"></script>

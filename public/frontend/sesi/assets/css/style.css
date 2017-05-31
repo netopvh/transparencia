@@ -1,1 +1,44 @@
 .top-bar{background:#01a62d;border-color:#00661b !important}.casa-color,.casa-color *,.casa-color a:hover,.casa-color-hover:hover,a:hover,.active-item,.page-links .p-links-hold>span .logo-sistema-s,.page-links .p-links-hold>span:hover,.page-links .p-links-hold>span:hover .logo-sistema-s.active,.tabs-noticia-lateral .nav li.active a,.aside-lo-1 ul li:nth-child(1),.tabs header ul li *{color:#009543 !important}.materia p a,.panel-body a{color:#009543}.casa-color-light,.casa-color-light *,.casa-color-light a:hover,.casa-color-light-hover:hover{color:#c7f8de !important}.casa-color-bg-hover:hover{background:#009543}.hat{border-color:#01a62d !important}.casa-color-bg-dark,.casa-color-bg,.bt-color,.footer,.pagination>li.active a,.canal-02-ultimas-noticias .carousel-indicators li.active,.testimon .carousel-indicators li.active,.tslider .carousel-indicators li.active{background-color:#01a62d !important;color:#fff !important}.casa-color-bg-dark,.footer-mid,.slider #slider-thumbs .bts li.active,.bt-color:hover,.bt-color-3:hover{background:#007a20 !important}.slider #slider-thumbs .bts li,.carousel-indicators li.active{border-color:#007a20}.newsletter div.head:after{border-color:transparent transparent transparent #00af19}.top-bar nav ul li.active *{color:#5bea81}.casa-color-border{border-color:#01a62d !important}.casa-color-border-seta-top{border-color:transparent transparent #01a62d transparent !important}.casa-color-border-seta-right{border-color:transparent transparent transparent #01a62d !important}.casa-color-border-seta-bottom{border-color:#01a62d transparent transparent transparent !important}.casa-color-border-seta-left{border-color:transparent #01a62d transparent transparent !important}.casa-color-border-dark{border-color:#007a20 !important}.gradient ~ .casa-color-border{border-color:#00671d !important}.gradient ~ .casa-color-border-seta-top{border-color:transparent transparent #00671d transparent !important}.gradient ~ .casa-color-border-seta-right{border-color:transparent transparent transparent #00671d !important}.gradient ~ .casa-color-border-seta-bottom{border-color:#00671d transparent transparent transparent !important}.gradient ~ .casa-color-border-seta-left{border-color:transparent #00671d transparent transparent !important}input:focus,select:focus,textarea:focus,button:focus{outline-color:#009543 !important}.gradient{background:#00671d !important;background:-moz-linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;background:-webkit-gradient(linear,left bottom,right top,color-stop(0,#00671d),color-stop(51%,#009543),color-stop(100%,#00af19)) !important;background:-webkit-linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;background:-o-linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;background:-ms-linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;background:linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00671d',endColorstr='#00af19',GradientType=1) !important}.gradient-hover:hover{background:#00671d !important;background:-moz-linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;background:-webkit-gradient(linear,left bottom,right top,color-stop(0,#00671d),color-stop(51%,#009543),color-stop(100%,#00af19)) !important;background:-webkit-linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;background:-o-linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;background:-ms-linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;background:linear-gradient(70deg,#00671d 0,#009543 51%,#00af19 100%) !important;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00671d',endColorstr='#00af19',GradientType=1) !important}.gradient-2{background:#00671d;background:-moz-linear-gradient(top,rgba(0,103,29,1) 0,rgba(5,84,23,1) 100%);background:-webkit-linear-gradient(top,rgba(0,103,29,1) 0,rgba(5,84,23,1) 100%);background:-o-linear-gradient(top,rgba(0,103,29,1) 0,rgba(5,84,23,1) 100%);background:-ms-linear-gradient(top,rgba(0,103,29,1) 0,rgba(5,84,23,1) 100%);background:linear-gradient(to bottom,rgba(0,103,29,1) 0,rgba(5,84,23,1) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00671d',endColorstr='#00af19',GradientType=1)}.bm-fale-conosco a:hover{-webkit-transition:all .5s ease-out;-moz-transition:all .5s ease-out;-o-transition:all .5s ease-out;transition:all .5s ease-out;color:#00af19 !important;text-decoration:none}#mainHeader .logo-page{max-width:200px;width:200px}#noticia .logo-page{padding:5px 0 0 0}
+/*
+ *  # Form Validation
+ *
+ *  jQuery plugin for simple clientside form validation
+ *
+ *  Version: 1.0
+ *  Latest update: May 25, 2015
+ *
+ * ---------------------------------------------------------------------------- */
+.validation-error-label,
+.validation-valid-label {
+    margin-top: 7px;
+    margin-bottom: 7px;
+    display: block;
+    color: #f44336;
+    position: relative;
+    padding-left: 26px;
+}
+.validation-valid-label {
+    color: #4caf50;
+}
+.validation-error-label:before,
+.validation-valid-label:before {
+    font-family:'Glyphicons Halflings';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    display: inline-block;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+}
+.validation-error-label:empty,
+.validation-valid-label:empty {
+    display: none;
+}
+.validation-error-label:before {
+    content:"x";
+}
+.validation-valid-label:before {
+    content: '\ee73';
+}

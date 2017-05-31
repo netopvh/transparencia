@@ -20,7 +20,7 @@
 
 
     <li>
-        <a href="#" target="_self" style="text-transform: uppercase;">gratuidade</a>
+        <a href="{{ route('senai.gratuidade') }}" target="_self" style="text-transform: uppercase;">gratuidade</a>
     </li>
 
 
