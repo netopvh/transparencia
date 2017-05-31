@@ -80,12 +80,12 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12">
-            Criado em julho de 1946, o Serviço Social da Indústria (SESI) tem como desafio desenvolver uma
+            O Serviço Social da Indústria (SESI) em Rondônia, tem como desafio desenvolver uma
             educação de excelência voltada para o mundo do trabalho e aumentar a produtividade da indústria,
             promovendo a qualidade de vida do trabalhador.
             <br><br>
-            O SESI RO oferece soluções para as empresas industriais por meio de uma rede integrada,
-            que engloba atividades de Educação Básica e continuada, Promoção da Saúde e Segurança no trabalho.
+            O SESI RO oferece soluções para as industriais e comunidade, por meio de uma rede integrada
+            que engloba atividades de Educação Básica e Continuada, Promoção da Saúde e Segurança no trabalho.
             <br><br>
         </div>
     </div>
@@ -179,7 +179,7 @@
             <div class="col-xs-6"></div>
             <div class="col-xs-6">
                 <span class="pull-right">
-                    <button class="btn btn-info" type="submit">Enviar</button>
+                    <button class="btn btn-success" type="submit">Enviar</button>
                 </span>
             </div>
         </div>

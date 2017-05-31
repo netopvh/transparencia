@@ -30,10 +30,10 @@
                             <a href="http://www.fiero.org.br"><img src="{{ asset('public/frontend/img/fiero.png') }}" alt="FIERO"></a>
                         </li>
                         <li class="logo gtm-menucasas ">
-                            <a href="{{ route('sesi.index') }}"><img src="{{ asset('public/frontend/img/sesi.png') }}" alt="SESI"></a>
+                            <a href="http://www.ro.sesi.org.br/portal/"><img src="{{ asset('public/frontend/img/sesi.png') }}" alt="SESI"></a>
                         </li>
                         <li class="logo gtm-menucasas ">
-                            <a href="{{ route('senai.index') }}"><img src="{{ asset('public/frontend/img/senai.png') }}" alt="SENAI"></a>
+                            <a href="http://ro.senai.br/"><img src="{{ asset('public/frontend/img/senai.png') }}" alt="SENAI"></a>
                         </li>
                         <li class="logo gtm-menucasas ">
                             <a href="http://www.ro.iel.org.br"><img src="{{ asset('public/frontend/img/iel.png') }}" alt="IEL"></a>
