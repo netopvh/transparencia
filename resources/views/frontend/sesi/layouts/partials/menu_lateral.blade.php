@@ -5,12 +5,12 @@
 
 
     <li>
-        <a href="sesi/lei-de-diretrizes-orcamentarias" target="_self" style="text-transform: uppercase;">lei de diretrizes orçamentárias</a>
+        <a href="http://{{ $_SERVER['HTTP_HOST'] }}{{ request()->segment('')=='transparencia'? '/transparencia': '' }}/sesi/lei-de-diretrizes-orcamentarias" target="_self" style="text-transform: uppercase;">lei de diretrizes orçamentárias</a>
     </li>
 
 
     <li>
-        <a href="sesi/demonstracoes-contabeis" target="_self" style="text-transform: uppercase;">demonstrações contábeis</a>
+        <a href="http://{{ $_SERVER['HTTP_HOST'] }}{{ request()->segment('')=='transparencia'? '/transparencia': '' }}/sesi/demonstracoes-contabeis" target="_self" style="text-transform: uppercase;">demonstrações contábeis</a>
     </li>
 
 
