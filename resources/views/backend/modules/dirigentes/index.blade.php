@@ -2,8 +2,8 @@
 
 @section('scripts-after')
     <script type="text/javascript"
-            src="{{ asset('public/ackend/assets/js/plugins/forms/mask/jquery-maskmoney/src/jquery.maskMoney.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/backend/assets/js/modules/dirigentes.js') }}"></script>
+            src="{{ asset('ackend/assets/js/plugins/forms/mask/jquery-maskmoney/src/jquery.maskMoney.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/assets/js/modules/dirigentes.js') }}"></script>
 @stop
 
 @section('content')

@@ -8,6 +8,7 @@ use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
+use App\Enum\Tipos;
 
 class MenuController extends Controller
 {
@@ -60,7 +61,7 @@ class MenuController extends Controller
     public function create()
     {
         return view('backend.modules.menu.create')
-            ->withBlocos(Bloco::getConstants())
+            ->withTipos(Tipos::getConstants())
             ->withCasas($this->casa->all());
     }
 

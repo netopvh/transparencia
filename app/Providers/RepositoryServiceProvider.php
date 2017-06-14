@@ -33,6 +33,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Backend\Application\Contracts\DirigenteRepository','App\Repositories\Backend\Application\DirigenteRepositoryEloquent');
         $this->app->bind('App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository','App\Repositories\Backend\Application\RemuneratoriaRepositoryEloquent');
         $this->app->bind('App\Repositories\Backend\Application\Contracts\TecnicoRepository','App\Repositories\Backend\Application\TecnicoRepositoryEloquent');
+        $this->app->bind('App\Repositories\Backend\Application\Contracts\EstadoRepository','App\Repositories\Backend\Application\EstadoRepositoryEloquent');
 
     }
 }

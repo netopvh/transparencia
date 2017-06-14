@@ -15,7 +15,7 @@
                 <table class="table center">
                     <tr>
                         <td>
-                            <a href="" class="btn btn-lg btn-primary">SENAI</a>
+                            <a href="{{ route('senai.index') }}" class="btn btn-lg btn-primary">SENAI</a>
                         </td>
                         <td>
                             <a href="{{ route('sesi.index') }}" class="btn btn-lg btn-primary">SESI</a>

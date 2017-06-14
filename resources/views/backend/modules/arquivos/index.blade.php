@@ -2,16 +2,16 @@
 
 @section('styles')
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/'.$dir.'/css/elfinder.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/'.$dir.'/css/theme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset(''.$dir.'/css/elfinder.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset(''.$dir.'/css/theme.css') }}">
 @stop
 
 @section('scripts-after')
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-    <script src="{{ asset('public/'.$dir.'/js/elfinder.min.js') }}"></script>
+    <script src="{{ asset(''.$dir.'/js/elfinder.min.js') }}"></script>
     @if($locale)
-        <script src="{{ asset('public/'.$dir."/js/i18n/elfinder.$locale.js") }}"></script>
+        <script src="{{ asset(''.$dir."/js/i18n/elfinder.$locale.js") }}"></script>
     @endif
     <script type="text/javascript" charset="utf-8">
         // Documentation for client options:

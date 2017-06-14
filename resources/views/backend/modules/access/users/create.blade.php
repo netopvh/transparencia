@@ -1,8 +1,8 @@
 @extends('backend.layouts.master')
 
 @section('scripts-before')
-    <script src="{{ asset('public/backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/js/modules/users.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/modules/users.js') }}"></script>
 @stop
 
 @section('content')

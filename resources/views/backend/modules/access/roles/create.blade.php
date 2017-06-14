@@ -1,10 +1,10 @@
 @extends('backend.layouts.master')
 @section('scripts-after')
-    <script src="{{ asset('public/ackend/assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/js/plugins/forms/validation/validate.min.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/js/plugins/forms/validation/localization/messages_pt_BR.min.js') }}"></script>
-    <script src="{{ asset('public/backend/assets/js/modules/roles.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/plugins/forms/validation/validate.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/plugins/forms/validation/localization/messages_pt_BR.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/modules/roles.js') }}"></script>
 @stop
 
 @section('content')

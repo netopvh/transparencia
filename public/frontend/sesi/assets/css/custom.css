@@ -23,7 +23,7 @@
 .breadcrumb-local li {
     margin: 0;
     display: inline-block;
-    font-size: 12px;
+    font-size: 15px;
 }
 .breadcrumb-local.gradient li * {color:#fff !important}
 
@@ -88,4 +88,16 @@
 }
 .menu-estrutura p a{
     font-size:14px;
+}
+.b-13{
+    font-weight: bold;
+}
+.b-17{
+    font-weight: bold;
+}
+.b-15{
+    font-weight: bold;
+}
+.facebook a:hover{
+    text-decoration: none;
 }

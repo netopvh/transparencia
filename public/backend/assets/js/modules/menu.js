@@ -1,31 +1,10 @@
 $(function () {
+    /*globals $:false */
 
+    var tipo = $('#tipo');
 
-    $(document).ready(function() {
-        $('#summernote').summernote({
-            lang: 'pt-BR',
-            height: 300,
-            maxHeight: 300,
-            focus: true,
-            toolbar: [
-                ['style', ['style']],
-                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video', 'hr', 'readmore']],
-                ['genixcms', ['elfinder']],
-                ['view', ['fullscreen', 'codeview']],
-                ['help', ['help']]
-            ],
-            onImageUpload: function(files, editor, welEditable) {
-                sendFile(files[0],editor,welEditable);
-            }
-        });
-    });
+    tipo.hide();
+
 
     // Setup validation
     // ------------------------------

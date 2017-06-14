@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Sesi;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
+use App\Repositories\Backend\Application\Contracts\EstadoRepository;
 use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use App\Repositories\Backend\Application\Contracts\PaginaRepository;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
@@ -38,6 +39,11 @@ class IndexController extends Controller
     private $tecnico;
 
     /**
+     * @var $estado
+     */
+    private $estado;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -47,7 +53,8 @@ class IndexController extends Controller
         PaginaRepository $paginaRepository,
         RemuneratoriaRepository $remuneratoriaRepository,
         DirigenteRepository $dirigenteRepository,
-        TecnicoRepository $tecnicoRepository
+        TecnicoRepository $tecnicoRepository,
+        EstadoRepository $estadoRepository
     )
     {
         $this->menu = $menu;
@@ -55,6 +62,7 @@ class IndexController extends Controller
         $this->remunera = $remuneratoriaRepository;
         $this->dirigente = $dirigenteRepository;
         $this->tecnico = $tecnicoRepository;
+        $this->estado = $estadoRepository;
     }
 
     /**
@@ -111,7 +119,8 @@ class IndexController extends Controller
 
     public function getSac()
     {
-        return view('frontend.sesi.modules.sac');
+        return view('frontend.sesi.modules.sac')
+            ->withEstados($this->estado->all());
     }
 
     public function getGratuidade()
