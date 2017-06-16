@@ -6,6 +6,8 @@ $(function () {
     tipo.hide();
 
 
+    $('#summernote').summernote();
+
     // Setup validation
     // ------------------------------
 

@@ -26,7 +26,7 @@
         <div class="social-bar-int">
             <ul id="lista-282813" class="nav nav-pills social-bar-sesi">
                 <li class="facebook"><a href="https://www.facebook.com/SESIDRRO/" target="_blank"><span class="fa fa-facebook"></span></a></li>
-                <li class="linkedin"><a href="#" target="_blank"><span class="fa fa-linkedin"></span></a></li>
+                <li class="linkedin"><a href="https://br.linkedin.com/company/sesi---servi-o-social-da-ind-stria-dr-ro" target="_blank"><span class="fa fa-linkedin"></span></a></li>
                 <li class="youtube"><a href="https://www.youtube.com/channel/UCXGbKHqcPBZ3jm1aiJA7ESQ" target="_blank"><span class="fa fa-youtube"></span></a></li>
             </ul>
         </div>
