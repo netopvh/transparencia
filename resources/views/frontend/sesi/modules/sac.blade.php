@@ -81,12 +81,13 @@
                 $.get('{{ url('cidades/') }}/' + idEstado, function (cidades) {
                     $('select[name=cidade]').empty();
                     $.each(cidades, function (key, value) {
-                        $('select[name=cidade]').append('<option value=' + value.id + '>' + value.name + '</option>');
+                        $('select[name=cidade]').append('<option value=' + value.name + '>' + value.name + '</option>');
                     });
                 });
             });
         });
     </script>
+    @include('sweet::alert')
 @stop
 
 
@@ -102,7 +103,9 @@
             <br><br>
         </div>
     </div>
-    <form action="" class="form-validate" autocomplete="off">
+    <form action="{{ route('sesi.sac') }}" method="post" class="form-validate" autocomplete="off">
+        {{ csrf_field() }}
+        <input type="hidden" name="casa" value="SESI">
         <div class="row">
             <div class="col-xs-6">
                 <div class="form-group">

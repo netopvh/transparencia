@@ -10,6 +10,9 @@ use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use App\Repositories\Backend\Application\Contracts\PaginaRepository;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
+Use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -121,6 +124,14 @@ class IndexController extends Controller
     {
         return view('frontend.sesi.modules.sac')
             ->withEstados($this->estado->all());
+    }
+
+    public function postSac(Request $request)
+    {
+        Mail::to(env('MAIL_TO'))->send(new ContactMail($request->all()));
+
+        alert()->success('Sucesso!', 'Sua mensagem foi enviada!');
+        return redirect()->route('sesi.sac');
     }
 
     public function getGratuidade()

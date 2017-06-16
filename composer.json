@@ -20,6 +20,7 @@
         "prettus/l5-repository": "^2.6",
         "rap2hpoutre/laravel-log-viewer": "^0.8.1",
         "spatie/flysystem-dropbox": "^1.0",
+        "uxweb/sweet-alert": "^1.4",
         "zizaco/entrust": "^1.7"
     },
     "require-dev": {

@@ -13,6 +13,7 @@ use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {
@@ -128,10 +129,13 @@ class IndexController extends Controller
 
     public function postSac(Request $request)
     {
-        $mensagem = $request->all();
+        //$estado = $this->estado->find($request->all());
+        //$mensagem = $this->setMessage($request->all());
 
-        Mail::to('angelo.neto@fiero.org.br')->send(new ContactMail($mensagem));
 
+        Mail::to(env('MAIL_TO'))->send(new ContactMail($request->all()));
+
+        alert()->success('Sucesso!', 'Sua mensagem foi enviada!');
         return redirect()->route('senai.sac');
     }
 
@@ -139,4 +143,23 @@ class IndexController extends Controller
     {
         return view('frontend.senai.modules.gratuidade');
     }
+
+    /**
+    public function setMessage($message)
+    {
+        $data = [
+            'casa' => $message->casa,
+            'nome' => $message->nome,
+            'email' => $message->email,
+            'empresa' => $message->empresa,
+            'telefone' => $message->telefone,
+            //'estado' => $estado->name,
+            'cidade' => $message->cidade,
+            'assunto' => $message->assunto,
+            'categoria' => $message->categoria,
+            'mensagem' => $message->mensagem
+        ];
+
+        return $data;
+    }*/
 }

@@ -21,7 +21,6 @@ class ContactMail extends Mailable
     public function __construct($message)
     {
         $this->message = $message;
-        dd($this->message);
     }
 
     /**
@@ -31,9 +30,8 @@ class ContactMail extends Mailable
      */
     public function build()
     {
-        return $this->view('frontend.contato')
-            ->with([
-                'nome' => $this->message->nome
-            ]);
+        return $this->from('noreply@fiero.org.br', 'NoReply')
+            ->subject('SAC Contato')
+            ->view('frontend.contato',$this->message);
     }
 }

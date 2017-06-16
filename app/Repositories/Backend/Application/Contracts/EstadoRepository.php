@@ -11,5 +11,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface EstadoRepository extends RepositoryInterface
 {
     public function getAll();
+    public function findEstado($id);
 
 }

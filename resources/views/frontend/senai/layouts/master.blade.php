@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/senai/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/senai/assets/css/components.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/plugins/sweetalert/dist/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/senai/assets/css/custom.css') }}">
 
 <body>
@@ -170,6 +171,7 @@
 <script type="text/javascript" src="{{ asset('frontend/plugins/mask/dist/inputmask/jquery.inputmask.js') }}"></script>
 <script type="text/javascript" src="{{ asset('frontend/plugins/validation/validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('frontend/plugins/validation/localization/messages_pt_BR.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('frontend/plugins/sweetalert/dist/sweetalert.min.js') }}"></script>
 @yield('scripts')
 <script type="text/javascript" src="{{ asset('frontend/senai/assets/js/mustache.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('frontend/senai/assets/js/typeahead.bundle.min.js') }}"></script>

@@ -40,4 +40,9 @@ class EstadoRepositoryEloquent extends BaseRepository implements EstadoRepositor
     {
         return $this->model->all()->pluck('name','id');
     }
+
+    public function findEstado($id)
+    {
+        return $this->model->find($id);
+    }
 }
