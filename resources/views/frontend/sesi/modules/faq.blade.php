@@ -29,7 +29,7 @@
                     </h3>
                     <i class="fa gradient"><span class="after">+</span></i></a>
                 <div style="display: none;" class="panel-body">
-                    {{ $faq->answer }}
+                    {!! $faq->answer !!}
                 </div>
             </div>
         </div>

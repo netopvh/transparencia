@@ -3,17 +3,17 @@
 
     Atenção, Foi registrado um novo SAC para a casa {{ $casa }}
 
-    *Solicitante:* {{ $nome }}
-    *Email:* {{ $email }}
+    Solicitante: {{ $nome }}
+    Email: {{ $email }}
     @if($empresa)
-        *Empresa:* {{ $empresa }} 
+    Empresa: {{ $empresa }}
     @endif
-    *Telefone:* {{ $telefone }} 
-    *Estado:* {{ $estado==1?'RO':'' }} 
-    *Cidade:* {{ $cidade }} 
-    *Assunto:* {{ $assunto }} 
-    *Categoria:* {{ $categoria }} 
-    *Mensagem:*
+    Telefone: {{ $telefone }}
+    Estado: {{ $estado==1?'RO':'' }}
+    Cidade: {{ $cidade }}
+    Assunto: {{ $assunto }}
+    Categoria: {{ $categoria }}
+    Mensagem:
     {{ $mensagem }}
 
 @component('mail::button', ['url' => 'http://www.fiero.org.br'])

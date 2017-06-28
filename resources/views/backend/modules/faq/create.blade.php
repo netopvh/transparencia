@@ -1,6 +1,8 @@
 @extends('backend.layouts.master')
 
 @section('scripts-after')
+    <script src="{{ asset('backend/assets/js/plugins/editors/summernote/summernote.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/plugins/editors/summernote/lang/summernote-pt-BR.js') }}"></script>
     <script src="{{ asset('backend/assets/js/modules/faq.js') }}"></script>
 @stop
 
@@ -8,7 +10,7 @@
     <br>
     <div class="content">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
                         <h5 class="panel-title">Cadastrar FAQ</h5>
@@ -22,7 +24,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <form action="{{ route('admin.faq.store') }}" class="form-validate" method="post"
+                        <form action="{{ route('admin.faq.store') }}" method="post"
                               autocomplete="off">
                         {{ csrf_field() }}
                         <!-- Inicio do Form -->
@@ -50,7 +52,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label>Resposta:</label>
-                                    <textarea name="answer" cols="30" rows="5" class="form-control" required></textarea>
+                                    <textarea name="answer" id="summernote"></textarea>
                                 </div>
                             </div>
                             <!-- Fim do Form -->

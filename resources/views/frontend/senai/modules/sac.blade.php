@@ -193,7 +193,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-6"></div>
+            <div class="col-xs-6">
+                {!! app('captcha')->display() !!}
+            </div>
             <div class="col-xs-6">
                 <span class="pull-right">
                     <button class="btn btn-success" type="submit">Enviar</button>

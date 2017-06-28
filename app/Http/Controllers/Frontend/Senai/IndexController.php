@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Senai;
 
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
+use App\Mail\ConfirmSent;
 use App\Mail\ContactMail;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
 use App\Repositories\Backend\Application\Contracts\OrcamentoRepository;
@@ -17,6 +18,7 @@ use App\Enum\ContabilTipos;
 use App\Enum\OrcamentoTipos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class IndexController extends Controller
 {
@@ -185,8 +187,17 @@ class IndexController extends Controller
 
     public function postSac(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
 
-        Mail::to(config('mail.recipient'))->send(new ContactMail($request->all()));
+        if ($validator->fails()) {
+            alert()->error('Erro!', 'Faltou marcar o captcha');
+            return redirect()->route('senai.sac');
+        }
+
+        Mail::to(config('mail.recipient'))->queue(new ContactMail($request->all()));
+        Mail::to($request->get('email'))->queue(new ConfirmSent($request->all()));
 
         alert()->success('Sucesso!', 'Sua mensagem foi enviada!');
         return redirect()->route('senai.sac');

@@ -75,8 +75,6 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         try {
-
-            //dd($request->all());
             if ($this->faq->create($request->all())) {
                 Log::write('event', 'Faq ' . $request->name . ' foi cadastrado por ' . auth()->user()->name);
             }

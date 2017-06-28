@@ -18,7 +18,7 @@ class CreateFaqsTable extends Migration
             $table->integer('casa_id')->unsigned();
             $table->foreign('casa_id')->references('id')->on('casas');
             $table->string('question');
-            $table->text('answer');
+            $table->longText('answer');
             $table->timestamps();
         });
     }

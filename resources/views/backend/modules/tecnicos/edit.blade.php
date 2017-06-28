@@ -20,11 +20,6 @@
                             </ul>
                         </div>
                     </div>
-                    @if (notify()->ready())
-                        <div class="alert alert-{{ notify()->type() }}">
-                            {{ notify()->message() }}
-                        </div>
-                    @endif
                     <div class="panel-body">
                         <form action="{{ route('admin.tecnicos.update', ['id'=> $tecnico->id]) }}" method="post" class="form-validate">
                             {{ csrf_field() }}

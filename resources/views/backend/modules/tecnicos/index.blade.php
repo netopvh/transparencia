@@ -22,6 +22,13 @@
                             </ul>
                         </div>
                     </div>
+                    @if (notify()->ready())
+                        <div class="alert alert-{{ notify()->type() }} alert-styled-left">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                                        class="sr-only">Close</span></button>
+                            <span class="text-semibold">{{ notify()->message() }}</span>
+                        </div>
+                    @endif
                     <div class="container">
                         <a href="{{ route('admin.tecnicos.import') }}" class="btn btn-primary"><i
                                     class="icon-file-excel"></i> Importar do Excel</a>
@@ -85,11 +92,6 @@
                             </ul>
                         </div>
                     </div>
-                    @if (notify()->ready())
-                        <div class="alert alert-{{ notify()->type() }}">
-                            {{ notify()->message() }}
-                        </div>
-                    @endif
                     <div class="panel-body">
                         <form action="{{ route('admin.tecnicos.index') }}" method="post" class="form-validate">
                             {{ csrf_field() }}

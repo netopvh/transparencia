@@ -36,15 +36,15 @@
             , {{ \Carbon\Carbon::now()->subYear(2)->format('Y') }}
             e {{ \Carbon\Carbon::now()->subYear(3)->format('Y') }}:</p>
 
-        @if(count($years) >= 1)
+        @if(empty($years))
+            <p style="margin-left: 40px;"><b>• Sem registros a serem exibidos</b></p>
+        @else
             @foreach($years as $year)
                 <p style="margin-left: 40px;">• <a href="{{ url('/files/orcamento/'.$year->file) }}"
                                                    target="_blank">{{ $tipos[$year->type] }} do Departam
                         ento
                         Regional {{ $year->year }}</a></p>
             @endforeach
-        @else
-            <p style="margin-left: 40px;">• Sem Registros</p>
         @endif
 
     </div>

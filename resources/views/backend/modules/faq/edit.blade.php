@@ -1,6 +1,8 @@
 @extends('backend.layouts.master')
 
 @section('scripts-after')
+    <script src="{{ asset('backend/assets/js/plugins/editors/summernote/summernote.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/plugins/editors/summernote/lang/summernote-pt-BR.js') }}"></script>
     <script src="{{ asset('backend/assets/js/modules/faq.js') }}"></script>
 @stop
 
@@ -50,7 +52,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label>Resposta:</label>
-                                    <textarea name="answer" cols="30" rows="5" class="form-control" required>{{ $faq->answer }}</textarea>
+                                    <textarea name="answer" rows="8" id="summernote">{{ $faq->answer }}</textarea>
                                 </div>
                             </div>
                             <!-- Fim do Form -->

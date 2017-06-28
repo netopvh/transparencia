@@ -15,6 +15,7 @@ class CreateCidadesTable extends Migration
     {
         Schema::create('cidades', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('ibge_code', 20)->nullable();
             $table->integer('estado_id')->unsigned();
             $table->foreign('estado_id')->references('id')->on('estados');
             $table->string('name');

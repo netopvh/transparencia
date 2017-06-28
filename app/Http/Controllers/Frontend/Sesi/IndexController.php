@@ -6,6 +6,7 @@ use App\Enum\ContabilTipos;
 use App\Enum\OrcamentoTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
+use App\Mail\ConfirmSent;
 use App\Repositories\Backend\Application\Contracts\ContabilRepository;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
 use App\Repositories\Backend\Application\Contracts\EstadoRepository;
@@ -17,6 +18,7 @@ use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 Use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class IndexController extends Controller
 {
@@ -185,7 +187,17 @@ class IndexController extends Controller
 
     public function postSac(Request $request)
     {
-        Mail::to(config('mail.recipient'))->send(new ContactMail($request->all()));
+        $validator = Validator::make($request->all(), [
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
+
+        if ($validator->fails()) {
+            alert()->error('Erro!', 'Faltou marcar o captcha');
+            return redirect()->route('sesi.sac');
+        }
+
+        Mail::to(config('mail.recipient'))->queue(new ContactMail($request->all()));
+        Mail::to($request->get('email'))->queue(new ConfirmSent($request->all()));
 
         alert()->success('Sucesso!', 'Sua mensagem foi enviada!');
         return redirect()->route('sesi.sac');

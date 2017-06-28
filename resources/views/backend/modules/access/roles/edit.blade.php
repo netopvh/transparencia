@@ -22,11 +22,6 @@
                             </ul>
                         </div>
                     </div>
-                    @if (notify()->ready())
-                        <div class="alert alert-{{ notify()->type() }}">
-                            {{ notify()->message() }}
-                        </div>
-                    @endif
                     <div class="panel-body">
                         <form action="{{ route('admin.roles.update', ['id' => $role->id]) }}" class="form-validate-jquery"
                               method="post"

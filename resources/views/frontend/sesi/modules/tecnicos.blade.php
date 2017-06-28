@@ -7,7 +7,7 @@
         </li>
         <span class="casa-color"> > </span>
         <li>
-            <a href="../lei-de-diretrizes-orcamentarias" class="casa-color">Lei de Diretrizes Orçamentárias</a>
+            <a href="{{ route('sesi.ldo') }}" class="casa-color">Lei de Diretrizes Orçamentárias</a>
         </li>
         <span class="casa-color"> > </span>
         <li>

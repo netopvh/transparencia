@@ -22,11 +22,6 @@
                             </ul>
                         </div>
                     </div>
-                    @if (notify()->ready())
-                        <div class="alert alert-{{ notify()->type() }}">
-                            {{ notify()->message() }}
-                        </div>
-                    @endif
                     <div class="panel-body">
                         <form action="{{ route('admin.casas.update', ['id' => $casa->id]) }}"
                               class="form-validate-jquery"

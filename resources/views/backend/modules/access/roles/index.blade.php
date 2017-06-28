@@ -22,8 +22,10 @@
                         </div>
                     </div>
                     @if (notify()->ready())
-                        <div class="alert alert-{{ notify()->type() }}">
-                            {{ notify()->message() }}
+                        <div class="alert alert-{{ notify()->type() }} alert-styled-left">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span
+                                        class="sr-only">Close</span></button>
+                            <span class="text-semibold">{{ notify()->message() }}</span>
                         </div>
                     @endif
                     <div class="container">
