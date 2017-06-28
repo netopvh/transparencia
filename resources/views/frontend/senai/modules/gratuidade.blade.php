@@ -1,15 +1,7 @@
 @extends('frontend.senai.layouts.master')
 
 @section('breadcrumb')
-    <ul class="breadcrumb-local bg-cinza-claro">
-        <li>
-            <a href="{{ route('senai.index') }}" class="casa-color">Transparência</a>
-        </li>
-        <span class="casa-color"> > </span>
-        <li>
-            Gratuidade
-        </li>
-    </ul>
+    {!! Breadcrumbs::render('senai.gratuidade') !!}
 @stop
 
 @section('title')

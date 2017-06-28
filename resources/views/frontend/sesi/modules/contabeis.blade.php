@@ -1,15 +1,7 @@
 @extends('frontend.sesi.layouts.master')
 
 @section('breadcrumb')
-    <ul class="breadcrumb-local bg-cinza-claro">
-        <li>
-            <a href="{{ route('sesi.index') }}" class="casa-color">Transparência</a>
-        </li>
-        <span class="casa-color"> > </span>
-        <li>
-            Demonstrações Contábeis
-        </li>
-    </ul>
+    {!! Breadcrumbs::render('sesi.contabeis') !!}
 @stop
 
 @section('title')
