@@ -21,12 +21,6 @@ class DatabaseSeeder extends Seeder
 
         DB::table('casas')->insert($casas);
 
-        //Seeder de Menu
-        $menu = [
-            ['casa_id' => 1,'description' => 'Menu Centro','script' => 'teste','bloco' => 'C','created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()]
-        ];
-
-        DB::table('menus')->insert($menu);
 
         //Seeder de Usuário
         $user = [

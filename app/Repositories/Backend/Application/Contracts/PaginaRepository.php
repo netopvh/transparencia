@@ -13,4 +13,5 @@ interface PaginaRepository extends RepositoryInterface
     public function findById($id);
     public function findBySlug($slug,$casa);
     public function getPageByCasa($casa);
+    public function getCasaContent($casa);
 }

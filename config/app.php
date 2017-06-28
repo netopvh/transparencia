@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'Portal da Transparencia',
 
     /*
     |--------------------------------------------------------------------------
@@ -190,6 +190,7 @@ return [
         App\Providers\BackendRouteServiceProvider::class,
         App\Providers\FrontendRouteServiceProvider::class,
         App\Providers\DropboxServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 

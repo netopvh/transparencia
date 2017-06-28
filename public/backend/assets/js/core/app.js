@@ -18,6 +18,8 @@ $(function() {
     //
     // ========================================
 
+    $('[data-toggle="tooltip"]').tooltip();
+
 
     // Calculate page container height
     // -------------------------

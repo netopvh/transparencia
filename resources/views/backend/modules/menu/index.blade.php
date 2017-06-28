@@ -50,27 +50,36 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($menu_sesi as $sesi)
-                                            <tr>
-                                                <td>{{ $sesi->id }}</td>
-                                                <td>{{ $sesi->description }}</td>
-                                                <td>{{ $sesi->casa->name }}</td>
-                                                <td class="text-center">
-                                                    <ul class="icons-list">
-                                                        <li class="dropdown">
-                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                                <i class="icon-menu9"></i>
-                                                            </a>
+                                        @if(count($menu_sesi) >= 1)
+                                            @foreach($menu_sesi as $sesi)
+                                                <tr>
+                                                    <td>{{ $sesi->id }}</td>
+                                                    <td>{{ $sesi->title }}</td>
+                                                    <td>{{ $sesi->casa->name }}</td>
+                                                    <td class="text-center">
+                                                        <ul class="icons-list">
+                                                            <li class="dropdown">
+                                                                <a href="#" class="dropdown-toggle"
+                                                                   data-toggle="dropdown">
+                                                                    <i class="icon-menu9"></i>
+                                                                </a>
 
-                                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                                <li><a href="{{ route('admin.menus.edit', ['id' => $sesi->id]) }}"><i
-                                                                                class="icon-pencil7"></i> Editar</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </td>
+                                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                                    <li>
+                                                                        <a href="{{ route('admin.menus.edit', ['id' => $sesi->id]) }}"><i
+                                                                                    class="icon-pencil7"></i> Editar</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="4" class="text-center">Sem Registros Cadastrados</td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -86,27 +95,36 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($menu_senai as $senai)
-                                            <tr>
-                                                <td>{{ $senai->id }}</td>
-                                                <td>{{ $senai->description }}</td>
-                                                <td>{{ $senai->casa->name }}</td>
-                                                <td class="text-center">
-                                                    <ul class="icons-list">
-                                                        <li class="dropdown">
-                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                                <i class="icon-menu9"></i>
-                                                            </a>
+                                        @if(count($menu_senai) >= 1)
+                                            @foreach($menu_senai as $senai)
+                                                <tr>
+                                                    <td>{{ $senai->id }}</td>
+                                                    <td>{{ $senai->description }}</td>
+                                                    <td>{{ $senai->casa->name }}</td>
+                                                    <td class="text-center">
+                                                        <ul class="icons-list">
+                                                            <li class="dropdown">
+                                                                <a href="#" class="dropdown-toggle"
+                                                                   data-toggle="dropdown">
+                                                                    <i class="icon-menu9"></i>
+                                                                </a>
 
-                                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                                <li><a href="{{ route('admin.menus.edit', ['id' => $senai->id]) }}"><i
-                                                                                class="icon-pencil7"></i> Editar</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </td>
+                                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                                    <li>
+                                                                        <a href="{{ route('admin.menus.edit', ['id' => $senai->id]) }}"><i
+                                                                                    class="icon-pencil7"></i> Editar</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="4" class="text-center">Sem Registros Cadastrados</td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
                                 </div>

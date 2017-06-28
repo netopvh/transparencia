@@ -74,6 +74,8 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         try {
+
+            //dd($request->all());
             if ($this->menu->create($request->all())) {
                 Log::write('event', 'Menu ' . $request->name . ' foi cadastrado por ' . auth()->user()->name);
             }

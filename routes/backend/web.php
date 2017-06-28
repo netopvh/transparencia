@@ -84,6 +84,30 @@ Route::group(['namespace' => 'Application'], function(){
         Route::patch('/{id}','TecnicoController@update')->name('admin.tecnicos.update');
         Route::delete('/{id}','TecnicoController@delete')->name('admin.tecnicos.delete');
     });
+
+    Route::group(['prefix' => 'orcamentos'], function(){
+        Route::get('/','OrcamentoController@index')->name('admin.orcamento.index');
+        Route::post('/','OrcamentoController@store')->name('admin.orcamento.store');
+        Route::delete('/{id}','OrcamentoController@delete')->name('admin.orcamento.delete');
+    });
+
+    Route::group(['prefix' => 'contabil'], function(){
+        Route::get('/','ContabilController@index')->name('admin.contabil.index');
+        Route::post('/','ContabilController@store')->name('admin.contabil.store');
+        Route::get('/{id}','ContabilController@edit')->name('admin.contabil.edit');
+        Route::patch('/{id}','ContabilController@update')->name('admin.contabil.update');
+        Route::delete('/{id}','ContabilController@delete')->name('admin.contabil.delete');
+    });
+
+    Route::group(['prefix' => 'faq'], function (){
+        Route::get('/','FaqController@index')->name('admin.faq.index');
+        Route::get('/create','FaqController@create')->name('admin.faq.create');
+        Route::post('/','FaqController@store')->name('admin.faq.store');
+        Route::get('/{id}','FaqController@edit')->name('admin.faq.edit');
+        Route::post('/{id}','FaqController@update')->name('admin.faq.update');
+        Route::delete('/{id}','FaqController@delete')->name('admin.faq.delete');
+    });
+
     Route::group(['prefix'=>'files'], function(){
         Route::get('/','ArquivoController@index')->name('admin.arquivos.index');
     });

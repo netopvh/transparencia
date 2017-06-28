@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Enum\ContabilTipos;
 
-class TableDirigentesFiles extends Migration
+class CreateContabilsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +14,12 @@ class TableDirigentesFiles extends Migration
      */
     public function up()
     {
-        Schema::create('dirigentes_files', function(Blueprint $table){
+        Schema::create('contabeis', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ods');
-            $table->string('pdf');
-            $table->string('xlsx');
+            $table->enum('type',ContabilTipos::getKeys());
+            $table->string('file');
+            $table->integer('casa_id')->unsigned();
+            $table->foreign('casa_id')->references('id')->on('casas');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class TableDirigentesFiles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dirigentes_files');
+        Schema::dropIfExists('contabeis');
     }
 }

@@ -81,11 +81,11 @@ class PaginaController extends Controller
         try{
             if ($this->pagina->create($request->all())){
                 notify('Registro Cadastrado com sucesso!', 'success');
-                return redirect()->route('admin.paginas.dinamica.index');
+                return redirect()->route('admin.paginas.dinamica');
             }
         }catch (GeneralException $e){
             notify('Erro:' . $e->getMessage(), 'danger');
-            return redirect()->route('admin.paginas.dinamica.index');
+            return redirect()->route('admin.paginas.dinamica');
         }
     }
 
@@ -119,7 +119,8 @@ class PaginaController extends Controller
             }
         }catch (GeneralException $e){
             notify('Erro:' . $e->getMessage(), 'danger');
-            return redirect()->route('admin.paginas.dinamica.index');
+            return redirect()->route('admin.paginas.dinamica
+            ');
         }
     }
     

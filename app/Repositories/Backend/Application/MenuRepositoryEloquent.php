@@ -45,9 +45,9 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
             $this->validator->with($attributes)->passesOrFail(ValidatorInterface::RULE_CREATE);
         }
 
-        $menu = $this->model->query()->where('bloco', $attributes['bloco'])->where('casa_id', $attributes['casa_id'])->get()->count();
+        $menu = $this->model->query()->where('title', $attributes['title'])->where('casa_id', $attributes['casa_id'])->get()->count();
         if ($menu >= 1) {
-            throw new GeneralException("Ops, já existe um registro para o bloco e casa selecionada");
+            throw new GeneralException("Ops, já existe um registro para a casa selecionada");
         }
 
         $model = $this->model->newInstance($attributes);
@@ -110,12 +110,29 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
     {
         return $this->model->query()
             ->join('casas', 'casas.id', 'menus.casa_id')
-            ->select('menus.script',
-                'menus.bloco')
+            ->select('menus.title',
+                'menus.path',
+                'menus.slug',
+                'menus.type')
             ->where('casas.name', $casa)
-            ->where('menus.bloco', 'C')
-            ->orderBy('casas.name', 'desc')
-            ->first();
+            ->get();
+    }
+
+    /**
+     * @param $casa
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getMenuLateral($casa)
+    {
+        return $this->model->query()
+            ->join('casas', 'casas.id', 'menus.casa_id')
+            ->select('menus.title',
+                'menus.path',
+                'menus.slug',
+                'menus.type')
+            ->where('casas.name', $casa)
+            ->where('menus.sidebar','S')
+            ->get();
     }
 
     /**

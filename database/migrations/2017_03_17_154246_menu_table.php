@@ -19,10 +19,14 @@ class MenuTable extends Migration
             $table->increments('id');
             $table->integer('casa_id')->unsigned();
             $table->foreign('casa_id')->references('id')->on('casas');
-            $table->string('description');
-            $table->longText('script');
-            $table->enum('bloco', Bloco::getKeys());
-            $table->string('link')->nullable();
+            $table->string('title');
+            $table->string('slug');
+            $table->char('type');
+            $table->string('path')->nullable();
+            $table->char('sidebar');
+            $table->char('ldo');
+            $table->char('submenu');
+            $table->char('linked');
             $table->timestamps();
         });
 

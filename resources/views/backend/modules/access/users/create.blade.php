@@ -60,7 +60,7 @@
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label class="control-label">Perfil: <span class="text-danger">*</span></label>
-                                                <select name="role" id="role_id" class="select" required>
+                                                <select name="role" id="role_id" class="form-control" required>
                                                     <option value="">Selecione</option>
                                                     @foreach($roles as $role)
                                                         <option value="{{ $role->id }}">{{ $role->name }}</option>

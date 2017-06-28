@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ContactMail extends Mailable
+class ContactMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -30,8 +30,8 @@ class ContactMail extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@fiero.org.br', 'NoReply')
+        return $this
             ->subject('SAC Contato')
-            ->view('frontend.contato',$this->message);
+            ->markdown('frontend.contato',$this->message);
     }
 }

@@ -2,11 +2,32 @@ $(function () {
     /*globals $:false */
 
     var tipo = $('#tipo');
+    var arquivo = $('#file');
+    var route = $('#route');
 
-    tipo.hide();
+    //status atual dos elementos
+    arquivo.hide();
+    route.hide();
 
+    //Ações de inclusão
+    $(tipo).on('change', function() {
+        if (tipo.val()==='A'){
+            arquivo.show();
+            route.hide();
+            route.val('');
+        }else if(tipo.val()==='E'){
+            route.show();
+            arquivo.hide();
+            arquivo.val('');
+        }else{
+            route.hide();
+            arquivo.hide();
+        }
+    });
 
-    $('#summernote').summernote();
+    if (tipo.val()==='A'){
+        arquivo.hide();
+    }
 
     // Setup validation
     // ------------------------------
@@ -60,72 +81,7 @@ $(function () {
                 error.insertAfter(element);
             }
         },
-        validClass: "validation-valid-label",
-        rules: {
-            password: {
-                minlength: 5
-            },
-            repeat_password: {
-                equalTo: "#password"
-            },
-            email: {
-                email: true
-            },
-            repeat_email: {
-                equalTo: "#email"
-            },
-            minimum_characters: {
-                minlength: 10
-            },
-            maximum_characters: {
-                maxlength: 10
-            },
-            minimum_number: {
-                min: 10
-            },
-            maximum_number: {
-                max: 10
-            },
-            number_range: {
-                range: [10, 20]
-            },
-            url: {
-                url: true
-            },
-            date: {
-                date: true
-            },
-            date_iso: {
-                dateISO: true
-            },
-            numbers: {
-                number: true
-            },
-            digits: {
-                digits: true
-            },
-            creditcard: {
-                creditcard: true
-            },
-            basic_checkbox: {
-                minlength: 2
-            },
-            styled_checkbox: {
-                minlength: 2
-            },
-            switchery_group: {
-                minlength: 2
-            },
-            switch_group: {
-                minlength: 2
-            }
-        },
-        messages: {
-            custom: {
-                required: "Campo obrigatório!"
-            },
-            agree: "Please accept our policy"
-        }
+        validClass: "validation-valid-label"
     });
 
 

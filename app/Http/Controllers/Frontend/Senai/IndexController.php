@@ -6,14 +6,17 @@ use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
-use App\Repositories\Backend\Application\Contracts\MenuRepository;
+use App\Repositories\Backend\Application\Contracts\OrcamentoRepository;
 use App\Repositories\Backend\Application\Contracts\EstadoRepository;
 use App\Repositories\Backend\Application\Contracts\PaginaRepository;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
+use App\Repositories\Backend\Application\Contracts\FaqRepository;
+use App\Repositories\Backend\Application\Contracts\ContabilRepository;
+use App\Enum\ContabilTipos;
+use App\Enum\OrcamentoTipos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {
@@ -48,25 +51,44 @@ class IndexController extends Controller
     private $estado;
 
     /**
+     * @var $faq
+     */
+    private $faq;
+
+    /**
+     * @var
+     */
+    private $contabil;
+
+    /**
+     * @var $orcamento
+     */
+    private $orcamento;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct(
-        MenuRepository $menu,
         PaginaRepository $paginaRepository,
         RemuneratoriaRepository $remuneratoriaRepository,
         DirigenteRepository $dirigenteRepository,
         TecnicoRepository $tecnicoRepository,
-        EstadoRepository $estadoRepository
+        EstadoRepository $estadoRepository,
+        FaqRepository $faqRepository,
+        ContabilRepository $contabilRepository,
+        OrcamentoRepository $orcamentoRepository
     )
     {
-        $this->menu = $menu;
         $this->pagina = $paginaRepository;
         $this->remunera = $remuneratoriaRepository;
         $this->dirigente = $dirigenteRepository;
         $this->tecnico = $tecnicoRepository;
         $this->estado = $estadoRepository;
+        $this->faq = $faqRepository;
+        $this->contabil = $contabilRepository;
+        $this->orcamento = $orcamentoRepository;;
     }
 
     /**
@@ -76,9 +98,11 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('frontend.senai.home')
-            ->withMenuCentro($this->menu->getMenuCentro('SENAI'))
-            ->withDescritivo($this->menu->getDescritivo('SENAI'));
+        try {
+            return view('frontend.senai.home');
+        } catch (GeneralException $e) {
+            abort(404, $e->getMessage());
+        }
     }
 
     public function getPage($slug)
@@ -86,6 +110,38 @@ class IndexController extends Controller
         try {
             return view('frontend.senai.modules.pagina')
                 ->withPagina($this->pagina->findBySlug($slug, getCasaId('SENAI')));
+        } catch (GeneralException $e) {
+            abort(404, $e->getMessage());
+        }
+    }
+
+    public function getLdo()
+    {
+        try {
+            return view('frontend.senai.modules.ldo')
+                ->withTipos(OrcamentoTipos::getConstants())
+                ->withOrcAtual($this->orcamento->getOrcamentoActualYear('SENAI'))
+                ->withYears($this->orcamento->getOrcamentoThreeYear('SENAI'));
+        } catch (GeneralException $e) {
+            abort(404, $e->getMessage());
+        }
+    }
+
+    public function getContabeis()
+    {
+        try {
+            return view('frontend.senai.modules.contabeis')
+                ->withContas($this->contabil->findWhere(['casa_id' => getCasaId('SENAI')]))
+                ->withTipos(ContabilTipos::getConstants());
+        } catch (GeneralException $e) {
+            abort(404, $e->getMessage());
+        }
+    }
+
+    public function getExecucao()
+    {
+        try {
+            return view('frontend.senai.modules.execucao');
         } catch (GeneralException $e) {
             abort(404, $e->getMessage());
         }
@@ -129,11 +185,8 @@ class IndexController extends Controller
 
     public function postSac(Request $request)
     {
-        //$estado = $this->estado->find($request->all());
-        //$mensagem = $this->setMessage($request->all());
 
-
-        Mail::to(env('MAIL_TO'))->send(new ContactMail($request->all()));
+        Mail::to(config('mail.recipient'))->send(new ContactMail($request->all()));
 
         alert()->success('Sucesso!', 'Sua mensagem foi enviada!');
         return redirect()->route('senai.sac');
@@ -144,22 +197,9 @@ class IndexController extends Controller
         return view('frontend.senai.modules.gratuidade');
     }
 
-    /**
-    public function setMessage($message)
+    public function getFaq()
     {
-        $data = [
-            'casa' => $message->casa,
-            'nome' => $message->nome,
-            'email' => $message->email,
-            'empresa' => $message->empresa,
-            'telefone' => $message->telefone,
-            //'estado' => $estado->name,
-            'cidade' => $message->cidade,
-            'assunto' => $message->assunto,
-            'categoria' => $message->categoria,
-            'mensagem' => $message->mensagem
-        ];
-
-        return $data;
-    }*/
+        return view('frontend.senai.modules.faq')
+            ->withFaqs($this->faq->findWhere(['casa_id' => getCasaId('SENAI')]));
+    }
 }

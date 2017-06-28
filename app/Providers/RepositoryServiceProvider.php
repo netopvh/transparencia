@@ -34,6 +34,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository','App\Repositories\Backend\Application\RemuneratoriaRepositoryEloquent');
         $this->app->bind('App\Repositories\Backend\Application\Contracts\TecnicoRepository','App\Repositories\Backend\Application\TecnicoRepositoryEloquent');
         $this->app->bind('App\Repositories\Backend\Application\Contracts\EstadoRepository','App\Repositories\Backend\Application\EstadoRepositoryEloquent');
+        $this->app->bind('App\Repositories\Backend\Application\Contracts\OrcamentoRepository','App\Repositories\Backend\Application\OrcamentoRepositoryEloquent');
+        $this->app->bind('App\Repositories\Backend\Application\Contracts\ContabilRepository','App\Repositories\Backend\Application\ContabilRepositoryEloquent');
+        $this->app->bind('App\Repositories\Backend\Application\Contracts\FaqRepository','App\Repositories\Backend\Application\FaqRepositoryEloquent');
 
     }
 }

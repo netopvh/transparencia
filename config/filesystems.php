@@ -64,6 +64,17 @@ return [
             'visibility' => 'public',
         ],
 
+        'orcamento' => [
+            'driver' => 'local',
+            'root' => public_path('files/orcamento'),
+            'visibility' => 'public',
+        ],
+        'contas' => [
+            'driver' => 'local',
+            'root' => public_path('files/contabil'),
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),

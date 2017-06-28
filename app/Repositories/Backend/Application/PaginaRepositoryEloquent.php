@@ -109,19 +109,20 @@ class PaginaRepositoryEloquent extends BaseRepository implements PaginaRepositor
 
         return $result;
     }
-
-
-    /**
-     *
-     *
-     * SESI METHODS
-     *
-     */
     public function findBySlug($slug,$casa)
     {
         $result = $this->model->where('slug',$slug)->where('casa_id',$casa)->first();
         if (is_null($result)){
             throw new GeneralException('Página não localizada');
+        }
+        return $result;
+    }
+
+    public function getCasaContent($casa)
+    {
+        $result = $this->model->where('casa_id',$casa)->first();
+        if (is_null($result)){
+            throw new GeneralException('Conteúdo não localizado');
         }
         return $result;
     }

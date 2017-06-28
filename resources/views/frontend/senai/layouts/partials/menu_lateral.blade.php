@@ -5,17 +5,17 @@
 
 
     <li>
-        <a href="http://{{ $_SERVER['HTTP_HOST'] }}{{ request()->segment('')=='transparencia'? '/transparencia': '' }}/senai/lei-de-diretrizes-orcamentarias-1" target="_self" style="text-transform: uppercase;">lei de diretrizes orçamentárias</a>
+        <a href="{{ route('senai.ldo') }}" target="_self" style="text-transform: uppercase;">lei de diretrizes orçamentárias</a>
     </li>
 
 
     <li>
-        <a href="http://{{ $_SERVER['HTTP_HOST'] }}{{ request()->segment('')=='transparencia'? '/transparencia': '' }}/senai/demonstracoes-contabeis-1" target="_self" style="text-transform: uppercase;">demonstrações contábeis</a>
+        <a href="{{ route('senai.contabeis') }}" target="_self" style="text-transform: uppercase;">demonstrações contábeis</a>
     </li>
 
 
     <li>
-        <a href="#" target="_blank" style="text-transform: uppercase;">licitações e editais</a>
+        <a href="http://licitacao.fiero.org.br" target="_blank" style="text-transform: uppercase;">licitações e editais</a>
     </li>
 
 
@@ -50,7 +50,7 @@
 
 
     <li>
-        <a href="/sesi/canais/transparencia/duvidas-frequentes-faq/" target="_self" style="text-transform: uppercase;">Dúvidas frequentes (FAQ)</a>
+        <a href="{{ route('senai.faq') }}" target="_self" style="text-transform: uppercase;">Dúvidas frequentes (FAQ)</a>
     </li>
 
 

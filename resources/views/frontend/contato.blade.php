@@ -1,30 +1,25 @@
-<!doctype html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
+@component('mail::message')
+    # SAC Portal da Transparência
 
-<h3>Contato via SAC</h3>
-<br><br>
-Atenção, Foi registrado um novo SAC para a casa {{ $casa }}
-<br><br>
-<b>Solicitante:</b> {{ $nome }} <br>
-<b>Email:</b> {{ $email }} <br>
-@if($empresa)
-<b>Empresa:</b> {{ $empresa }} <br>
-@endif
-<b>Telefone:</b> {{ $telefone }} <br>
-<b>Estado:</b> {{ $estado==1?'RO':'' }} <br>
-<b>Cidade:</b> {{ $cidade }} <br>
-<b>Assunto:</b> {{ $assunto }} <br>
-<b>Categoria:</b> {{ $categoria }} <br>
-<b>Mensagem:</b> {{ $mensagem }} <br><br><br>
+    Atenção, Foi registrado um novo SAC para a casa {{ $casa }}
 
-Atenciosamente, <br><br>
+    *Solicitante:* {{ $nome }}
+    *Email:* {{ $email }}
+    @if($empresa)
+        *Empresa:* {{ $empresa }} 
+    @endif
+    *Telefone:* {{ $telefone }} 
+    *Estado:* {{ $estado==1?'RO':'' }} 
+    *Cidade:* {{ $cidade }} 
+    *Assunto:* {{ $assunto }} 
+    *Categoria:* {{ $categoria }} 
+    *Mensagem:*
+    {{ $mensagem }}
 
-<b>Sistema de Transparência FIERO.</b>
+@component('mail::button', ['url' => 'http://www.fiero.org.br'])
+        Acessar Portal
+@endcomponent
 
-</body>
-</html>
+    Atenciosamente,
+    {{ config('app.name') }}
+@endcomponent

@@ -35,11 +35,41 @@
 
                             <div class="tab-content">
                                 <div class="tab-pane has-padding active" id="bordered-justified-tab1">
-
+                                    <table class="table table-bordered table-condensed">
+                                        <thead>
+                                        <tr>
+                                            <th width="70">ID</th>
+                                            <th>Nome</th>
+                                            <th>Casa</th>
+                                            <th>Slug</th>
+                                            <th class="text-center" width="80">Ações</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="5" class="text-center">Sem Registros Cadastrados</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                 <div class="tab-pane has-padding" id="bordered-justified-tab2">
-
+                                    <table class="table table-bordered table-condensed">
+                                        <thead>
+                                        <tr>
+                                            <th width="70">ID</th>
+                                            <th>Nome</th>
+                                            <th>Casa</th>
+                                            <th>Slug</th>
+                                            <th class="text-center" width="80">Ações</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="5" class="text-center">Sem Registros Cadastrados</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

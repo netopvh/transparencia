@@ -29,32 +29,36 @@
                             <span>Início</span></a></li>
                     <li class="{{ isUrlActive('admin/files') }}"><a href="{{ route('admin.arquivos.index') }}"><i
                                     class="icon-file-spreadsheet"></i> <span>Gerenciador de Arquivos</span></a></li>
-                    <li class="{{ arUrlActive(['organization','menu','paginas','remunera','dirigentes','tecnicos']) }}">
+                    <li class="{{ arUrlActive(['organization','menu','paginas','remunera','dirigentes','tecnicos','orcamentos','contabil','faq']) }}">
                         <a href="#" class="has-ul"><i class="icon-stack"></i> <span>Conteúdo</span></a>
-                        <ul class="{{ boolReturn(['organization','menu','paginas','remunera','dirigentes','tecnicos']) ? '':'hidden-ul' }}">
+                        <ul class="{{ boolReturn(['organization','menu','paginas','remunera','dirigentes','tecnicos','orcamentos','contabil','faq']) ? '':'hidden-ul' }}">
                             <li class="{{ isUrlActive('admin/organization') }}"><a
                                         href="{{ route('admin.casas.index') }}"><i class="icon-office"></i> Casas</a>
                             </li>
                             <li class="{{ isUrlActive('admin/menu') }}">
                                 <a href="{{ route('admin.menus.index') }}"><i class="icon-more2"></i> Menu</a>
                             </li>
-                            <li class="{{ arUrlActive(['paginas']) }}">
+                            <li class="{{ arUrlActive(['remunera','dirigentes','tecnicos','orcamentos','contabil','faq']) }}">
                                 <a href="#"><i
                                             class="icon-printer4"></i>Páginas</a>
-                                <ul class="{{ boolReturn(['paginas']) ? '':'hidden-ul' }}">
-                                    <li class="{{ isUrlActive('admin/paginas/estaticas') }}"><a href="{{ route('admin.paginas.estatica') }}"><i class="icon-file-text"></i> Estáticas</a></li>
-                                    <li class="{{ isUrlActive('admin/paginas/dinamicas') }}"><a href="{{ route('admin.paginas.dinamica') }}"><i class="icon-stack-text"></i> Dinâmicas</a></li>
+                                <ul class="{{ boolReturn(['remunera','dirigentes','tecnicos','orcamentos','contabil','faq']) ? '':'hidden-ul' }}">
+                                    <li class="{{ isUrlActive('admin/orcamentos') }}"><a
+                                                href="{{ route('admin.orcamento.index') }}"><i class="icon-stats-dots"></i>Execução e Orçamento</a></li>
+                                    <li class="{{ isUrlActive('admin/remunera') }}"><a
+                                                href="{{ route('admin.remunera.index') }}"><i class="icon-tree7"></i>Estrutura
+                                            Remun.</a></li>
+                                    <li class="{{ isUrlActive('admin/dirigentes') }}"><a
+                                                href="{{ route('admin.dirigentes.index') }}"><i class="icon-profile"></i>Dirigentes</a>
+                                    </li>
+                                    <li class="{{ isUrlActive('admin/tecnicos') }}"><a
+                                                href="{{ route('admin.tecnicos.index') }}"><i class="icon-man-woman"></i>Corpo
+                                            Técnico</a></li>
+                                    <li class="{{ isUrlActive('admin/contabil') }}"><a
+                                                href="{{ route('admin.contabil.index') }}"><i class="icon-pie-chart4"></i>Demonstra. Contábeis</a></li>
+                                    <li class="{{ isUrlActive('admin/faq') }}"><a
+                                                href="{{ route('admin.faq.index') }}"><i class="icon-bubble-notification"></i>FAQ</a></li>
                                 </ul>
                             </li>
-                            <li class="{{ isUrlActive('admin/remunera') }}"><a
-                                        href="{{ route('admin.remunera.index') }}"><i class="icon-tree7"></i>Estrutura
-                                    Remuneratória</a></li>
-                            <li class="{{ isUrlActive('admin/dirigentes') }}"><a
-                                        href="{{ route('admin.dirigentes.index') }}"><i class="icon-profile"></i>Dirigentes</a>
-                            </li>
-                            <li class="{{ isUrlActive('admin/tecnicos') }}"><a
-                                        href="{{ route('admin.tecnicos.index') }}"><i class="icon-man-woman"></i>Corpo
-                                    Técnico</a></li>
                         </ul>
                     </li>
                     <!-- /main -->
