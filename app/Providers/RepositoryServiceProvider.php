@@ -37,6 +37,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Backend\Application\Contracts\OrcamentoRepository','App\Repositories\Backend\Application\OrcamentoRepositoryEloquent');
         $this->app->bind('App\Repositories\Backend\Application\Contracts\ContabilRepository','App\Repositories\Backend\Application\ContabilRepositoryEloquent');
         $this->app->bind('App\Repositories\Backend\Application\Contracts\FaqRepository','App\Repositories\Backend\Application\FaqRepositoryEloquent');
+        $this->app->bind('App\Repositories\Backend\Application\Contracts\IntegridadeRepository','App\Repositories\Backend\Application\IntegridadeRepositoryEloquent');
 
     }
 }

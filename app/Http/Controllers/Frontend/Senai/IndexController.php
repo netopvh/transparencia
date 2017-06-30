@@ -213,4 +213,14 @@ class IndexController extends Controller
         return view('frontend.senai.modules.faq')
             ->withFaqs($this->faq->findWhere(['casa_id' => getCasaId('SENAI')]));
     }
+
+    public function getIntegridade()
+    {
+        return view('frontend.senai.modules.integridade');
+    }
+
+    public function getInfraestrutura()
+    {
+        return view('frontend.senai.modules.infraestrutura');
+    }
 }

@@ -1,13 +1,9 @@
 <?php
 namespace App\Http\Controllers\Backend\Application;
 
-use App\Exceptions\Access\GeneralException;
-use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use Barryvdh\Elfinder\ElfinderController;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
-use App\Contracts\Facades\ChannelLog as Log;
 
 class ArquivoController extends ElfinderController
 {

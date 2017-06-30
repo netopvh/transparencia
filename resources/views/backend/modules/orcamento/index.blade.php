@@ -70,7 +70,7 @@
                                                                     <form action="{{ route('admin.orcamento.delete', ['id' => $conta->id]) }}" method="post">
                                                                         {{ csrf_field() }}
                                                                         {{ method_field('delete') }}
-                                                                        <button  type="submit" class="button-clean"><i class="icon-trash space-right"></i> Excluir</button>
+                                                                        <button  type="submit" class="button-clean-1"><i class="icon-trash space-right"></i> Excluir</button>
                                                                     </form>
                                                                 </li>
                                                             </ul>
@@ -122,7 +122,7 @@
                                                                     <form action="{{ route('admin.orcamento.delete', ['id' => $conta->id]) }}" method="post">
                                                                         {{ csrf_field() }}
                                                                         {{ method_field('delete') }}
-                                                                        <button  type="submit" class="button-clean"><i class="icon-trash space-right"></i> Excluir</button>
+                                                                        <button  type="submit" class="button-clean-1"><i class="icon-trash space-right"></i> Excluir</button>
                                                                     </form>
                                                                 </li>
                                                             </ul>

@@ -1841,7 +1841,6 @@
   color: #333333;
   top: 0;
   right: 0;
-  width: 36px;
   height: 36px;
   cursor: pointer;
   z-index: 1;
@@ -1849,13 +1848,7 @@
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
-.uploader .action > i {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -8px;
-  margin-left: -8px;
-}
+
 .uploader[class*=bg-] .action {
   background-color: inherit;
   border-color: inherit;

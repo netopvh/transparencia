@@ -51,7 +51,6 @@
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                 <i class="icon-menu9"></i>
                                             </a>
-
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li><a href="{{ route('admin.roles.edit', ['id' => $role->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
                                             </ul>

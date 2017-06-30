@@ -60,10 +60,10 @@
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li><a href="{{ route('admin.tecnicos.edit', ['id' => $tecnico->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
                                                     <li>
-                                                        <form action="" method="post">
+                                                        <form action="{{ route('admin.tecnicos.delete',['id' => $tecnico->id]) }}" method="post">
                                                             {{ csrf_field() }}
                                                             {{ method_field('delete') }}
-                                                            <button  type="submit" class="button-clean"><i class="icon-trash space-right"></i> Excluir</button>
+                                                            <button  type="submit" class="button-clean-1"><i class="icon-trash space-right"></i> Excluir</button>
                                                         </form>
                                                     </li>
                                                 </ul>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Application;
 
-use App\Enum\Bloco;
 use App\Enum\ContabilTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
@@ -11,7 +10,6 @@ use App\Repositories\Backend\Application\Contracts\ContabilRepository;
 use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
-use App\Enum\Tipos;
 use Illuminate\Support\Facades\Storage;
 
 class ContabilController extends Controller
@@ -20,7 +18,7 @@ class ContabilController extends Controller
     /**
      * Variável instancia do repositório
      *
-     * @var $casa
+     * @var $contabil
      */
     protected $contabil;
 
@@ -32,8 +30,8 @@ class ContabilController extends Controller
     protected $casa;
 
     /**
-     * MenuController constructor.
-     * @param MenuRepository $menu
+     * ContabilController constructor.
+     * @param ContabilRepository $contabilRepository
      */
     public function __construct(
         CasaRepository $casa,

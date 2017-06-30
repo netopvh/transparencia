@@ -18,6 +18,16 @@ Breadcrumbs::register('sesi.contabeis',function($breadcrumbs){
     $breadcrumbs->push('Demonstrações Contábeis',route('sesi.contabeis'));
 });
 
+Breadcrumbs::register('sesi.integridade',function($breadcrumbs){
+    $breadcrumbs->parent('sesi.home');
+    $breadcrumbs->push('Integridade',route('sesi.integridade'));
+});
+
+Breadcrumbs::register('sesi.infra',function($breadcrumbs){
+    $breadcrumbs->parent('sesi.home');
+    $breadcrumbs->push('Dados de Infraestrutura',route('sesi.infra'));
+});
+
 Breadcrumbs::register('sesi.gratuidade',function($breadcrumbs){
     $breadcrumbs->parent('sesi.home');
     $breadcrumbs->push('Gratuidade',route('sesi.gratuidade'));
@@ -80,6 +90,16 @@ Breadcrumbs::register('senai.home', function($breadcrumbs)
 Breadcrumbs::register('senai.contabeis',function($breadcrumbs){
     $breadcrumbs->parent('senai.home');
     $breadcrumbs->push('Demonstrações Contábeis',route('senai.contabeis'));
+});
+
+Breadcrumbs::register('senai.integridade',function($breadcrumbs){
+    $breadcrumbs->parent('senai.home');
+    $breadcrumbs->push('Integridade',route('senai.integridade'));
+});
+
+Breadcrumbs::register('senai.infra',function($breadcrumbs){
+    $breadcrumbs->parent('senai.home');
+    $breadcrumbs->push('Dados de Infraestrutura',route('senai.infra'));
 });
 
 Breadcrumbs::register('senai.gratuidade',function($breadcrumbs){

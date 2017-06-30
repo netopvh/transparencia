@@ -15,9 +15,7 @@ use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Storage;
 
 class DirigenteController extends Controller
 {
@@ -61,6 +59,7 @@ class DirigenteController extends Controller
     {
         try {
             if ($this->dirigente->create($request->all())) {
+                Log::write('event', 'Dirigente ' . $request->nome . ' foi cadastrado por ' . auth()->user()->name);
                 notify('Registro Cadastrado com sucesso!', 'success');
                 return redirect()->route('admin.dirigentes.index');
             }
@@ -86,6 +85,7 @@ class DirigenteController extends Controller
     {
         try {
             if ($this->dirigente->update($request->all(), $id)) {
+                Log::write('event', 'Dirigente ' . $request->nome . ' foi alterado por ' . auth()->user()->name);
                 notify('Registro alterado com sucesso!', 'success');
                 return redirect()->route('admin.dirigentes.index');
             }
@@ -97,9 +97,16 @@ class DirigenteController extends Controller
 
     public function delete($id)
     {
-        if ($this->dirigente->delete($id)) {
-            notify('Registro removido com sucesso!', 'success');
-            return redirect(url()->previous());
+        try{
+            $dirigente = $this->dirigente->find($id)->nome;
+            if ($this->dirigente->delete($id)) {
+                Log::write('event', 'Dirigente ' . $dirigente . ' foi removido por ' . auth()->user()->name);
+                notify('Registro removido com sucesso!', 'success');
+                return redirect(url()->previous());
+            }
+        }catch (GeneralException $e){
+            notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.dirigentes.index');
         }
     }
 
@@ -136,6 +143,7 @@ class DirigenteController extends Controller
                         $this->dirigente->importRecords($sheet->toArray());
                     });
                 });
+                Log::write('event', 'Lista de Dirigentes foram importados por ' . auth()->user()->name);
                 notify('Arquivos importados com sucesso!', 'success');
                 return redirect()->route('admin.dirigentes.index');
             }

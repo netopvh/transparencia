@@ -13,10 +13,8 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use Illuminate\Http\Request;
-use App\Importer\RemuneratoriaImport;
 use App\Contracts\Facades\ChannelLog as Log;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
 
 class RemuneratoriaController extends Controller
 {
@@ -33,7 +31,7 @@ class RemuneratoriaController extends Controller
 
 
     /**
-     * PaginaController constructor.
+     * RemuneratoriaController constructor.
      * @param RemuneratoriaRepository $remuneratoria
      */
     public function __construct(
@@ -67,6 +65,7 @@ class RemuneratoriaController extends Controller
     {
         try {
             if ($this->remuneratoria->create($request->all())) {
+                Log::write('event', 'Estrutura Remuneratoria ' . $request->cargo . ' foi cadastrado por ' . auth()->user()->name);
                 notify('Registro Cadastrado com sucesso!', 'success');
                 return redirect()->route('admin.remunera.index');
             }
@@ -106,6 +105,7 @@ class RemuneratoriaController extends Controller
     {
         try {
             if ($this->remuneratoria->update($request->all(), $id)) {
+                Log::write('event', 'Estrutura Remuneratoria ' . $request->cargo . ' foi alterado por ' . auth()->user()->name);
                 notify('Registro alterado com sucesso!', 'success');
                 return redirect()->route('admin.remunera.index');
             }
@@ -117,8 +117,15 @@ class RemuneratoriaController extends Controller
 
     public function delete($id)
     {
-        if($this->remuneratoria->delete($id)){
-            notify('Registro removido com sucesso!', 'success');
+        try{
+            $cargo = $this->remuneratoria->find($id)->cargo;
+            if($this->remuneratoria->delete($id)){
+                Log::write('event', 'Estrutura Remuneratoria ' . $cargo . ' foi removida por ' . auth()->user()->name);
+                notify('Registro removido com sucesso!', 'success');
+                return redirect()->route('admin.remunera.index');
+            }
+        }catch (GeneralException $e){
+            notify('Erro:' . $e->getMessage(), 'danger');
             return redirect()->route('admin.remunera.index');
         }
     }
@@ -150,6 +157,7 @@ class RemuneratoriaController extends Controller
                         $this->remuneratoria->importRecords($sheet->toArray());
                     });
                 });
+                Log::write('event', 'Lista de Remunerações foram importadas por ' . auth()->user()->name);
                 notify('Arquivos importados com sucesso!', 'success');
                 return redirect()->route('admin.remunera.index');
             }

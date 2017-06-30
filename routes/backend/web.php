@@ -99,6 +99,15 @@ Route::group(['namespace' => 'Application'], function(){
         Route::delete('/{id}','ContabilController@delete')->name('admin.contabil.delete');
     });
 
+    Route::group(['prefix' => 'integridade'], function(){
+        Route::get('/','IntegridadeController@index')->name('admin.integridade.index');
+        Route::get('/create','IntegridadeController@create')->name('admin.integridade.create');
+        Route::post('/','IntegridadeController@store')->name('admin.integridade.store');
+        Route::get('/{id}','IntegridadeController@edit')->name('admin.integridade.edit');
+        Route::patch('/{id}','IntegridadeController@update')->name('admin.integridade.update');
+        Route::delete('/{id}','IntegridadeController@delete')->name('admin.integridade.delete');
+    });
+
     Route::group(['prefix' => 'faq'], function (){
         Route::get('/','FaqController@index')->name('admin.faq.index');
         Route::get('/create','FaqController@create')->name('admin.faq.create');

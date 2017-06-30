@@ -8,31 +8,24 @@
         <a href="{{ route('senai.ldo') }}" target="_self" style="text-transform: uppercase;">lei de diretrizes orçamentárias</a>
     </li>
 
-
     <li>
         <a href="{{ route('senai.contabeis') }}" target="_self" style="text-transform: uppercase;">demonstrações contábeis</a>
     </li>
-
-
     <li>
         <a href="http://licitacao.fiero.org.br" target="_blank" style="text-transform: uppercase;">licitações e editais</a>
     </li>
-
-
+    <li>
+        <a href="#" target="_blank" style="text-transform: uppercase;">contratos e convênios</a>
+    </li>
     <li>
         <a href="{{ route('senai.gratuidade') }}" target="_self" style="text-transform: uppercase;">gratuidade</a>
     </li>
-
-
     <li>
-        <a href="#" target="_self" style="text-transform: uppercase;">integridade</a>
+        <a href="{{ route('senai.integridade') }}" target="_self" style="text-transform: uppercase;">integridade</a>
     </li>
-
-
     <li>
-        <a href="#" target="_self" style="text-transform: uppercase;">Dados de infraestrutura</a>
+        <a href="{{ route('senai.infra') }}" target="_self" style="text-transform: uppercase;">Dados de infraestrutura</a>
     </li>
-
 </ul>
 
 

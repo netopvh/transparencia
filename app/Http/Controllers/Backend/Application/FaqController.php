@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Application;
 
-use App\Enum\Bloco;
-use App\Enum\OrcamentoTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\FaqRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
-use App\Enum\Tipos;
-use Illuminate\Support\Facades\Storage;
 
 class FaqController extends Controller
 {
@@ -19,7 +15,7 @@ class FaqController extends Controller
     /**
      * Variável instancia do repositório
      *
-     * @var $casa
+     * @var $faq
      */
     protected $faq;
 
@@ -31,8 +27,8 @@ class FaqController extends Controller
     protected $casa;
 
     /**
-     * MenuController constructor.
-     * @param MenuRepository $menu
+     * FaqController constructor.
+     * @param FaqRepository $menu
      */
     public function __construct(
         CasaRepository $casa,
@@ -78,6 +74,7 @@ class FaqController extends Controller
             if ($this->faq->create($request->all())) {
                 Log::write('event', 'Faq ' . $request->name . ' foi cadastrado por ' . auth()->user()->name);
             }
+            notify()->flash('Cadastrado com sucesso!','success');
             return redirect()->route('admin.faq.index');
 
         } catch (GeneralException $e) {
@@ -117,6 +114,7 @@ class FaqController extends Controller
             if ($this->faq->update($request->all(), $id)) {
                 Log::write('event', 'Faq ' . $request->name . ' alterado por ' . auth()->user()->name);
             }
+            notify()->flash('Alterado com sucesso!','success');
             return redirect()->route('admin.faq.index');
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
@@ -136,6 +134,7 @@ class FaqController extends Controller
             if ($this->faq->delete($id)) {
                 Log::write('event', 'Faq ' . $faq . ' removida por ' . auth()->user()->name);
             }
+            notify()->flash('Removido com sucesso!','success');
             return redirect()->route('admin.faq.index');
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');

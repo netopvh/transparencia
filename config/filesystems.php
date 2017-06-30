@@ -74,6 +74,11 @@ return [
             'root' => public_path('files/contabil'),
             'visibility' => 'public',
         ],
+        'integridade' => [
+            'driver' => 'local',
+            'root' => public_path('files'),
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',

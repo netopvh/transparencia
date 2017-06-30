@@ -39,7 +39,7 @@
             <li><strong class="casa-color"><strong><a href="{{ route('senai.gratuidade') }}">Gratuidade</a></strong></strong>
             </li>
 
-            <li><strong class="casa-color"><strong><a href="#">Integridade</a></strong></strong></li>
+            <li><strong class="casa-color"><strong><a href="{{ route('senai.integridade') }}">Integridade</a></strong></strong></li>
 
             <li><strong class="casa-color"><strong><a href="#">Dados de Infraestrutura</a></strong></strong></li>
 

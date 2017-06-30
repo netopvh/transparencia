@@ -22,6 +22,8 @@ Route::group(['prefix' => 'sesi','namespace' => 'Sesi'], function(){
     Route::post('/modules/sac','IndexController@postSac');
     Route::get('/modules/gratuidade','IndexController@getGratuidade')->name('sesi.gratuidade');
     Route::get('/modules/faq','IndexController@getFaq')->name('sesi.faq');
+    Route::get('/modules/integridade','IndexController@getIntegridade')->name('sesi.integridade');
+    Route::get('/modules/infraestrutura','IndexController@getInfraestrutura')->name('sesi.infra');
 });
 
 Route::group(['prefix' => 'senai','namespace' => 'Senai'], function(){
@@ -38,4 +40,6 @@ Route::group(['prefix' => 'senai','namespace' => 'Senai'], function(){
     Route::post('/modules/sac','IndexController@postSac');
     Route::get('/modules/gratuidade','IndexController@getGratuidade')->name('senai.gratuidade');
     Route::get('/modules/faq','IndexController@getFaq')->name('senai.faq');
+    Route::get('/modules/integridade','IndexController@getIntegridade')->name('senai.integridade');
+    Route::get('/modules/infraestrutura','IndexController@getInfraestrutura')->name('senai.infra');
 });

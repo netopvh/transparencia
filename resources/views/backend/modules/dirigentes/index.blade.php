@@ -66,7 +66,7 @@
                                                               method="post">
                                                             {{ csrf_field() }}
                                                             {{ method_field('delete') }}
-                                                            <button type="submit" class="button-clean"><i
+                                                            <button type="submit" class="button-clean-1"><i
                                                                         class="icon-trash space-right"></i> Excluir
                                                             </button>
                                                         </form>

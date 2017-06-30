@@ -16,7 +16,7 @@
     Mensagem:
     {{ $mensagem }}
 
-@component('mail::button', ['url' => 'http://www.fiero.org.br'])
+@component('mail::button', ['url' => 'http://transparencia.fiero.org.br/admin'])
         Acessar Portal
 @endcomponent
 

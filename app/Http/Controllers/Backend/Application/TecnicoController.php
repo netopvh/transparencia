@@ -14,7 +14,6 @@ use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TecnicoController extends Controller
@@ -32,7 +31,7 @@ class TecnicoController extends Controller
 
 
     /**
-     * PaginaController constructor.
+     * TecnicoController constructor.
      * @param TecnicoRepository $pagina
      */
     public function __construct(
@@ -59,6 +58,7 @@ class TecnicoController extends Controller
     {
         try{
             if ($this->tecnico->create($request->all())){
+                Log::write('event', 'Tecnico ' . $request->nome . ' foi cadastrado por ' . auth()->user()->name);
                 notify('Registro Cadastrado com sucesso!', 'success');
                 return redirect()->route('admin.tecnicos.index');
             }
@@ -84,6 +84,7 @@ class TecnicoController extends Controller
     {
         try {
             if ($this->tecnico->update($request->all(), $id)) {
+                Log::write('event', 'Tecnico ' . $request->nome . ' foi alterado por ' . auth()->user()->name);
                 notify('Registro alterado com sucesso!', 'success');
                 return redirect()->route('admin.tecnicos.index');
             }
@@ -95,9 +96,16 @@ class TecnicoController extends Controller
 
     public function delete($id)
     {
-        if($this->tecnico->delete($id)){
-            notify('Registro removido com sucesso!', 'success');
-            return redirect(url()->previous());
+        try{
+            $tecnico = $this->tecnico->find($id)->nome;
+            if($this->tecnico->delete($id)){
+                Log::write('event', 'Tecnico ' . $tecnico . ' foi removido por ' . auth()->user()->name);
+                notify('Registro removido com sucesso!', 'success');
+                return redirect(url()->previous());
+            }
+        }catch (GeneralException $e){
+            notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.tecnicos.index');
         }
     }
 
@@ -127,6 +135,7 @@ class TecnicoController extends Controller
                         $this->tecnico->importRecords($sheet->toArray());
                     });
                 });
+                Log::write('event', 'Lista de Tecnicos foram importados por ' . auth()->user()->name);
                 notify('Arquivos importados com sucesso!', 'success');
                 return redirect()->route('admin.tecnicos.index');
             }
