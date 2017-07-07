@@ -79,7 +79,7 @@
 
                 <!-- Footer -->
                 <div class="footer text-muted text-center">
-                    Copyright &copy; 2017. <a href="#">Sistema</a>
+                    &copy; 2017. <a href="#">Sistema Fiero - Todos os direitos reservados</a>
                 </div>
                 <!-- /footer -->
 

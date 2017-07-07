@@ -52,7 +52,6 @@ class ContabilController extends Controller
     {
         return view('backend.modules.contabil.index')
             ->withTipos($this->getTipos())
-            ->withFiles(Storage::disk('contas')->files())
             ->withCasas($this->casa->all())
             ->withContaSesi($this->contabil->findWhere(['casa_id' => getCasaId('SESI')]))
             ->withContaSenai($this->contabil->findWhere(['casa_id' => getCasaId('SENAI')]));
@@ -67,10 +66,15 @@ class ContabilController extends Controller
     public function store(Request $request)
     {
         try {
-            if ($this->contabil->create($request->all())) {
-                Log::write('event', 'Demonstração Contábil ' . $this->getTipos()[$request->type] . ' foi cadastrada por ' . auth()->user()->name);
+            if ($file = $request->file('files')->store('contabil','files')){
+                //adicionar o nome do arquivo no array de dados
+                $data = array_add($request->all(),'file',$file);
+                //Criar registro no DB
+                if ($this->contabil->create($data)) {
+                    Log::write('event', 'Demonstração Contábil ' . $this->getTipos()[$request->type] . ' foi cadastrado por ' . auth()->user()->name);
+                }
             }
-            notify()->flash('Cadastrado com sucesso!','success');
+            notify()->flash('Registro cadastrado com sucesso!','success');
             return redirect()->route('admin.contabil.index');
 
         } catch (GeneralException $e) {
@@ -91,7 +95,6 @@ class ContabilController extends Controller
             return view('backend.modules.contabil.edit')
                 ->withConta($this->contabil->find($id))
                 ->withTipos($this->getTipos())
-                ->withFiles(Storage::disk('contas')->files())
                 ->withCasas($this->casa->all());
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
@@ -109,10 +112,22 @@ class ContabilController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if ($this->contabil->update($request->all(), $id)) {
-                Log::write('event', 'Demonstração Contábil ' . $this->getTipos()[$request->type] . ' alterado por ' . auth()->user()->name);
+            if ($request->file('files')){
+                if ($file = $request->file('files')->store('contabil','files')){
+                    //adicionar o nome do arquivo no array de dados
+                    $data = array_add($request->all(),'file',$file);
+                    //Altera registro no DB
+                    if ($this->contabil->update($data, $id)) {
+                        Log::write('event', 'Demonstração Contabil ' . $this->getTipos()[$request->type] . ' foi alterado por ' . auth()->user()->name);
+                    }
+                }
+            }else{
+                if ($this->contabil->update($request->all(), $id)) {
+                    Log::write('event', 'Demonstração Contabil ' . $this->getTipos()[$request->type] . ' alterado por ' . auth()->user()->name);
+                }
             }
-            notify()->flash('Registro alterado','success');
+
+            notify()->flash('Registro alterado com sucesso!','success');
             return redirect()->route('admin.contabil.index');
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
@@ -132,7 +147,7 @@ class ContabilController extends Controller
             if ($this->contabil->delete($id)) {
                 Log::write('event', 'Demonstração Contábil ' . $this->getTipos()[$conta] . ' removida por ' . auth()->user()->name);
             }
-            notify()->flash('Removido com sucesso!','success');
+            notify()->flash('Registro removido com sucesso!','success');
             return redirect()->route('admin.contabil.index');
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');

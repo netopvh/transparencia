@@ -64,17 +64,7 @@ return [
             'visibility' => 'public',
         ],
 
-        'orcamento' => [
-            'driver' => 'local',
-            'root' => public_path('files/orcamento'),
-            'visibility' => 'public',
-        ],
-        'contas' => [
-            'driver' => 'local',
-            'root' => public_path('files/contabil'),
-            'visibility' => 'public',
-        ],
-        'integridade' => [
+        'files' => [
             'driver' => 'local',
             'root' => public_path('files'),
             'visibility' => 'public',

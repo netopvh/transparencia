@@ -32,6 +32,16 @@ class OrcamentoController extends Controller
     protected $casa;
 
     /**
+     * @var $file
+     */
+    private $file;
+
+    /**
+     * @var $tipos
+     */
+    private $tipos;
+
+    /**
      * MenuController constructor.
      * @param MenuRepository $menu
      */
@@ -54,7 +64,6 @@ class OrcamentoController extends Controller
     {
         return view('backend.modules.orcamento.index')
             ->withTipos(OrcamentoTipos::getConstants())
-            ->withFiles(Storage::disk('orcamento')->files())
             ->withCasas($this->casa->all())
             ->withSesi($this->orcamento->getAllOrder('SESI'))
             ->withSenai($this->orcamento->getAllOrder('SENAI'));
@@ -70,10 +79,15 @@ class OrcamentoController extends Controller
     {
         try {
 
-            //dd($request->all());
-            if ($this->orcamento->create($request->all())) {
-                Log::write('event', 'Orçamento ' . $request->name . ' foi cadastrado por ' . auth()->user()->name);
+            if ($this->file = $request->file('files')->store('orcamento','files')){
+                //adicionar o nome do arquivo no array de dados
+                $data = array_add($request->all(),'file',$this->file);
+                //Criar registro no DB
+                if ($this->orcamento->create($data)) {
+                    Log::write('event', 'Orçamento ' . $this->getTipos()[$request->type] . ' foi cadastrado por ' . auth()->user()->name);
+                }
             }
+            notify()->flash('Registro cadastrado com sucesso!', 'success');
             return redirect()->route('admin.orcamento.index');
 
         } catch (GeneralException $e) {
@@ -91,13 +105,13 @@ class OrcamentoController extends Controller
     public function edit($id)
     {
         try {
-            return view('backend.modules.menu.edit')
-                ->withMenu($this->menu->find($id))
-                ->withBlocos(Bloco::getConstants())
+            return view('backend.modules.orcamento.edit')
+                ->withOrcamento($this->orcamento->find($id))
+                ->withTipos(OrcamentoTipos::getConstants())
                 ->withCasas($this->casa->all());
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
-            return redirect()->route('admin.menus.index');
+            return redirect()->route('admin.orcamento.index');
         }
     }
 
@@ -111,13 +125,26 @@ class OrcamentoController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if ($this->menu->update($request->all(), $id)) {
-                Log::write('event', 'Menu ' . $request->name . ' alterado por ' . auth()->user()->name);
+
+            if ($request->file('files')){
+                if ($file = $request->file('files')->store('orcamento','files')){
+                    //adicionar o nome do arquivo no array de dados
+                    $data = array_add($request->all(),'file',$file);
+                    //Altera registro no DB
+                    if ($this->orcamento->update($data, $id)) {
+                        Log::write('event', 'Orçamento ' . $this->getTipos()[$request->type] . ' foi alterado por ' . auth()->user()->name);
+                    }
+                }
+            }else{
+                if ($this->orcamento->update($request->all(), $id)) {
+                    Log::write('event', 'Orçamento ' . $this->getTipos()[$request->type] . ' foi alterado por ' . auth()->user()->name);
+                }
             }
-            return redirect()->route('admin.menus.index');
+            notify()->flash('Registro alterado com sucesso!', 'success');
+            return redirect()->route('admin.orcamento.index');
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
-            return redirect()->route('admin.menus.index');
+            return redirect()->route('admin.orcamento.index');
         }
 
     }
@@ -131,7 +158,7 @@ class OrcamentoController extends Controller
         try {
             $tipo = $this->orcamento->find($id)->type;
             if ($this->orcamento->delete($id)) {
-                Log::write('event', 'Orçamento ' . $tipo . ' removido por ' . auth()->user()->name);
+                Log::write('event', 'Orçamento ' . $this->getTipos()[$tipo] . ' removido por ' . auth()->user()->name);
             }
             notify()->flash('Registro removido com sucesso!','success');
             return redirect()->route('admin.orcamento.index');
@@ -139,6 +166,11 @@ class OrcamentoController extends Controller
             notify()->flash($e->getMessage(), 'danger');
             return redirect()->route('admin.orcamento.index');
         }
+    }
+
+    private function getTipos()
+    {
+        return $this->tipos = OrcamentoTipos::getConstants();
     }
 
 }

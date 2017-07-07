@@ -93,4 +93,21 @@ class LoginController extends Controller
         //return $request->only($this->username(), 'password');
         return ['username' => $request->{$this->username()}, 'password' => $request->password, 'active' => 1];
     }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect('/admin');
+    }
 }

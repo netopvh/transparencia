@@ -47,11 +47,28 @@ $(document).ready(function () {
                 error.insertAfter(element);
             }
         },
-        validClass: "validation-valid-label"
+        validClass: "validation-valid-label",
+        rules: {
+            files :{
+                extension: "pdf"
+            }
+        }
     });
 
-    $('.select2').select2({
-        placeholder: 'Selecione um Arquivo',
-        allowClear: true
+    var button = $('#button');
+    var form = $('#form');
+    var loader = $('#loader');
+    loader.hide();
+    form.submit(function () {
+        if (validator.numberOfInvalids() < 1){
+            loader.show();
+            button.prop('disabled', true);
+        }
+    });
+
+    $(".file-styled").uniform({
+        fileButtonClass: 'action btn btn-default',
+        fileDefaultHtml: 'Selecione o Arquivo',
+        fileButtonHtml: 'Selecione'
     });
 });

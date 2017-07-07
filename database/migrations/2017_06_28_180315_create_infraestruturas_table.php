@@ -14,8 +14,21 @@ class CreateInfraestruturasTable extends Migration
     public function up()
     {
         Schema::create('infraestruturas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id')->unsigned();
+            $table->string('unidade');
+            $table->string('endereco')->nullable();
+            $table->string('bairro')->nullable();
+            $table->string('cidade')->nullable();
+            $table->string('cep')->nullable();
+            $table->string('telefone')->nullable();
+            $table->integer('codigo_categoria')->nullable();
+            $table->string('nome_categoria')->nullable();
+            $table->integer('codigo_entidade')->nullable();
+            $table->integer('codigo_atuacao')->nullable();
+            $table->string('nome_atuacao')->nullable();
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

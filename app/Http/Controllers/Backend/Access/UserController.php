@@ -3,10 +3,12 @@ namespace App\Http\Controllers\Backend\Access;
 
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
+use App\Mail\Registration;
 use App\Repositories\Backend\Access\Contracts\RoleRepository;
 use App\Repositories\Backend\Access\Contracts\UserRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
+use Illuminate\Support\Facades\Mail;
 
 
 class UserController extends Controller
@@ -74,7 +76,9 @@ class UserController extends Controller
 
             if ($this->user->create($request->all())) {
                 Log::write('event','Usuário '. $request->name .' foi criado por ' . auth()->user()->name);
+                Mail::to($request->get('email'))->queue(new Registration($request->all()));
             }
+            notify()->flash('Registro efetuado com sucesso!','success');
             return redirect()->route('admin.users.index');
         }catch (GeneralException $e){
             notify()->flash($e->getMessage(), 'danger');
@@ -118,5 +122,25 @@ class UserController extends Controller
 
     }
 
+    public function viewChangePassword()
+    {
+        return view('backend.modules.access.users.password');
+    }
+
+    public function changePassword(Request $request)
+    {
+        try{
+
+            if($this->user->changePassword($request->all())){
+                Log::write('event','Usuário '. auth()->user()->name .' alterou a senha ');
+            }
+            notify()->flash('Senha alterada com sucesso! Saia do portal e acesse novamente','success');
+            return redirect()->route('admin.users.password');
+
+        }catch (GeneralException $e){
+            notify()->flash($e->getMessage(),'danger');
+            return redirect()->route('admin.users.password');
+        }
+    }
 
 }

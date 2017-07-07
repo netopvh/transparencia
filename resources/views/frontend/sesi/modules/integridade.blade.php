@@ -19,113 +19,47 @@
     Além da fiscalização do TCU, as contas dos departamentos do SESI, na forma de seu Regimento,
     são submetidas a auditores independentes que emitem seus pareceres.
     <br><br>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-            <h3 class="t p-20"><strong>TCU</strong></h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
+    @foreach($integridades as $integridade)
+        @if($integridade->type === 'A')
             <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        <a href="#"
-                           target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>Relatório
-                            de Gestão Apresentado ao TCU 2015​</a>
-                    </p>
+                <div class="col-md-11 col-md-offset-1">
+                    <h3 class="t p-20"><strong>{{ str_limit($tipos[$integridade->type],3,'') }}</strong></h3>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-            <h3 class="t p-20"><strong>Auditoria Independente</strong></h3>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
             <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        <a href="#"
-                           target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>Parecer
-                            da Auditoria Independente</a>
-                    </p>
+                <div class="col-md-11 col-md-offset-1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>
+                                <a href="{{ url('/files/'.$integridade->file) }}"
+                                   target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>​{{ $tipos[$integridade->type] }} {{ $integridade->year }}</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-            <h3 class="t p-20"><strong>Código de Ética</strong></h3>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-
-
+        @else
             <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        <a href="#"
-                           target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>Código
-                            de Ética</a>
-                    </p>
+                <div class="col-md-11 col-md-offset-1">
+                    <h3 class="t p-20"><strong>{{ $tipos[$integridade->type] }}</strong></h3>
                 </div>
             </div>
-
-
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-            <h3 class="t p-20"><strong>Comitê de Etica</strong></h3>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-
-
             <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        <a href="#"
-                           target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>Comitê
-                            de Etica</a>
-                    </p>
+                <div class="col-md-11 col-md-offset-1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>
+                                <a href="{{ url('/files/'.$integridade->file) }}"
+                                   target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>{{ $tipos[$integridade->type] }}</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
+        @endif
+    @endforeach
 
 
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-            <h3 class="t p-20"><strong>Ouvidoria</strong></h3>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        <a href="#"
-                           target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>Comitê
-                            de Etica</a>
-                    </p>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
     <br>
     <h5><strong>Última atualizaçao em: </strong>15/02/2017</h5>
 @stop

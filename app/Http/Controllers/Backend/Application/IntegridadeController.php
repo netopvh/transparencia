@@ -50,11 +50,10 @@ class IntegridadeController extends Controller
      */
     public function index()
     {
-        //dd($this->integridade->getAll('SESI'));
+        //dd($this->integridade->getAll());
         return view('backend.modules.integridade.index')
             ->withTipos(IntegridadeTipos::getConstants())
-            ->withSesi($this->integridade->getAll('SESI'))
-            ->withSenai($this->integridade->getAll('SENAI'));
+            ->withDados($this->integridade->getAll());
     }
 
     public function create()
@@ -73,12 +72,12 @@ class IntegridadeController extends Controller
     public function store(Request $request)
     {
         try {
-            if ($file = $request->file('files')->store('integridade','integridade')){
+            if ($file = $request->file('files')->store('integridade','files')){
                 //adicionar o nome do arquivo no array de dados
                 $data = array_add($request->all(),'file',$file);
                 //Criar registro no DB
                 if ($this->integridade->create($data)) {
-                    Log::write('event', 'Integridade ' . $request->name . ' foi cadastrado por ' . auth()->user()->name);
+                    Log::write('event', 'Integridade ' . $this->getTipos()[$request->type] . ' foi cadastrada por ' . auth()->user()->name);
                 }
             }
             notify()->flash('Registro inserido com sucesso!','success');
@@ -100,8 +99,8 @@ class IntegridadeController extends Controller
     {
         try {
             return view('backend.modules.integridade.edit')
-                ->withMenu($this->integridade->find($id))
-                ->withBlocos(Bloco::getConstants())
+                ->withIntegridade($this->integridade->find($id))
+                ->withTipos(IntegridadeTipos::getConstants())
                 ->withCasas($this->casa->all());
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
@@ -119,9 +118,21 @@ class IntegridadeController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if ($this->integridade->update($request->all(), $id)) {
-                Log::write('event', 'Integridade ' . $request->name . ' alterado por ' . auth()->user()->name);
+            if ($request->file('files')){
+                if ($file = $request->file('files')->store('integridade','integridade')){
+                    //adicionar o nome do arquivo no array de dados
+                    $data = array_add($request->all(),'file',$file);
+                    //Criar registro no DB
+                    if ($this->integridade->update($data, $id)) {
+                        Log::write('event', 'Integridade ' . $this->getTipos()[$request->type] . ' foi alterado por ' . auth()->user()->name);
+                    }
+                }
+            }else{
+                if ($this->integridade->update($request->all(), $id)) {
+                    Log::write('event', 'Integridade ' . $this->getTipos()[$request->type] . ' alterado por ' . auth()->user()->name);
+                }
             }
+            notify()->flash('Registro alteado com sucesso!','success');
             return redirect()->route('admin.integridade.index');
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
@@ -139,7 +150,7 @@ class IntegridadeController extends Controller
         try {
             $tipo = $this->integridade->find($id)->type;
             if ($this->integridade->delete($id)) {
-                Log::write('event', 'Integridade ' . $tipo . ' removido por ' . auth()->user()->name);
+                Log::write('event', 'Integridade ' . $this->getTipos()[$tipo] . ' removido por ' . auth()->user()->name);
             }
             notify()->flash('Registro removido com sucesso!','success');
             return redirect()->route('admin.integridade.index');
@@ -147,6 +158,37 @@ class IntegridadeController extends Controller
             notify()->flash($e->getMessage(), 'danger');
             return redirect()->route('admin.integridade.index');
         }
+    }
+
+    public function publish($id)
+    {
+        try{
+            $this->integridade->publish($id);
+
+            notify()->flash('Registro publicado com sucesso!','success');
+            return redirect(url()->previous());
+        }catch (GeneralException $e){
+            notify()->flash($e->getMessage(), 'danger');
+            return redirect(url()->previous());
+        }
+    }
+
+    public function unpublish($id)
+    {
+        try{
+            $this->integridade->unpublish($id);
+
+            notify()->flash('Registro despublicado com sucesso!','success');
+            return redirect(url()->previous());
+        }catch (GeneralException $e){
+            notify()->flash($e->getMessage(), 'danger');
+            return redirect(url()->previous());
+        }
+    }
+
+    private function getTipos()
+    {
+        return $this->tipos = IntegridadeTipos::getConstants();
     }
 
 }

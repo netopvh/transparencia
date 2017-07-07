@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Sesi;
 
 use App\Enum\ContabilTipos;
+use App\Enum\IntegridadeTipos;
 use App\Enum\OrcamentoTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,8 @@ use App\Repositories\Backend\Application\Contracts\OrcamentoRepository;
 use App\Repositories\Backend\Application\Contracts\PaginaRepository;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
+use App\Repositories\Backend\Application\Contracts\IntegridadeRepository;
+use App\Repositories\Backend\Application\Contracts\InfraestruturaRepository;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 Use Illuminate\Http\Request;
@@ -68,6 +71,16 @@ class IndexController extends Controller
     private $orcamento;
 
     /**
+     * @var $orcamento
+     */
+    private $integridade;
+
+    /**
+     * @var $infra
+     */
+    private $infra;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -80,7 +93,9 @@ class IndexController extends Controller
         EstadoRepository $estadoRepository,
         FaqRepository $faqRepository,
         ContabilRepository $contabilRepository,
-        OrcamentoRepository $orcamentoRepository
+        OrcamentoRepository $orcamentoRepository,
+        IntegridadeRepository $integridadeRepository,
+        InfraestruturaRepository $infraestruturaRepository
     )
     {
         $this->pagina = $paginaRepository;
@@ -91,6 +106,8 @@ class IndexController extends Controller
         $this->faq = $faqRepository;
         $this->contabil = $contabilRepository;
         $this->orcamento = $orcamentoRepository;
+        $this->integridade = $integridadeRepository;
+        $this->infra = $infraestruturaRepository;
     }
 
     /**
@@ -216,11 +233,23 @@ class IndexController extends Controller
 
     public function getIntegridade()
     {
-        return view('frontend.sesi.modules.integridade');
+        return view('frontend.sesi.modules.integridade')
+            ->withTipos(IntegridadeTipos::getConstants())
+            ->withIntegridades($this->integridade->getAllCasa('SESI'));
     }
 
     public function getInfraestrutura()
     {
-        return view('frontend.sesi.modules.infraestrutura');
+        // 1 - Unidades Fixas
+        // 2 Unidades Móveis
+        return view('frontend.sesi.modules.infraestrutura')
+            ->with('fixas', $this->infra->getAllCasa('SESI', 1))
+            ->with('moveis', $this->infra->getAllCasa('SESI', 2))
+            ->with('alimentacao', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Alimentação'))
+            ->with('cultura', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Cultura'))
+            ->with('saude', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Promoção da Saúde'))
+            ->with('trabalho', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Segurança e Saúde no Trabalho'))
+            ->with('educacao', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Educação'))
+            ->with('conjunta', $this->infra->getAllCasaAtuacao('SESI', 'Atuação Conjunta'));
     }
 }

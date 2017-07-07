@@ -41,6 +41,14 @@ form select.error:focus{
 .button-clean-2:hover{
     background: #f2f2f2;
 }
+.button-clean-3{
+    background: none;
+    border: none;
+    padding: 10px 39% 10px 16px;
+}
+.button-clean-3:hover{
+    background: #f2f2f2;
+}
 .space-right{
     margin-right: 10px;
 }

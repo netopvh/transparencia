@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\InfraestruturaRepository;
 use App\Repositories\Backend\Application\Contracts\IntegridadeRepository;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
 
@@ -48,7 +49,9 @@ class InfraestruturaController extends Controller
      */
     public function index()
     {
-        return view('backend.modules.orcamento.index');
+        //dd($this->infra->getAll(10));
+        return view('backend.modules.infraestrutura.index')
+            ->with('dados', $this->infra->getAll(8));
     }
 
     /**
@@ -83,8 +86,7 @@ class InfraestruturaController extends Controller
     {
         try {
             return view('backend.modules.menu.edit')
-                ->withMenu($this->infra->find($id))
-                ->withBlocos(Bloco::getConstants())
+                ->withInfra($this->infra->find($id))
                 ->withCasas($this->casa->all());
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
@@ -124,11 +126,28 @@ class InfraestruturaController extends Controller
             if ($this->infra->delete($id)) {
                 Log::write('event', 'Registro ' . $tipo . ' removido por ' . auth()->user()->name);
             }
-            notify()->flash('Registro removido com sucesso!','success');
+            notify()->flash('Registro removido com sucesso!', 'success');
             return redirect()->route('admin.orcamento.index');
         } catch (GeneralException $e) {
             notify()->flash($e->getMessage(), 'danger');
             return redirect()->route('admin.orcamento.index');
+        }
+    }
+
+    public function viewImport()
+    {
+        return view('backend.modules.infraestrutura.import');
+    }
+
+    public function postImport(Request $request)
+    {
+        try{
+            $this->infra->import($request->all());
+            notify()->flash('Registros importados com sucesso!', 'success');
+            return redirect()->route('admin.infra.index');
+        }catch (GeneralException $e){
+            notify()->flash($e->getMessage(), 'danger');
+            return redirect()->route('admin.infra.index');
         }
     }
 

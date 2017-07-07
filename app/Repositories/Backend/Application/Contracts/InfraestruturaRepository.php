@@ -11,4 +11,10 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface InfraestruturaRepository extends RepositoryInterface
 {
 
+    public function import($attributes);
+    public function getAll($perPage);
+    public function getAllCasa($casa,$categoria);
+    public function getAllCasaAtuacao($casa,$atuacao);
+    public function getByAtuacao($casa, $atuacao, $categoria);
+
 }

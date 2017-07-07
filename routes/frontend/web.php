@@ -8,6 +8,9 @@
 
 Route::get('cidades/{idEstado}', 'CidadeController@getCidades');
 
+Route::get('categorias/{idCasa}/{idCatergoria}','ApisController@getCategorias');
+Route::get('atuacao/{idCasa}/{idAtua}/{idCategoria}','ApisController@getAtuacao');
+
 Route::group(['prefix' => 'sesi','namespace' => 'Sesi'], function(){
     Route::get('/','IndexController@index')->name('sesi.index');
     Route::get('/{slug}','IndexController@getPage')->name('sesi.page');

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     var validator = $(".form-validate").validate({
         ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
         errorClass: 'validation-error-label',
@@ -47,28 +47,7 @@ $(document).ready(function () {
                 error.insertAfter(element);
             }
         },
-        validClass: "validation-valid-label",
-        rules: {
-            files :{
-                extension: "pdf"
-            }
-        }
-    });
+        validClass: "validation-valid-label"
 
-    var button = $('#button');
-    var form = $('#form');
-    var loader = $('#loader');
-    loader.hide();
-    form.submit(function () {
-        if (validator.numberOfInvalids() < 1){
-            loader.show();
-            button.prop('disabled', true);
-        }
-    });
-
-    $(".file-styled").uniform({
-        fileButtonClass: 'action btn btn-default',
-        fileDefaultHtml: 'Selecione o Arquivo',
-        fileButtonHtml: 'Selecione'
     });
 });

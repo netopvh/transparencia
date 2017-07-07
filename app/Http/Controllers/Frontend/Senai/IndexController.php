@@ -14,11 +14,14 @@ use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
 use App\Repositories\Backend\Application\Contracts\FaqRepository;
 use App\Repositories\Backend\Application\Contracts\ContabilRepository;
+use App\Repositories\Backend\Application\Contracts\IntegridadeRepository;
+use App\Repositories\Backend\Application\Contracts\InfraestruturaRepository;
 use App\Enum\ContabilTipos;
 use App\Enum\OrcamentoTipos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Enum\IntegridadeTipos;
 
 class IndexController extends Controller
 {
@@ -68,6 +71,16 @@ class IndexController extends Controller
     private $orcamento;
 
     /**
+     * @var $orcamento
+     */
+    private $integridade;
+
+    /**
+     * @var $infra
+     */
+    private $infra;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -80,7 +93,9 @@ class IndexController extends Controller
         EstadoRepository $estadoRepository,
         FaqRepository $faqRepository,
         ContabilRepository $contabilRepository,
-        OrcamentoRepository $orcamentoRepository
+        OrcamentoRepository $orcamentoRepository,
+        IntegridadeRepository $integridadeRepository,
+        InfraestruturaRepository $infraestruturaRepository
     )
     {
         $this->pagina = $paginaRepository;
@@ -90,7 +105,9 @@ class IndexController extends Controller
         $this->estado = $estadoRepository;
         $this->faq = $faqRepository;
         $this->contabil = $contabilRepository;
-        $this->orcamento = $orcamentoRepository;;
+        $this->orcamento = $orcamentoRepository;
+        $this->integridade = $integridadeRepository;
+        $this->infra = $infraestruturaRepository;
     }
 
     /**
@@ -216,11 +233,22 @@ class IndexController extends Controller
 
     public function getIntegridade()
     {
-        return view('frontend.senai.modules.integridade');
+        return view('frontend.senai.modules.integridade')
+            ->withTipos(IntegridadeTipos::getConstants())
+            ->withIntegridades($this->integridade->getAllCasa('SENAI'));
     }
 
     public function getInfraestrutura()
     {
-        return view('frontend.senai.modules.infraestrutura');
+        // 1 Unidades Fixas
+        // 2 Unidades Móveis
+        return view('frontend.senai.modules.infraestrutura')
+            ->with('fixas', $this->infra->getAllCasa('SENAI', 1))
+            ->with('moveis', $this->infra->getAllCasa('SENAI', 2))
+            ->with('profissional', $this->infra->getAllCasaAtuacao('SENAI', 'Centro de Formação Profissional'))
+            ->with('inovacao', $this->infra->getAllCasaAtuacao('SENAI', 'Instituto de Inovação'))
+            ->with('tecnologia', $this->infra->getAllCasaAtuacao('SENAI', 'Instituto de Tecnologia'))
+            ->with('faculdade', $this->infra->getAllCasaAtuacao('SENAI', 'Faculdade de Tecnologia'))
+            ->with('conjunta', $this->infra->getAllCasaAtuacao('SENAI', 'Atuação Conjunta'));
     }
 }

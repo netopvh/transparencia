@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('scripts-after')
-    <script type="text/javascript" src="{{ asset('backend/assets/js/modules/integridade.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/assets/js/modules/orcamento.js') }}"></script>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
             <div class="col-lg-7">
                 <div class="panel panel-flat">
                     <div class="panel-heading">
-                        <h5 class="panel-title">Editar Integridade</h5>
+                        <h5 class="panel-title">Editar Execução e Orçamento</h5>
 
                         <div class="heading-elements">
                             <ul class="icons-list">
@@ -22,10 +22,10 @@
                     </div>
 
                     <div class="panel-body">
-                        <form action="{{ route('admin.integridade.update',['id' => $integridade->id]) }}" id="formCreate" class="form-validate" method="post"
+                        <form action="{{ route('admin.orcamento.update',['id' => $orcamento->id]) }}" id="form" class="form-validate" method="post"
                               autocomplete="off" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                            {{ method_field('PATCH') }}
+                        {{ method_field('PATCH') }}
                         <!-- Inicio do Form -->
                             <div class="row">
                                 <div class="col-xs-3">
@@ -34,7 +34,7 @@
                                         <select name="casa_id" class="form-control" required autofocus>
                                             <option value="">Selecione</option>
                                             @foreach($casas as $casa)
-                                                <option value="{{ $casa->id }}"{{ $integridade->casa_id==$casa->id?" selected":"" }}>{{ $casa->name }}</option>
+                                                <option value="{{ $casa->id }}"{{ $orcamento->casa_id==$casa->id?" selected":"" }}>{{ $casa->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -44,7 +44,7 @@
                                         <label>Ano:</label>
                                         <select name="year" class="form-control" required>
                                             @for($i=2014;$i <= 2025;$i++)
-                                                <option value="{{ $i }}"{{ $integridade->year==$i?" selected":"" }}>{{ $i }}</option>
+                                                <option value="{{ $i }}"{{ $orcamento->year==$i?" selected":"" }}>{{ $i }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -55,7 +55,7 @@
                                         <select name="type" class="form-control" required>
                                             <option value="">Selecione</option>
                                             @foreach($tipos as $key => $value)
-                                                <option value="{{ $key }}"{{ $integridade->type==$key?" selected":"" }}>{{ $value }}</option>
+                                                <option value="{{ $key }}"{{ $orcamento->type==$key?" selected":"" }}>{{ $value }}</option>
                                             @endforeach
                                         </select>
                                     </div>

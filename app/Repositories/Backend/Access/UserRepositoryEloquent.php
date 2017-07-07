@@ -8,6 +8,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Access\Contracts\UserRepository;
 use App\Models\Access\User;
 use Prettus\Validator\Contracts\ValidatorInterface;
+use Illuminate\Support\Facades\Hash;
 //use App\Validators\Access\UserValidator;
 
 /**
@@ -53,8 +54,8 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
             $this->validator->with($attributes)->passesOrFail(ValidatorInterface::RULE_CREATE);
         }
-        if ($this->verifyUser($attributes) > 1){
-            throw new GeneralException('Usuário '. $attributes['username'].' já Cadastrado no Sistema');
+        if (count($this->verifyUser($attributes)) >= 1){
+            throw new GeneralException('Email '. $attributes['email'].' já Cadastrado no Sistema');
         }
 
         $this->model->name = ucfirst($attributes['name']);
@@ -65,6 +66,8 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         if ($this->model->save()){
 
             $this->model->attachRole($attributes['role']);
+
+            //$this->model->
 
             return true;
         }else{
@@ -147,9 +150,27 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             ->where('name',$attributes['name'])
             ->orWhere('username',$attributes['username'])
             ->orWhere('email',$attributes['email'])
-            ->count();
+            ->get();
 
         return $user;
 
+    }
+
+    public function changePassword($attributes)
+    {
+
+        $model = $this->model->find(auth()->user()->id);
+
+        if(! Hash::check($attributes['actual'],$model->password)) {
+            throw new GeneralException('A senha digitada não corresponde com a senha atual');
+        }else{
+            $model->password = bcrypt($attributes['password']);
+
+            if ($model->save()){
+                return true;
+            }else{
+                throw new GeneralException('Ocorreu um erro ao alterar a senha');
+            }
+        }
     }
 }

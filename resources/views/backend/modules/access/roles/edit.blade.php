@@ -42,12 +42,12 @@
                                     <div class="form-group">
                                         <label>Permissões</label>
                                         <select name="associated-permissions" class="form-control">
-                                            <option value="all" {{ $role->all == true ? 'selected':'' }}>Todas</option>
-                                            <option value="custom" {{ $role->all == false ? 'selected':'' }}>
+                                            <option value="">Selecione</option>
+                                            <option value="custom" selected>
                                                 Personalizado
                                             </option>
                                         </select>
-                                        <div id="available-permissions" class="{{ $role->all == false ? '':'hidden' }} mt-20">
+                                        <div id="available-permissions" class="mt-20">
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     @if($permissions->count())

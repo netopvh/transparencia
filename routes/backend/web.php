@@ -24,10 +24,12 @@ Route::group(['namespace' => 'Access'], function () {
     });
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UserController@index')->name('admin.users.index');
+        Route::get('/change', 'UserController@viewChangePassword')->name('admin.users.password');
         Route::get('/create', 'UserController@create')->name('admin.users.create');
         Route::post('/create', 'UserController@store')->name('admin.users.store');
         Route::get('/{id}/edit', 'UserController@edit')->name('admin.users.edit');
         Route::patch('/{id}/update', 'UserController@update')->name('admin.users.update');
+        Route::post('/change','UserController@changePassword');
     });
     Route::get('logs', 'LogViewController@index')->name('admin.logs.index');
 });
@@ -88,6 +90,8 @@ Route::group(['namespace' => 'Application'], function(){
     Route::group(['prefix' => 'orcamentos'], function(){
         Route::get('/','OrcamentoController@index')->name('admin.orcamento.index');
         Route::post('/','OrcamentoController@store')->name('admin.orcamento.store');
+        Route::get('/{id}','OrcamentoController@edit')->name('admin.orcamento.edit');
+        Route::patch('/{id}','OrcamentoController@update')->name('admin.orcamento.update');
         Route::delete('/{id}','OrcamentoController@delete')->name('admin.orcamento.delete');
     });
 
@@ -106,6 +110,17 @@ Route::group(['namespace' => 'Application'], function(){
         Route::get('/{id}','IntegridadeController@edit')->name('admin.integridade.edit');
         Route::patch('/{id}','IntegridadeController@update')->name('admin.integridade.update');
         Route::delete('/{id}','IntegridadeController@delete')->name('admin.integridade.delete');
+        Route::post('/publish/{id}','IntegridadeController@publish')->name('admin.integridade.publish');
+        Route::post('/unpublish/{id}','IntegridadeController@unpublish')->name('admin.integridade.unpublish');
+    });
+
+    Route::group(['prefix' => 'infraestrutura'], function(){
+        Route::get('/','InfraestruturaController@index')->name('admin.infra.index');
+        Route::get('/import','InfraestruturaController@viewImport')->name('admin.infra.import');
+        Route::get('/{id}','InfraestruturaController@edit')->name('admin.infra.edit');
+        Route::patch('/{id}','InfraestruturaController@update')->name('admin.infra.update');
+        Route::delete('/{id}','InfraestruturaController@delete')->name('admin.infra.delete');
+        Route::post('/import','InfraestruturaController@postImport');
     });
 
     Route::group(['prefix' => 'faq'], function (){

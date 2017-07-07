@@ -1,183 +1,102 @@
-/** Busca com autocomplete 8
- *
- */
-var autocomplete = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.whitespace,
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-        url: '/busca/autocomplete?q=%QUERY',
-        wildcard: '%QUERY'
+function getUrl() {
+    var newURL = window.location.protocol + "//" + window.location.host;
+    var pathArray = window.location.pathname.split( '/' );
+
+    if(pathArray.length > 1){
+        result = newURL+'/'+pathArray[1]+'/'+pathArray[2]+'/';
+    }else{
+        result = newURL;
     }
-});
+    return result;
+}
 
-var template = '<ul class="bar-autocomplete" style="display:none">' +
-    '@{{#suggestions}}<li class="casa-color-bg"><a href="/busca/?q=@{{.}}"><strong>@{{.}}</strong></a></li>@{{/suggestions}} ' +
-    '<li class="casa-color-bg-dark text-right"><a href="/busca/"><strong>+ Mais resultados</strong></a></li>' +
-    '</ul>';
-Mustache.parse(template);
+$(function () {
 
-var elBuscaInput = $('input[placeholder="BUSCA"]');
-elBuscaInput.typeahead(null, {
-    name: 'busca',
-    source: autocomplete,
-    templates: {
-        empty: "",
-        suggestion: function (context) {
-            var html = Mustache.render(template, {'suggestions': context});
-            console.log(context);
-            console.log(html);
-            return html;
-        }
-    }
-});
-elBuscaInput.bind('keyup', function (event) {
-    if ($(this).val() === "")
-        $('form.top-search ul.bar-autocomplete').remove();
-});
-elBuscaInput.bind('typeahead:render', function (event, datum) {
-    if (typeof datum !== "undefined" && datum.length > 0) {
-        $('form.top-search >  ul.bar-autocomplete, .mobile-menu form > ul.bar-autocomplete').remove();
-        $('div.tt-menu ul.bar-autocomplete').insertAfter('form.top-search label.col-md-10, .mobile-menu .search-input');
-        $('ul.bar-autocomplete li:odd').addClass('casa-color-bg-dark');
-        $('ul.bar-autocomplete').show();
-    } else {
-        $('ul.bar-autocomplete').remove();
-    }
-});
+    var url = getUrl();
 
-/*
-*
-* Estados e Cidades
-*
-* */
+    //Mask Telefone
+    $("#telefone").inputmask({"mask": "(99) 99999-9999"});
 
-$(".estados-json").jsonCidadesEstados({
-    titleName: 'Selecione o estado',
-    typeName: 'sigla',
-    urlJson: 'https://static-cms-si.s3.amazonaws.com/js/estados_cidades.json'
-});
-
-var areas = [{"id": "BR-AC"},
-    {"id": "BR-AL"},
-    {"id": "BR-AM"},
-    {"id": "BR-AP"},
-    {"id": "BR-BA"},
-    {"id": "BR-CE"},
-    {"id": "BR-DF"},
-    {"id": "BR-ES"},
-    {"id": "BR-GO"},
-    {"id": "BR-MA"},
-    {"id": "BR-MG"},
-    {"id": "BR-MS"},
-    {"id": "BR-MT"},
-    {"id": "BR-PA"},
-    {"id": "BR-PB"},
-    {"id": "BR-PE"},
-    {"id": "BR-PI"},
-    {"id": "BR-PR"},
-    {"id": "BR-RJ"},
-    {"id": "BR-RN"},
-    {"id": "BR-RO"},
-    {"id": "BR-RR"},
-    {"id": "BR-RS"},
-    {"id": "BR-SC"},
-    {"id": "BR-SE"},
-    {"id": "BR-SP"},
-    {"id": "BR-TO"}];
-
-
-setTimeout(function () {
-
-    $('.estados-json').on('change', function () {
-        var elSelected = $('.estados-json option:selected').val(),
-            elSelectedId = "BR-" + elSelected;
-
-        map.clickMapObject(map.getObjectById(elSelectedId));
+    //Cidades
+    $('select[name=estado]').change(function () {
+        var idEstado = $(this).val();
+        $.get(url + 'cidades/' + idEstado, function (cidades) {
+            $('select[name=cidade]').empty();
+            $.each(cidades, function (key, value) {
+                $('select[name=cidade]').append('<option value=' + value.name + '>' + value.name + '</option>');
+            });
+        });
     });
 
-});
+    $('.modal-link').on("click", function () {
+        $("#mdIntegracao_body").html("Carregando...");
+        $("#modal_titulo").html($(this).data().titulo);
 
-var showBoxInfo = function (elSelected) {
-    var el = $('.box-info > div[area-sigla="' + elSelected + '"]'),
-        elHide = $('.box-info > div[area-sigla="' + elSelected + '"]:hidden'),
-        elVisible = $('.box-info > div:visible');
+        console.log(url);
 
-    if (elHide) {
-        elVisible.hide();
-        el.fadeIn();
-    }
 
-};
-
-var map = AmCharts.makeChart("chartdiv", {
-    "type": "map",
-    "listeners": [{
-        "event": "clickMapObject",
-        "method": function (event) {
-
-            var elSelected = event['mapObject']['groupId'].split('-')[1];
-
-            $('.estados-json option[value="' + elSelected + '"]').prop('selected', 'selected');
-
-            showBoxInfo(elSelected);
-
-            //GTM
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({'event': 'mapa-contato', 'eventLabel': elSelected});
-
+        if($(this).data().tipo === 1){
+            $.get(url + "categorias/"+ $(this).data().casa +"/" +$(this).data().id, function (data) {
+                $("#mdIntegracao_body").html(data);
+                $('#mdIntegracao').modal("show");
+            });
+        }else if($(this).data().tipo === 2){
+            $.get(url + "atuacao/"+ $(this).data().casa +"/" + $(this).data().titulo +"/" +$(this).data().id, function (data) {
+                $("#mdIntegracao_body").html(data);
+                $('#mdIntegracao').modal("show");
+            });
         }
-    }],
-    "dataProvider": {
-        "map": "brazilLow",
-        "areas": areas
-    },
-    "zoomOnDoubleClick": false,
-    "areasSettings": {
-        "autoZoom": false,
-        "selectable": true,
-        "color": "#cecece",
-        "selectedColor": "#b6b6b6",
-        "rollOverColor": "#b6b6b6",
-        "rollOverOutlineColor": "#ffffff"
-    },
-    "dragMap": false,
-    "zoomControl": {
-        "zoomControlEnabled": false,
-        "homeButtonEnabled": false
-    },
-    "imagesSettings": {
-        "labelPosition": "middle",
-        "labelFontSize": 14,
-        "labelRollOverColor": "#000000"
-    }
-});
+    });
 
-map.addListener("init", function () {
-    // set up a longitude exceptions for certain areas
-    var longitude = {};
+    //Validation
+    var validator = $(".form-validate").validate({
+        ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+        highlight: function (element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function (element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
 
-    var latitude = {
-        "BR-BA": -11.9,
-        "BR-PI": -7.9,
-        "BR-PA": -4.9,
-        "BR-SC": -26.9
-    };
+        // Different components require proper error label placement
+        errorPlacement: function (error, element) {
 
-    setTimeout(function () {
-        // iterate through areas and put a label over center of each
-        map.dataProvider.images = [];
-        for (x in map.dataProvider.areas) {
-            var area = map.dataProvider.areas[ x ];
-            area.groupId = area.id;
-            var image = new AmCharts.MapImage();
-            image.latitude = latitude[ area.id ] || map.getAreaCenterLatitude(area);
-            image.longitude = longitude[ area.id ] || map.getAreaCenterLongitude(area);
-            image.label = area.id.split('-').pop();
-            image.title = area.title;
-            image.linkToObject = area;
-            image.groupId = area.id;
-            map.dataProvider.images.push(image);
-        }
-        map.validateData();
-    }, 100)
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container')) {
+                if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo(element.parent().parent().parent().parent());
+                }
+                else {
+                    error.appendTo(element.parent().parent().parent().parent().parent());
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo(element.parent().parent().parent());
+            }
+
+            // Input with icons and Select2
+            else if (element.parents('div').hasClass('has-feedback') || element.hasClass('select2-hidden-accessible')) {
+                error.appendTo(element.parent());
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo(element.parent().parent());
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo(element.parent().parent());
+            }
+
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label"
+    });
 });

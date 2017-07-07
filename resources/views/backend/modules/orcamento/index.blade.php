@@ -54,7 +54,7 @@
                                                 <td>{{ $conta->id }}</td>
                                                 <td>{{ $tipos[$conta->type] }}</td>
                                                 <td>{{ $conta->year }}</td>
-                                                <td class="text-center"><a href="{{ url('files/orcamento/'.$conta->file) }}"
+                                                <td class="text-center"><a href="{{ url('files/'.$conta->file) }}"
                                                                            target="_blank"><i class="icon-search4"></i></a>
                                                 </td>
                                                 <td>
@@ -65,7 +65,7 @@
                                                             </a>
 
                                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                                <li><a href="{{ route('admin.contabil.edit', ['id' => $conta->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
+                                                                <li><a href="{{ route('admin.orcamento.edit', ['id' => $conta->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
                                                                 <li>
                                                                     <form action="{{ route('admin.orcamento.delete', ['id' => $conta->id]) }}" method="post">
                                                                         {{ csrf_field() }}
@@ -106,7 +106,7 @@
                                                 <td>{{ $conta->id }}</td>
                                                 <td>{{ $tipos[$conta->type] }}</td>
                                                 <td>{{ $conta->year }}</td>
-                                                <td class="text-center"><a href="{{ url('files/orcamento/'.$conta->file) }}"
+                                                <td class="text-center"><a href="{{ url('files/'.$conta->file) }}"
                                                                            target="_blank"><i class="icon-search4"></i></a>
                                                 </td>
                                                 <td>
@@ -117,7 +117,7 @@
                                                             </a>
 
                                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                                <li><a href="{{ route('admin.contabil.edit', ['id' => $conta->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
+                                                                <li><a href="{{ route('admin.orcamento.edit', ['id' => $conta->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
                                                                 <li>
                                                                     <form action="{{ route('admin.orcamento.delete', ['id' => $conta->id]) }}" method="post">
                                                                         {{ csrf_field() }}
@@ -158,7 +158,7 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form action="{{ route('admin.orcamento.store') }}" method="post" class="form-validate">
+                        <form action="{{ route('admin.orcamento.store') }}" id="form" method="post" class="form-validate" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-xs-6">
@@ -197,19 +197,19 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="form-group">
-                                        <label>Arquivo:</label>
-                                        <select name="file" class="select2" required>
-                                            <option value="">Selecione</option>
-                                            @foreach($files as $file)
-                                                <option value="{{ $file }}">{{ $file }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>Arquivo: </label>  <span class="text-size-mini text-danger">* Atenção! Permitido apenas envio de Arquivos em Formato PDF.</span>
+                                        <input type="file" name="files" class="file-styled" required>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row" id="loader">
+                                <div class="col-xs-4">
+                                    <span><i class="icon-spinner spinner position-left"></i> Enviando arquivo..</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-5">
-                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                    <button type="submit" id="button" class="btn btn-primary">Cadastrar</button>
                                 </div>
                             </div>
                         </form>

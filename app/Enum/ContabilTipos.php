@@ -14,11 +14,11 @@ use Greg0ire\Enum\AbstractEnum;
 class ContabilTipos extends AbstractEnum
 {
 
-    const P = "Balanço Patrimonial";
-    const O = "Balanço Orçamentário";
-    const F = "Balanço Financeiro";
-    const V = "Demonstração das Variações Patrimoniais";
-    const C = "Demonstração de Fluxo de Caixa";
-    const E = "Notas Explicativas";
+    const A = "Balanço Patrimonial";
+    const B = "Balanço Orçamentário";
+    const C = "Balanço Financeiro";
+    const D = "Demonstração das Variações Patrimoniais";
+    const E = "Demonstração de Fluxo de Caixa";
+    const F = "Notas Explicativas";
 
 }

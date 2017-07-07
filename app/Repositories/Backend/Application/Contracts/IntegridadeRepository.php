@@ -11,6 +11,9 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface IntegridadeRepository extends RepositoryInterface
 {
 
-    public function getAll($casa);
+    public function getAll();
+    public function getAllCasa($casa);
+    public function publish($id);
+    public function unpublish($id);
 
 }

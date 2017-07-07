@@ -60,47 +60,39 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 
             $this->validator->with($attributes)->passesOrFail(ValidatorInterface::RULE_CREATE);
         }
-        if ($this->model->query()->where('name', $attributes['name'])->first()){
+        if ($this->model->query()->where('name', $attributes['name'])->first()) {
             throw new GeneralException('Registro já cadastrado no sistema!');
         }
-        //Verifica se possui permissões de acesso total
-        $all = $attributes['associated-permissions'] == 'all' ? true : false;
 
-        if (! isset($attributes['permissions'])){
+        if (!isset($attributes['permissions'])) {
             $attributes['permissions'] = [];
         }
 
         //Essa verificação só é requirida se o all for falso.
-        if(! $all){
-            if (count($attributes['permissions']) == 0){
-                throw new GeneralException('É obrigatório inserir permissões');
-            }
+        if (count($attributes['permissions']) == 0) {
+            throw new GeneralException('É obrigatório inserir permissões');
         }
 
         $this->model->name = $attributes['name'];
-        $this->model->sort = isset($attributes['sort']) && strlen($attributes['sort']) > 0 && is_numeric($attributes['sort']) ? (int) $attributes['sort'] : 0;
+        $this->model->sort = isset($attributes['sort']) && strlen($attributes['sort']) > 0 && is_numeric($attributes['sort']) ? (int)$attributes['sort'] : 0;
 
-        //Veja se esta função tem todas as permissões e defina o sinalizador na função
-        $this->model->all = $all;
 
-        if ($this->model->save()){
-            if (! $all){
-                $permissions = [];
+        if ($this->model->save()) {
 
-                if (is_array($attributes['permissions']) && count($attributes['permissions'])){
-                    foreach ($attributes['permissions'] as $perm){
-                        if (is_numeric($perm)){
-                            array_push($permissions, $perm);
-                        }
+            $permissions = [];
+
+            if (is_array($attributes['permissions']) && count($attributes['permissions'])) {
+                foreach ($attributes['permissions'] as $perm) {
+                    if (is_numeric($perm)) {
+                        array_push($permissions, $perm);
                     }
-                    $this->model->attachPermissions($permissions);
                 }
-
+                $this->model->attachPermissions($permissions);
             }
 
             return true;
 
-        }else{
+        } else {
             throw new GeneralException('Erro ao gravar registro no banco');
         }
     }
@@ -117,52 +109,36 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
     {
         $role = $this->model->find($id);
 
-        //verifica se o perfil tem acesso, o administrador sempre tem acesso
-        if ($role->id == 1){
-            $all = true;
-        }else{
-            $all = $attributes['associated-permissions'] == 'all' ? true : false;
-        }
 
-        if (! isset($attributes['permissions'])){
+        if (!isset($attributes['permissions'])) {
             $attributes['permissions'] = [];
         }
 
-        // Esta configuração só é necessária se tudo for falso
-        if (! $all){
-            //Verifica se a perfil possui alguma permissão, que é obrigatória
-            if (count($attributes['permissions']) == 0){
-                throw new GeneralException('É obrigatório inserir permissões');
-            }
+        if (count($attributes['permissions']) == 0) {
+            throw new GeneralException('É obrigatório inserir permissões');
         }
+
         $role->name = $attributes['name'];
-        $role->sort = isset($attributes['sort']) && strlen($attributes['sort']) > 0 && is_numeric($attributes['sort']) ? (int) $attributes['sort'] : 0;
+        $role->sort = isset($attributes['sort']) && strlen($attributes['sort']) > 0 && is_numeric($attributes['sort']) ? (int)$attributes['sort'] : 0;
 
-        //Atribui caso seja administrador true ou false
-        $role->all = $all;
 
-        if ($role->save()){
-            //Se a perfil tem o acesso desanexar todas as permissões porque elas não são necessárias
-            if ($all){
-                $role->perms()->sync([]);
-            }else{
-                //Remove todas as permissões
-                $role->perms()->sync([]);
+        if ($role->save()) {
+            //Remove todas as permissões
+            $role->perms()->sync([]);
 
-                //atribui permissões se o perfil não tiver todos os direitos de acesso
-                $permissions = [];
+            //atribui permissões se o perfil não tiver todos os direitos de acesso
+            $permissions = [];
 
-                if (is_array($attributes['permissions']) && count($attributes['permissions'])){
-                    foreach ($attributes['permissions'] as $perm) {
-                        if (is_numeric($perm)){
-                            array_push($permissions, $perm);
-                        }
+            if (is_array($attributes['permissions']) && count($attributes['permissions'])) {
+                foreach ($attributes['permissions'] as $perm) {
+                    if (is_numeric($perm)) {
+                        array_push($permissions, $perm);
                     }
                 }
-                $role->attachPermissions($permissions);
             }
+            $role->attachPermissions($permissions);
             return true;
-        }else{
+        } else {
             throw new GeneralException('Erro ao gravar registro no banco');
         }
     }

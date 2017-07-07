@@ -17,44 +17,6 @@
         <p class="navbar-text"><span class="label bg-success">Online</span></p>
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-bubbles4"></i>
-                    <span class="visible-xs-inline-block position-right">Notificações</span>
-                    <span class="badge bg-warning-400">1</span>
-                </a>
-
-                <div class="dropdown-menu dropdown-content width-350">
-                    <div class="dropdown-content-heading">
-                        Notificações
-                        <ul class="icons-list">
-                            <li><a href="#"><i class="icon-compose"></i></a></li>
-                        </ul>
-                    </div>
-
-                    <ul class="media-list dropdown-content-body">
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="{{ asset('backend/assets/images/placeholder.jpg') }}" class="img-circle img-sm" alt="">
-                                <span class="badge bg-danger-400 media-badge">4</span>
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#" class="media-heading">
-                                    <span class="text-semibold">Novo ADV</span>
-                                    <span class="media-annotation pull-right">12:16</span>
-                                </a>
-
-                                <span class="text-muted">That was something he was unable to do because...</span>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <div class="dropdown-content-footer">
-                        <a href="#" data-popup="tooltip" title="Todas as Notificações"><i class="icon-menu display-block"></i></a>
-                    </div>
-                </div>
-            </li>
 
             <li class="dropdown dropdown-user">
                 <a class="dropdown-toggle" data-toggle="dropdown">
@@ -64,13 +26,10 @@
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-                    <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
-                    <li><a href="#"><span class="badge bg-teal-400 pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
+
+                    <li><a href="{{ route('admin.users.password') }}"><i class="icon-cog5"></i> Alterar Senha</a></li>
                     <li><a href="{{ url('logout') }}" onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> Logout</a>
+                                 document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> Sair do Portal</a>
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
