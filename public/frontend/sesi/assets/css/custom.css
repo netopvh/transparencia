@@ -209,3 +209,6 @@ CUSTOM TABLE
 .table-section .table-custom tbody tr.no-background td {
     background-color: #ffffff;
 }
+#table-contracts tr td:hover{
+    cursor: pointer;
+}

@@ -15,7 +15,7 @@
         <a href="http://licitacao.fiero.org.br" target="_blank" style="text-transform: uppercase;">licitações e editais</a>
     </li>
     <li>
-        <a href="#" target="_blank" style="text-transform: uppercase;">contratos e convênios</a>
+        <a href="{{ route('senai.convenio') }}" target="_self" style="text-transform: uppercase;">contratos e convênios</a>
     </li>
     <li>
         <a href="{{ route('senai.gratuidade') }}" target="_self" style="text-transform: uppercase;">gratuidade</a>

@@ -12,6 +12,129 @@ function getUrl() {
 
 $(function () {
 
+    //TESTE
+
+    var casa_code = 2;
+    var id_contrato = 0;
+
+    var domain = 'http://portalh4.sistemaindustria.org.br:9080/api-basi/v1';
+
+    $(document).ready(function () {
+        if (casa_code) {
+            var url = domain + '/entidades/' + casa_code + '/departamentos/';
+            $.ajax({
+                url: url,
+                crossDomain: true,
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        department_code = response[i].sigla;
+                        if (department_code === 'SESI-RO' || department_code === 'SENAI-RO') {
+                            $.ajax({
+                                url: domain + '/transparencia/entidades/' + casa_code + '/departamentos/' + department_code + '/contratos',
+                                crossDomain: true,
+                                method: 'GET',
+                                dataType: 'json',
+                                success: function (response) {
+                                    contracts = [];
+                                    for (var ii = 0; ii < response.length; ii++) {
+                                        id_contrato++;
+                                        response[ii].idContrato = id_contrato;
+                                        contracts.push(response[ii]);
+                                    }
+                                    $.each(contracts, function (name, value) {
+                                        //console.log(value.numeroContrato)
+                                        table = '<tr data-cnpj="' + value.cnpj + '" data-modalidade="' + value.modalidade + '" ';
+                                        table += 'data-rateio="' + value.detalheRateio + '" data-avenca="' + value.dataContrato + '" ';
+                                        table += 'data-id-contract="' + value.idContrato + '" data-number-contract="' + value.numeroContrato + '" ';
+                                        table += 'data-categoria="'+value.categoriaObjeto+'" data-razao="'+ value.razaoSocial+'" data-vigencia="'+value.vigencia+'" ';
+                                        table += 'data-valor="'+value.valor+'" data-processo="'+value.numeroProcesso+'">';
+                                        table += '<td>' + value.numeroContrato + '</td>';
+                                        table += '<td>' + value.dataContrato + '</td>';
+                                        table += '<td>' + value.razaoSocial + '</td>';
+                                        table += '<td>' + value.cnpj + '</td>';
+                                        table += '<td>' + value.valor + '</td>';
+                                        table += '<td>+</td>';
+                                        table += '</tr>';
+                                        $('#table-contracts tbody').append(table);
+                                    });
+                                    //var template_index_rendered = Mustache.render(template_index, data);
+                                    //var template_details_rendered = Mustache.render(template_details, data);
+                                    //$('#table-453811-contracts tbody').append(template_index_rendered);
+                                    //$('#contracts-data').append(template_details_rendered);
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+
+    $('#table-contracts').on('click', '[data-id-contract]', function () {
+        contract_number = $(this).attr('data-number-contract');
+        avenca = $(this).attr('data-avenca');
+        rateio = $(this).attr('data-rateio');
+        modalidade = $(this).attr('data-modalidade');
+        categoria = $(this).attr('data-categoria');
+        cnpj = $(this).attr('data-cnpj');
+        razao = $(this).attr('data-razao');
+        vigencia = $(this).attr('data-vigencia');
+        valor = $(this).attr('data-valor');
+        processo = $(this).attr('data-processo');
+        //contract_data = $('#table-contract-' + contract_id);
+        table_modal = '<table width="100%">';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>Data do Contrato / Avença:</b></td>';
+        table_modal += '<td align="right">' + avenca + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>Rateio:</b></td>';
+        table_modal += '<td align="right">' + rateio + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>Modalidade:</b></td>';
+        table_modal += '<td align="right">' + modalidade + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>Categoria:</b></td>';
+        table_modal += '<td align="right">' + categoria + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>CNPJ:</b></td>';
+        table_modal += '<td align="right">' + cnpj + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>Razão Social:</b></td>';
+        table_modal += '<td align="right">' + razao + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>Vigência:</b></td>';
+        table_modal += '<td align="right">' + vigencia + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>Valor:</b></td>';
+        table_modal += '<td align="right">' + valor + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '<tr>';
+        table_modal += '<td width="50%"><b>Processo:</b></td>';
+        table_modal += '<td align="right">' + processo + '</td>';
+        table_modal += '</tr>';
+        table_modal += '<tr>';
+        table_modal += '</table>';
+        $('.modal-title').html('Contrato Nº ' + contract_number);
+        $('#modal-contrato .modal-body').html(table_modal);
+        $('#modal-contrato').modal();
+    });
+
+
     var url = getUrl();
 
     //Mask Telefone

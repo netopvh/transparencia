@@ -14,7 +14,9 @@
     Assunto: {{ $assunto }}
     Categoria: {{ $categoria }}
     Mensagem:
+@component('mail::panel')
     {{ $mensagem }}
+@endcomponent
 
 @component('mail::button', ['url' => 'http://transparencia.fiero.org.br/admin'])
         Acessar Portal

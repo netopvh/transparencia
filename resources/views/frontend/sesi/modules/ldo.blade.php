@@ -20,7 +20,7 @@
         <p>• <a href="{{ route('sesi.execucao') }}">Execução Orçamentária {{ date('Y') }}</a></p>
 
         @if($orc_atual)
-            <p>• <a href="{{ url('/files/orcamento/'.$orc_atual->file) }}"
+            <p>• <a href="{{ url('/files/'.$orc_atual->file) }}"
                     target="_blank">{{ $tipos[$orc_atual->type] }} {{ $orc_atual->year }}</a></p>
         @else
             <p>• <a href="#" target="_blank">Orçamento Aprovado {{ date('Y') }}</a></p>
@@ -40,7 +40,7 @@
             <p style="margin-left: 40px;"><b>• Sem registros a serem exibidos</b></p>
         @else
             @foreach($years as $year)
-                <p style="margin-left: 40px;">• <a href="{{ url('/files/orcamento/'.$year->file) }}"
+                <p style="margin-left: 40px;">• <a href="{{ url('/files/'.$year->file) }}"
                                                    target="_blank">{{ $tipos[$year->type] }} do Departam
                         ento
                         Regional {{ $year->year }}</a></p>

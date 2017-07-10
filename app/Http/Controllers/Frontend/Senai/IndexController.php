@@ -16,6 +16,7 @@ use App\Repositories\Backend\Application\Contracts\FaqRepository;
 use App\Repositories\Backend\Application\Contracts\ContabilRepository;
 use App\Repositories\Backend\Application\Contracts\IntegridadeRepository;
 use App\Repositories\Backend\Application\Contracts\InfraestruturaRepository;
+use App\Repositories\Backend\Application\Contracts\ConvenioRepository;
 use App\Enum\ContabilTipos;
 use App\Enum\OrcamentoTipos;
 use Illuminate\Http\Request;
@@ -81,6 +82,11 @@ class IndexController extends Controller
     private $infra;
 
     /**
+     * @var $convenio
+     */
+    private $convenio;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -95,7 +101,8 @@ class IndexController extends Controller
         ContabilRepository $contabilRepository,
         OrcamentoRepository $orcamentoRepository,
         IntegridadeRepository $integridadeRepository,
-        InfraestruturaRepository $infraestruturaRepository
+        InfraestruturaRepository $infraestruturaRepository,
+        ConvenioRepository $convenioRepository
     )
     {
         $this->pagina = $paginaRepository;
@@ -108,6 +115,7 @@ class IndexController extends Controller
         $this->orcamento = $orcamentoRepository;
         $this->integridade = $integridadeRepository;
         $this->infra = $infraestruturaRepository;
+        $this->convenio = $convenioRepository;
     }
 
     /**
@@ -250,5 +258,11 @@ class IndexController extends Controller
             ->with('tecnologia', $this->infra->getAllCasaAtuacao('SENAI', 'Instituto de Tecnologia'))
             ->with('faculdade', $this->infra->getAllCasaAtuacao('SENAI', 'Faculdade de Tecnologia'))
             ->with('conjunta', $this->infra->getAllCasaAtuacao('SENAI', 'Atuação Conjunta'));
+    }
+
+    public function getConvenios()
+    {
+        return view('frontend.senai.modules.convenios')
+            ->with('convenios',$this->convenio->findWhere(['casa_id' => getCasaId('SENAI')]));
     }
 }

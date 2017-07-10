@@ -29,16 +29,16 @@
                             <span>Início</span></a></li>
                     <li class="{{ isUrlActive('admin/files') }}"><a href="{{ route('admin.arquivos.index') }}"><i
                                     class="icon-file-spreadsheet"></i> <span>Gerenciador de Arquivos</span></a></li>
-                    <li class="{{ arUrlActive(['organization','paginas','remunera','dirigentes','tecnicos','orcamentos','contabil','faq','integridade','infraestrutura']) }}">
+                    <li class="{{ arUrlActive(['organization','paginas','remunera','dirigentes','tecnicos','orcamentos','contabil','faq','integridade','infraestrutura','convenio']) }}">
                         <a href="#" class="has-ul"><i class="icon-stack"></i> <span>Conteúdo</span></a>
-                        <ul class="{{ boolReturn(['organization','paginas','remunera','dirigentes','tecnicos','orcamentos','contabil','faq','integridade','infraestrutura']) ? '':'hidden-ul' }}">
+                        <ul class="{{ boolReturn(['organization','paginas','remunera','dirigentes','tecnicos','orcamentos','contabil','faq','integridade','infraestrutura','convenio']) ? '':'hidden-ul' }}">
                             <li class="{{ isUrlActive('admin/organization') }}"><a
                                         href="{{ route('admin.casas.index') }}"><i class="icon-office"></i> Casas</a>
                             </li>
-                            <li class="{{ arUrlActive(['remunera','dirigentes','tecnicos','orcamentos','contabil','faq','integridade','infraestrutura']) }}">
+                            <li class="{{ arUrlActive(['remunera','dirigentes','tecnicos','orcamentos','contabil','faq','integridade','infraestrutura','convenio']) }}">
                                 <a href="#"><i
                                             class="icon-printer4"></i>Páginas</a>
-                                <ul class="{{ boolReturn(['remunera','dirigentes','tecnicos','orcamentos','contabil','faq','integridade','infraestrutura']) ? '':'hidden-ul' }}">
+                                <ul class="{{ boolReturn(['remunera','dirigentes','tecnicos','orcamentos','contabil','faq','integridade','infraestrutura','convenio']) ? '':'hidden-ul' }}">
                                     @if(Entrust::can('manage-orc'))
                                         <li class="{{ isUrlActive('admin/orcamentos') }}"><a
                                                     href="{{ route('admin.orcamento.index') }}"><i
@@ -69,6 +69,10 @@
                                                         class="icon-book3"></i>Integridade</a>
                                         </li>
                                     @endif
+                                        <li class="{{ isUrlActive('admin/convenio') }}"><a
+                                                    href="{{ route('admin.convenio.index') }}"><i
+                                                        class="icon-diff-ignored"></i>Contratos e Convenios</a>
+                                        </li>
                                     @if(Entrust::can('manage-infra'))
                                         <li class="{{ isUrlActive('admin/infraestrutura') }}"><a
                                                     href="{{ route('admin.infra.index') }}"><i

@@ -68,6 +68,11 @@ Breadcrumbs::register('sesi.execucao',function($breadcrumbs){
     $breadcrumbs->push('Execução Orçamentária',route('sesi.execucao'));
 });
 
+Breadcrumbs::register('sesi.convenios',function($breadcrumbs){
+    $breadcrumbs->parent('sesi.home');
+    $breadcrumbs->push('Contratos e Convênios',route('sesi.convenio'));
+});
+
 Breadcrumbs::register('sesi.page',function($breadcrumbs,$page){
     $breadcrumbs->parent('sesi.home');
     $breadcrumbs->push($page->title,'');
@@ -140,6 +145,11 @@ Breadcrumbs::register('senai.tecnicos',function($breadcrumbs){
 Breadcrumbs::register('senai.execucao',function($breadcrumbs){
     $breadcrumbs->parent('senai.ldo');
     $breadcrumbs->push('Execução Orçamentária',route('senai.execucao'));
+});
+
+Breadcrumbs::register('senai.convenios',function($breadcrumbs){
+    $breadcrumbs->parent('senai.home');
+    $breadcrumbs->push('Contratos e Convênios',route('senai.convenio'));
 });
 
 Breadcrumbs::register('senai.page',function($breadcrumbs,$page){

@@ -1,0 +1,79 @@
+$(function () {
+    var validator = $(".form-validate").validate({
+        ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo( element.parent().parent().parent().parent() );
+                }
+                else {
+                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo( element.parent().parent().parent() );
+            }
+
+            // Input with icons and Select2
+            else if (element.parents('div').hasClass('has-feedback') || element.hasClass('select2-hidden-accessible')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label"
+
+    });
+
+    $("#cnpj").inputmask({mask: "99.999.999/9999-99"});
+
+    // Single picker
+    $('.daterange').daterangepicker({
+        locale: {
+            format: 'DD/MM/YYYY',
+            daysOfWeek: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex','Sab'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+        },
+        singleDatePicker: true
+    });
+
+    var valor = $('#currency');
+
+    valor.maskMoney();
+
+    $("form").submit(function() {
+        valor.val(valor.maskMoney('unmasked')[0]);
+    });
+
+    var razao = $("input[name='razao']");
+
+    $('.upper').bind('keyup',function (e) {
+        razao.val((razao.val()).toUpperCase());
+    });
+});

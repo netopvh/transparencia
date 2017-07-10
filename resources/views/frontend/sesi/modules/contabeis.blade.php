@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-md-12 menu-estrutura">
                             <p>
-                                <a href="{{ url('/files/contabil/'.$conta->file) }}" target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>{{ $tipos[$conta->type] }};</a>
+                                <a href="{{ url('/files/'.$conta->file) }}" target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>{{ $tipos[$conta->type] }};</a>
                             </p>
                         </div>
                     </div>

@@ -114,6 +114,15 @@ Route::group(['namespace' => 'Application'], function(){
         Route::post('/unpublish/{id}','IntegridadeController@unpublish')->name('admin.integridade.unpublish');
     });
 
+    Route::group(['prefix' => 'convenio'], function(){
+        Route::get('/','ConvenioController@index')->name('admin.convenio.index');
+        Route::get('/create','ConvenioController@create')->name('admin.convenio.create');
+        Route::post('/','ConvenioController@store')->name('admin.convenio.store');
+        Route::get('/{id}','ConvenioController@edit')->name('admin.convenio.edit');
+        Route::patch('/{id}','ConvenioController@update')->name('admin.convenio.update');
+        Route::delete('/{id}','ConvenioController@delete')->name('admin.convenio.delete');
+    });
+
     Route::group(['prefix' => 'infraestrutura'], function(){
         Route::get('/','InfraestruturaController@index')->name('admin.infra.index');
         Route::get('/import','InfraestruturaController@viewImport')->name('admin.infra.import');

@@ -18,6 +18,7 @@ use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
 use App\Repositories\Backend\Application\Contracts\IntegridadeRepository;
 use App\Repositories\Backend\Application\Contracts\InfraestruturaRepository;
+use App\Repositories\Backend\Application\Contracts\ConvenioRepository;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 Use Illuminate\Http\Request;
@@ -81,6 +82,11 @@ class IndexController extends Controller
     private $infra;
 
     /**
+     * @var $convenio
+     */
+    private $convenio;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -95,7 +101,8 @@ class IndexController extends Controller
         ContabilRepository $contabilRepository,
         OrcamentoRepository $orcamentoRepository,
         IntegridadeRepository $integridadeRepository,
-        InfraestruturaRepository $infraestruturaRepository
+        InfraestruturaRepository $infraestruturaRepository,
+        ConvenioRepository $convenioRepository
     )
     {
         $this->pagina = $paginaRepository;
@@ -108,6 +115,7 @@ class IndexController extends Controller
         $this->orcamento = $orcamentoRepository;
         $this->integridade = $integridadeRepository;
         $this->infra = $infraestruturaRepository;
+        $this->convenio = $convenioRepository;
     }
 
     /**
@@ -251,5 +259,11 @@ class IndexController extends Controller
             ->with('trabalho', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Segurança e Saúde no Trabalho'))
             ->with('educacao', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Educação'))
             ->with('conjunta', $this->infra->getAllCasaAtuacao('SESI', 'Atuação Conjunta'));
+    }
+
+    public function getConvenios()
+    {
+        return view('frontend.sesi.modules.convenios')
+            ->with('convenios',$this->convenio->findWhere(['casa_id' => getCasaId('SESI')]));
     }
 }
