@@ -8,6 +8,7 @@ use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\ConvenioRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
+use Zizaco\Entrust\EntrustFacade as Entrust;
 
 class ConvenioController extends Controller
 {
@@ -47,6 +48,10 @@ class ConvenioController extends Controller
      */
     public function index()
     {
+        if (!Entrust::can('manage-convenio')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.convenios.index')
             ->with('convenios',$this->convenio->with('casa')->paginate(8));
     }
@@ -54,6 +59,10 @@ class ConvenioController extends Controller
 
     public function create()
     {
+        if (!Entrust::can('manage-convenio')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.convenios.create')
             ->with('casas',$this->casa->all());
     }
@@ -88,6 +97,11 @@ class ConvenioController extends Controller
      */
     public function edit($id)
     {
+
+        if (!Entrust::can('manage-convenio')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             return view('backend.modules.convenios.edit')
                 ->withConvenio($this->convenio->find($id))
@@ -126,6 +140,10 @@ class ConvenioController extends Controller
      */
     public function delete($id)
     {
+        if (!Entrust::can('manage-convenio')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             $tipo = $this->convenio->find($id)->type;
             if ($this->convenio->delete($id)) {

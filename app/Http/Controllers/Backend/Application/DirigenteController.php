@@ -16,6 +16,7 @@ use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
 use Maatwebsite\Excel\Facades\Excel;
+use Zizaco\Entrust\EntrustFacade as Entrust;
 
 class DirigenteController extends Controller
 {
@@ -50,6 +51,10 @@ class DirigenteController extends Controller
      */
     public function index()
     {
+        if (!Entrust::can('manage-rh')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.dirigentes.index')
             ->withDirigentes($this->dirigente->paginate(5))
             ->withCasas($this->casa->all());
@@ -71,6 +76,10 @@ class DirigenteController extends Controller
 
     public function edit($id)
     {
+        if (!Entrust::can('manage-rh')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             return view('backend.modules.dirigentes.edit')
                 ->withDirigente($this->dirigente->findById($id))
@@ -97,6 +106,10 @@ class DirigenteController extends Controller
 
     public function delete($id)
     {
+        if (!Entrust::can('manage-rh')){
+            return redirect()->route('admin.restrito');
+        }
+
         try{
             $dirigente = $this->dirigente->find($id)->nome;
             if ($this->dirigente->delete($id)) {
@@ -124,6 +137,10 @@ class DirigenteController extends Controller
      */
     public function viewImport()
     {
+        if (!Entrust::can('manage-rh')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.dirigentes.import');
     }
 

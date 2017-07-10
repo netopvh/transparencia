@@ -50,14 +50,15 @@ class DatabaseSeeder extends Seeder
             ['name' => 'manage-integri', 'display_name' => 'Gerenciar Integridade', 'sort' => 7, 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()],
             ['name' => 'manage-infra', 'display_name' => 'Gerenciar Infraestrutura', 'sort' => 8, 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()],
             ['name' => 'manage-rh', 'display_name' => 'Gerenciar Itens RH', 'sort' => 9, 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()],
-            ['name' => 'manage-sac', 'display_name' => 'Gerenciar SAC', 'sort' => 10, 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()]
+            ['name' => 'manage-sac', 'display_name' => 'Gerenciar SAC', 'sort' => 10, 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()],
+            ['name' => 'manage-convenio', 'display_name' => 'Gerenciar Convenios', 'sort' => 11, 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()]
         ];
 
         DB::table('permissions')->insert($permissions);
 
         $super = Role::find(1);
 
-        $super->attachPermissions([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        $super->attachPermissions([1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11]);
 
         $user = User::find(1);
         $user->roles()->attach($super->id);

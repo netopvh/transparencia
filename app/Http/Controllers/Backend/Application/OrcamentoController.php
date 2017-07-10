@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Application;
 
-use App\Enum\Bloco;
 use App\Enum\OrcamentoTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
@@ -11,8 +10,7 @@ use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use App\Repositories\Backend\Application\Contracts\OrcamentoRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
-use App\Enum\Tipos;
-use Illuminate\Support\Facades\Storage;
+use Zizaco\Entrust\EntrustFacade as Entrust;
 
 class OrcamentoController extends Controller
 {
@@ -62,6 +60,10 @@ class OrcamentoController extends Controller
      */
     public function index()
     {
+        if (!Entrust::can('manage-orc')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.orcamento.index')
             ->withTipos(OrcamentoTipos::getConstants())
             ->withCasas($this->casa->all())
@@ -105,6 +107,11 @@ class OrcamentoController extends Controller
     public function edit($id)
     {
         try {
+
+            if (!Entrust::can('manage-orc')){
+                return redirect()->route('admin.restrito');
+            }
+
             return view('backend.modules.orcamento.edit')
                 ->withOrcamento($this->orcamento->find($id))
                 ->withTipos(OrcamentoTipos::getConstants())
@@ -156,6 +163,11 @@ class OrcamentoController extends Controller
     public function delete($id)
     {
         try {
+
+            if (!Entrust::can('manage-orc')){
+                return redirect()->route('admin.restrito');
+            }
+
             $tipo = $this->orcamento->find($id)->type;
             if ($this->orcamento->delete($id)) {
                 Log::write('event', 'Orçamento ' . $this->getTipos()[$tipo] . ' removido por ' . auth()->user()->name);

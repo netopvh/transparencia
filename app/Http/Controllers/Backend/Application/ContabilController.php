@@ -7,10 +7,9 @@ use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\ContabilRepository;
-use App\Repositories\Backend\Application\Contracts\MenuRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
-use Illuminate\Support\Facades\Storage;
+use Zizaco\Entrust\EntrustFacade as Entrust;
 
 class ContabilController extends Controller
 {
@@ -50,6 +49,10 @@ class ContabilController extends Controller
      */
     public function index()
     {
+        if (!Entrust::can('manage-cont')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.contabil.index')
             ->withTipos($this->getTipos())
             ->withCasas($this->casa->all())
@@ -91,6 +94,11 @@ class ContabilController extends Controller
      */
     public function edit($id)
     {
+
+        if (!Entrust::can('manage-cont')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             return view('backend.modules.contabil.edit')
                 ->withConta($this->contabil->find($id))
@@ -142,6 +150,10 @@ class ContabilController extends Controller
      */
     public function delete($id)
     {
+        if (!Entrust::can('manage-cont')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             $conta = $this->contabil->find($id)->type;
             if ($this->contabil->delete($id)) {

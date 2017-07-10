@@ -10,7 +10,7 @@ use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\IntegridadeRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
-use Illuminate\Support\Facades\Storage;
+use Zizaco\Entrust\EntrustFacade as Entrust;
 
 class IntegridadeController extends Controller
 {
@@ -50,7 +50,10 @@ class IntegridadeController extends Controller
      */
     public function index()
     {
-        //dd($this->integridade->getAll());
+        if (!Entrust::can('manage-integri')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.integridade.index')
             ->withTipos(IntegridadeTipos::getConstants())
             ->withDados($this->integridade->getAll());
@@ -58,6 +61,10 @@ class IntegridadeController extends Controller
 
     public function create()
     {
+        if (!Entrust::can('manage-integri')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.integridade.create')
             ->with('casas',$this->casa->all())
             ->with('tipos',IntegridadeTipos::getConstants());
@@ -97,6 +104,10 @@ class IntegridadeController extends Controller
      */
     public function edit($id)
     {
+        if (!Entrust::can('manage-integri')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             return view('backend.modules.integridade.edit')
                 ->withIntegridade($this->integridade->find($id))
@@ -148,6 +159,11 @@ class IntegridadeController extends Controller
     public function delete($id)
     {
         try {
+
+            if (!Entrust::can('manage-integri')){
+                return redirect()->route('admin.restrito');
+            }
+
             $tipo = $this->integridade->find($id)->type;
             if ($this->integridade->delete($id)) {
                 Log::write('event', 'Integridade ' . $this->getTipos()[$tipo] . ' removido por ' . auth()->user()->name);

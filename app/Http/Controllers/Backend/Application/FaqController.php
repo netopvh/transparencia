@@ -8,6 +8,7 @@ use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\FaqRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
+use Zizaco\Entrust\EntrustFacade as Entrust;
 
 class FaqController extends Controller
 {
@@ -47,6 +48,9 @@ class FaqController extends Controller
      */
     public function index()
     {
+        if (!Entrust::can('manage-sac')){
+            return redirect()->route('admin.restrito');
+        }
 
         return view('backend.modules.faq.index')
             ->withSesi($this->faq->getAllCasa(getCasaId('SESI')))
@@ -58,6 +62,10 @@ class FaqController extends Controller
      */
     public function create()
     {
+        if (!Entrust::can('manage-sac')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.faq.create')
             ->withCasas($this->casa->all());
     }
@@ -91,6 +99,10 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
+        if (!Entrust::can('manage-sac')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             return view('backend.modules.faq.edit')
                 ->withFaq($this->faq->with('casa')->find($id))
@@ -129,6 +141,10 @@ class FaqController extends Controller
      */
     public function delete($id)
     {
+        if (!Entrust::can('manage-sac')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             $faq = $this->faq->find($id)->question;
             if ($this->faq->delete($id)) {

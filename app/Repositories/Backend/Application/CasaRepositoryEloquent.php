@@ -8,6 +8,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Models\Casa;
 use Prettus\Validator\Contracts\ValidatorInterface;
+use Zizaco\Entrust\EntrustFacade;
 
 //use App\Validators\CasaValidator;
 

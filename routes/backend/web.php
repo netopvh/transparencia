@@ -14,6 +14,10 @@
 
 Route::get('/', 'HomeController@index')->name('admin.home')->middleware('auth');
 
+Route::get('/restrict', function (){
+    return view('backend.errors.restrict');
+})->name('admin.restrito')->middleware('auth');
+
 Route::group(['namespace' => 'Access'], function () {
     Route::group(['prefix' => 'roles'], function () {
         Route::get('/', 'RoleController@index')->name('admin.roles.index');

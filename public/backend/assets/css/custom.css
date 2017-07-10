@@ -52,3 +52,6 @@ form select.error:focus{
 .space-right{
     margin-right: 10px;
 }
+.product .img-responsive {
+    margin: 0 auto;
+}

@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Application\Contracts\CasaRepository;
 use App\Repositories\Backend\Application\Contracts\InfraestruturaRepository;
 use App\Repositories\Backend\Application\Contracts\IntegridadeRepository;
-use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
+use Zizaco\Entrust\EntrustFacade as Entrust;
 
 class InfraestruturaController extends Controller
 {
@@ -49,7 +49,11 @@ class InfraestruturaController extends Controller
      */
     public function index()
     {
-        //dd($this->infra->getAll(10));
+
+        if (!Entrust::can('manage-infra')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.infraestrutura.index')
             ->with('dados', $this->infra->getAll(8));
     }
@@ -84,6 +88,10 @@ class InfraestruturaController extends Controller
      */
     public function edit($id)
     {
+        if (!Entrust::can('manage-infra')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             return view('backend.modules.menu.edit')
                 ->withInfra($this->infra->find($id))
@@ -121,6 +129,10 @@ class InfraestruturaController extends Controller
      */
     public function delete($id)
     {
+        if (!Entrust::can('manage-infra')){
+            return redirect()->route('admin.restrito');
+        }
+
         try {
             $tipo = $this->infra->find($id)->type;
             if ($this->infra->delete($id)) {
@@ -136,6 +148,10 @@ class InfraestruturaController extends Controller
 
     public function viewImport()
     {
+        if (!Entrust::can('manage-infra')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.infraestrutura.import');
     }
 

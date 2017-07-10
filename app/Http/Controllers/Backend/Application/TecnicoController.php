@@ -15,6 +15,7 @@ use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
 use Illuminate\Http\Request;
 use App\Contracts\Facades\ChannelLog as Log;
 use Maatwebsite\Excel\Facades\Excel;
+use Zizaco\Entrust\EntrustFacade as Entrust;
 
 class TecnicoController extends Controller
 {
@@ -49,6 +50,10 @@ class TecnicoController extends Controller
      */
     public function index()
     {
+        if (!Entrust::can('manage-rh')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.tecnicos.index')
             ->withTecnicos($this->tecnico->paginate(5))
             ->withCasas($this->casa->all());
@@ -71,6 +76,11 @@ class TecnicoController extends Controller
     public function edit($id)
     {
         try{
+
+            if (!Entrust::can('manage-rh')){
+                return redirect()->route('admin.restrito');
+            }
+
             return view('backend.modules.tecnicos.edit')
                 ->withTecnico($this->tecnico->findById($id))
                 ->withCasas($this->casa->all());
@@ -97,6 +107,11 @@ class TecnicoController extends Controller
     public function delete($id)
     {
         try{
+
+            if (!Entrust::can('manage-rh')){
+                return redirect()->route('admin.restrito');
+            }
+
             $tecnico = $this->tecnico->find($id)->nome;
             if($this->tecnico->delete($id)){
                 Log::write('event', 'Tecnico ' . $tecnico . ' foi removido por ' . auth()->user()->name);
@@ -116,6 +131,10 @@ class TecnicoController extends Controller
      */
     public function viewImport()
     {
+        if (!Entrust::can('manage-rh')){
+            return redirect()->route('admin.restrito');
+        }
+
         return view('backend.modules.tecnicos.import');
     }
 

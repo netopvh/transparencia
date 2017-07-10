@@ -69,10 +69,12 @@
                                                         class="icon-book3"></i>Integridade</a>
                                         </li>
                                     @endif
+                                    @if(Entrust::can('manage-convenio'))
                                         <li class="{{ isUrlActive('admin/convenio') }}"><a
                                                     href="{{ route('admin.convenio.index') }}"><i
                                                         class="icon-diff-ignored"></i>Contratos e Convenios</a>
                                         </li>
+                                    @endif
                                     @if(Entrust::can('manage-infra'))
                                         <li class="{{ isUrlActive('admin/infraestrutura') }}"><a
                                                     href="{{ route('admin.infra.index') }}"><i
