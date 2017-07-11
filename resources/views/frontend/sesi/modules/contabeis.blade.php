@@ -8,6 +8,10 @@
     Demonstrações Contábeis
 @stop
 
+@section('sac-button')
+@include('frontend.sesi.layouts.partials.sac-button')
+@stop
+
 @section('content')
     <h4><strong>Departamento Regional - SESI RO</strong></h4>
     <p>Acesso as demonstrações contábeis {{ \Carbon\Carbon::now()->subYear(1)->format('Y') }}.</p>
@@ -23,7 +27,9 @@
                     <div class="row">
                         <div class="col-md-12 menu-estrutura">
                             <p>
-                                <a href="{{ url('/files/'.$conta->file) }}" target="_blank"><i class="fa fa-download" style="color: #000; margin-right: 10px;"></i>{{ $tipos[$conta->type] }};</a>
+                                <a href="{{ url('/files/'.$conta->file) }}" target="_blank"><i class="fa fa-download"
+                                                                                               style="color: #000; margin-right: 10px;"></i>{{ $tipos[$conta->type] }}
+                                    ;</a>
                             </p>
                         </div>
                     </div>

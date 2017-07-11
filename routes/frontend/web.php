@@ -23,6 +23,7 @@ Route::group(['prefix' => 'sesi','namespace' => 'Sesi'], function(){
     Route::get('/modules/tecnicos','IndexController@getTecnicos')->name('sesi.tecnicos');
     Route::get('/modules/sac','IndexController@getSac')->name('sesi.sac');
     Route::post('/modules/sac','IndexController@postSac');
+    Route::get('/modules/unidades','IndexController@getUnidades')->name('sesi.unidades');
     Route::get('/modules/gratuidade','IndexController@getGratuidade')->name('sesi.gratuidade');
     Route::get('/modules/faq','IndexController@getFaq')->name('sesi.faq');
     Route::get('/modules/integridade','IndexController@getIntegridade')->name('sesi.integridade');
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'senai','namespace' => 'Senai'], function(){
     Route::get('/modules/tecnicos','IndexController@getTecnicos')->name('senai.tecnicos');
     Route::get('/modules/sac','IndexController@getSac')->name('senai.sac');
     Route::post('/modules/sac','IndexController@postSac');
+    Route::get('/modules/unidades','IndexController@getUnidades')->name('senai.unidades');
     Route::get('/modules/gratuidade','IndexController@getGratuidade')->name('senai.gratuidade');
     Route::get('/modules/faq','IndexController@getFaq')->name('senai.faq');
     Route::get('/modules/integridade','IndexController@getIntegridade')->name('senai.integridade');

@@ -39,7 +39,7 @@
             frequentes (FAQ)</a>
     </li>
     <li>
-        <a href="" target="_self" style="text-transform: uppercase;">UNIDADES
+        <a href="{{ route('sesi.unidades') }}" target="_self" style="text-transform: uppercase;">UNIDADES
             NOS ESTADOS</a>
     </li>
 </ul>

@@ -73,6 +73,11 @@ Breadcrumbs::register('sesi.convenios',function($breadcrumbs){
     $breadcrumbs->push('Contratos e Convênios',route('sesi.convenio'));
 });
 
+Breadcrumbs::register('sesi.unidades',function($breadcrumbs){
+    $breadcrumbs->parent('sesi.home');
+    $breadcrumbs->push('Unidades dos Estados',route('sesi.unidades'));
+});
+
 Breadcrumbs::register('sesi.page',function($breadcrumbs,$page){
     $breadcrumbs->parent('sesi.home');
     $breadcrumbs->push($page->title,'');
@@ -150,6 +155,11 @@ Breadcrumbs::register('senai.execucao',function($breadcrumbs){
 Breadcrumbs::register('senai.convenios',function($breadcrumbs){
     $breadcrumbs->parent('senai.home');
     $breadcrumbs->push('Contratos e Convênios',route('senai.convenio'));
+});
+
+Breadcrumbs::register('senai.unidades',function($breadcrumbs){
+    $breadcrumbs->parent('senai.home');
+    $breadcrumbs->push('Unidades dos Estados',route('senai.unidades'));
 });
 
 Breadcrumbs::register('senai.page',function($breadcrumbs,$page){

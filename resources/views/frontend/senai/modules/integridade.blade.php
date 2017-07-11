@@ -4,6 +4,10 @@
     {!! Breadcrumbs::render('senai.integridade') !!}
 @stop
 
+@section('sac-button')
+    @include('frontend.senai.layouts.partials.sac-button')
+@stop
+
 @section('title')
     Integridade
 @stop

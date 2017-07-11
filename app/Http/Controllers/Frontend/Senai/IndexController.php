@@ -6,6 +6,7 @@ use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Mail\ConfirmSent;
 use App\Mail\ContactMail;
+use App\Models\Estado;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
 use App\Repositories\Backend\Application\Contracts\OrcamentoRepository;
 use App\Repositories\Backend\Application\Contracts\EstadoRepository;
@@ -264,5 +265,11 @@ class IndexController extends Controller
     {
         return view('frontend.senai.modules.convenios')
             ->with('convenios',$this->convenio->findWhere(['casa_id' => getCasaId('SENAI')]));
+    }
+
+    public function getUnidades()
+    {
+        return view('frontend.senai.modules.unidades')
+            ->with('estados',Estado::all());
     }
 }

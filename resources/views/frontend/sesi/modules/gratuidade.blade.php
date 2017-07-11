@@ -4,6 +4,10 @@
     {!! Breadcrumbs::render('sesi.gratuidade') !!}
 @stop
 
+@section('sac-button')
+    @include('frontend.sesi.layouts.partials.sac-button')
+@stop
+
 @section('title')
     Gratuidade
 @stop

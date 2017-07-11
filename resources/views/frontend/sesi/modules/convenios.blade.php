@@ -8,6 +8,10 @@
     Contratos e Convênios
 @stop
 
+@section('sac-button')
+    @include('frontend.sesi.layouts.partials.sac-button')
+@stop
+
 @section('scripts')
     <script src="{{ asset('frontend/sesi/assets/js/app.js') }}"></script>
 @stop

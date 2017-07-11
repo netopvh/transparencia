@@ -4,6 +4,10 @@
     {!! Breadcrumbs::render('sesi.infra') !!}
 @stop
 
+@section('sac-button')
+    @include('frontend.sesi.layouts.partials.sac-button')
+@stop
+
 @section('title')
     Dados da Infraestrutura
 @stop

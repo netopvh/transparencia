@@ -75,9 +75,7 @@
                     <h3><span style="color: #FA911A;"><strong>@yield('title')</strong></span></h3>
                     @yield('content')
                     <br>
-                    <a href="{{ route('senai.sac') }}" class="btn btn-default btn-md btn-transparencia" role="button">
-                        &nbsp; SAC - Serviço de Atendimento ao Consumidor &nbsp;
-                    </a>
+                    @yield('sac-button')
                 </div>
             </section>
             <aside class="col-xs-12 col-md-3 aside-menu-2">

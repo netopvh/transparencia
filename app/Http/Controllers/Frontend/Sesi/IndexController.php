@@ -8,6 +8,7 @@ use App\Enum\OrcamentoTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Mail\ConfirmSent;
+use App\Models\Estado;
 use App\Repositories\Backend\Application\Contracts\ContabilRepository;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
 use App\Repositories\Backend\Application\Contracts\EstadoRepository;
@@ -265,5 +266,11 @@ class IndexController extends Controller
     {
         return view('frontend.sesi.modules.convenios')
             ->with('convenios',$this->convenio->findWhere(['casa_id' => getCasaId('SESI')]));
+    }
+
+    public function getUnidades()
+    {
+        return view('frontend.sesi.modules.unidades')
+            ->with('estados',Estado::all());
     }
 }

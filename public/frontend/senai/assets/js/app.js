@@ -2,7 +2,7 @@ function getUrl() {
     var newURL = window.location.protocol + "//" + window.location.host;
     var pathArray = window.location.pathname.split( '/' );
 
-    if(pathArray.length > 1){
+    if(pathArray.indexOf('public') > -1){
         result = newURL+'/'+pathArray[1]+'/'+pathArray[2]+'/';
     }else{
         result = newURL;
@@ -14,10 +14,56 @@ $(function () {
 
     //TESTE
 
-    var casa_code = 2;
+    var casa_code = 3;
     var id_contrato = 0;
 
+    //Development
     var domain = 'http://portalh4.sistemaindustria.org.br:9080/api-basi/v1';
+    //production
+    //var domain = 'http://ws.sistemaindustria.org.br/api-basi/v1';
+
+    $( "#select-unidades-estados" ).change(function() {
+        $("#container-resultado").text("");
+        var UF = $(this).find('option:selected').attr("value");
+        var url = domain + '/transparencia/entidades/' + casa_code + '/estados/'+UF+'/unidades';
+        $.ajax({
+            url: url,
+            crossDomain: true,
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                $.each(response, function (name, value) {
+                    box = '<div class="col-xs-12 col-sm-6 col-md-4 nth">';
+                    box += '<div class="card bg-cinza-claro">';
+                    box += '<div>';
+                    box += '<div class="c-22 casa logo-sistema-s">=SENAI=</div>';
+                    box += '</div>';
+                    box += '<div class="unititulo">';
+                    box += '<i class="fa fa-map-marker"></i>';
+                    box += '<div class="dc">';
+                    box += '<h3>'+value.nomeUnidade+'</h3>';
+                    box += '</div>';
+                    box += '</div>';
+                    box += '<div class="unitexto">';
+                    box += '<p><strong>Endereço:</strong> '+value.nomeRua+', '+value.numeroEndereco;
+                    box += '- '+ value.nomeBairro;
+                    box += '- '+value.nomeCidade+'</p>';
+                    box += '<p><strong>Tipo:</strong> '+value.tipoUnidade+'</p>';
+                    box += '<p><strong>Responsável:</strong> '+value.nomeResponsavel+'</p>';
+                    box += '<p><strong>Telefone:</strong> '+value.telefone+'</p>';
+                    box += '<p><strong>Site:</strong> '+value.site+'</p>';
+                    box += '<p><strong>Email:</strong> '+value.email+'</p>';
+                    box += '</div>';
+                    box += '</div>';
+                    box += '</div>';
+                    $('#container-resultado').append(box);
+                })
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $('#container-resultado').html('<p class="text-bold">Sem registros á exibir</p>');
+            }
+        });
+    });
 
     $(document).ready(function () {
         if (casa_code) {
@@ -30,7 +76,7 @@ $(function () {
                 success: function (response) {
                     for (var i = 0; i < response.length; i++) {
                         department_code = response[i].sigla;
-                        if (department_code === 'SESI-RO' || department_code === 'SENAI-RO') {
+                        if (department_code === 'SESI-DN' || department_code === 'SENAI-DN') {
                             $.ajax({
                                 url: domain + '/transparencia/entidades/' + casa_code + '/departamentos/' + department_code + '/contratos',
                                 crossDomain: true,

@@ -4,6 +4,10 @@
     {!! Breadcrumbs::render('sesi.ldo') !!}
 @stop
 
+@section('sac-button')
+    @include('frontend.sesi.layouts.partials.sac-button')
+@stop
+
 @section('title')
     Lei de Diretrizes Orçamentárias
 @stop

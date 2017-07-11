@@ -48,7 +48,7 @@
 
 
     <li>
-        <a href="/sesi/canais/transparencia/unidades-nos-estados/" target="_self" style="text-transform: uppercase;">UNIDADES NOS ESTADOS</a>
+        <a href="{{ route('senai.unidades') }}" target="_self" style="text-transform: uppercase;">UNIDADES NOS ESTADOS</a>
     </li>
 
 </ul>

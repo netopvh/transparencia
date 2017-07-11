@@ -4,6 +4,10 @@
     {!! Breadcrumbs::render('sesi.execucao') !!}
 @stop
 
+@section('sac-button')
+    @include('frontend.sesi.layouts.partials.sac-button')
+@stop
+
 @section('title')
     Execução Orçamentária 2017
 @stop
