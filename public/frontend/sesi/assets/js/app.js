@@ -190,7 +190,7 @@ $(function () {
     //Cidades
     $('select[name=estado]').change(function () {
         var idEstado = $(this).val();
-        $.get(url + 'cidades/' + idEstado, function (cidades) {
+        $.get(url + '/cidades/' + idEstado, function (cidades) {
             $('select[name=cidade]').empty();
             $.each(cidades, function (key, value) {
                 $('select[name=cidade]').append('<option value=' + value.name + '>' + value.name + '</option>');
@@ -206,12 +206,12 @@ $(function () {
 
 
         if ($(this).data().tipo === 1) {
-            $.get(url + "categorias/" + $(this).data().casa + "/" + $(this).data().id, function (data) {
+            $.get(url + "/categorias/" + $(this).data().casa + "/" + $(this).data().id, function (data) {
                 $("#mdIntegracao_body").html(data);
                 $('#mdIntegracao').modal("show");
             });
         } else if ($(this).data().tipo === 2) {
-            $.get(url + "atuacao/" + $(this).data().casa + "/" + $(this).data().titulo + "/" + $(this).data().id, function (data) {
+            $.get(url + "/atuacao/" + $(this).data().casa + "/" + $(this).data().titulo + "/" + $(this).data().id, function (data) {
                 $("#mdIntegracao_body").html(data);
                 $('#mdIntegracao').modal("show");
             });

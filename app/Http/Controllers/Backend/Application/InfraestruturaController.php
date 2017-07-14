@@ -59,28 +59,6 @@ class InfraestruturaController extends Controller
     }
 
     /**
-     * Efetua a inserção de registro no DB
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function store(Request $request)
-    {
-        try {
-
-            //dd($request->all());
-            if ($this->infra->create($request->all())) {
-                Log::write('event', 'Registro ' . $request->name . ' foi cadastrado por ' . auth()->user()->name);
-            }
-            return redirect()->route('admin.orcamento.index');
-
-        } catch (GeneralException $e) {
-            notify()->flash($e->getMessage(), 'danger');
-            return redirect()->route('admin.orcamento.index');
-        }
-    }
-
-    /**
      * Método de alteração de registro
      *
      * @param $id
@@ -124,8 +102,10 @@ class InfraestruturaController extends Controller
     }
 
     /**
+     * Remove registro do DB
+     *
      * @param $id
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete($id)
     {
@@ -146,6 +126,11 @@ class InfraestruturaController extends Controller
         }
     }
 
+    /**
+     * Vistualiza formulário de importação
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function viewImport()
     {
         if (!Entrust::can('manage-infra')){
@@ -155,6 +140,12 @@ class InfraestruturaController extends Controller
         return view('backend.modules.infraestrutura.import');
     }
 
+    /**
+     * Armazena registro da APT no DB
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postImport(Request $request)
     {
         try{

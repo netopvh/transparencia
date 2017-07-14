@@ -3,12 +3,14 @@
 namespace App\Repositories\Backend\Application;
 
 use App\Exceptions\Access\GeneralException;
+use App\Models\CorpoTecnicoFile;
+use App\Models\CorpoTecnicoNota;
 use Illuminate\Database\QueryException;
-use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Application\Contracts\TecnicoRepository;
 use App\Models\CorpoTecnico;
 use Prettus\Validator\Contracts\ValidatorInterface;
+use Illuminate\Container\Container as Application;
 //use App\Validators\CasaValidator;
 
 /**
@@ -17,6 +19,11 @@ use Prettus\Validator\Contracts\ValidatorInterface;
  */
 class TecnicoRepositoryEloquent extends BaseRepository implements TecnicoRepository
 {
+
+    public function __construct(Application $app, CorpoTecnicoNota $nota, CorpoTecnicoFile $file)
+    {
+        parent::__construct($app, $nota, $file);
+    }
     /**
      * Specify Model class name
      *
@@ -26,8 +33,6 @@ class TecnicoRepositoryEloquent extends BaseRepository implements TecnicoReposit
     {
         return CorpoTecnico::class;
     }
-
-    
 
     /**
      * Boot up the repository, pushing criteria
@@ -134,12 +139,21 @@ class TecnicoRepositoryEloquent extends BaseRepository implements TecnicoReposit
     public function importRecords(array $attributes)
     {
         try{
-            $this->model->query()->insert($attributes);
+            $data['casa_id'] = getCasaId($attributes['casa']);
+            $data['nome'] = strtoupper($attributes['nome']);
+            $this->model->create($data);
         }catch (QueryException $e){
             throw new GeneralException('Não foi possível importar registros! - Cod:'.$e->getCode());
         }
     }
 
+    /**
+     * Busca todos os registros do DB.
+     *
+     * @param $casa
+     * @return mixed
+     * @throws GeneralException
+     */
     public function getAll($casa)
     {
         $result = $this->model->where('casa_id',$casa)->get();

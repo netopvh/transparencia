@@ -3,15 +3,14 @@
 namespace App\Repositories\Backend\Application;
 
 use App\Exceptions\Access\GeneralException;
+use App\Models\EstruturaFile;
 use Illuminate\Database\QueryException;
-use Maatwebsite\Excel\Excel;
-use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Application\Contracts\RemuneratoriaRepository;
 use App\Models\EstruturaRemuneratoria;
 use Prettus\Validator\Contracts\ValidatorInterface;
-
-//use App\Validators\CasaValidator;
+use Illuminate\Container\Container as Application;
+use App\Models\EstruturaNota;
 
 /**
  * Class BackendApplicationCasaRepositoryEloquent
@@ -19,6 +18,17 @@ use Prettus\Validator\Contracts\ValidatorInterface;
  */
 class RemuneratoriaRepositoryEloquent extends BaseRepository implements RemuneratoriaRepository
 {
+
+    /**
+     * RemuneratoriaRepositoryEloquent constructor.
+     * @param Application $app
+     * @param EstruturaNota $nota
+     */
+    public function __construct(Application $app, EstruturaNota $nota, EstruturaFile $estruturaFile)
+    {
+        parent::__construct($app, $nota, $estruturaFile);
+    }
+
     /**
      * Specify Model class name
      *
@@ -136,13 +146,25 @@ class RemuneratoriaRepositoryEloquent extends BaseRepository implements Remunera
     public function importRecords(array $attributes)
     {
         try {
-            $this->model->query()->insert($attributes);
+            $data['casa_id'] = getCasaId($attributes['casa']);
+            $data['cargo'] = $attributes['cargo'];
+            $data['ponto_ini'] = $attributes['ponto_inicial'];
+            $data['ponto_fin'] = $attributes['ponto_final'];
+            $data['empregados'] = (int) $attributes['empregados'];
+            $this->model->create($data);
         } catch (QueryException $e) {
-            throw new GeneralException('Não foi possível importar registros! - Cod:' . $e->getCode());
+            throw new GeneralException('Não foi possível importar registros! - Cod:' . $e->getMessage());
         }
     }
 
 
+    /**
+     * Busca todos os registros da casa
+     *
+     * @param $casa
+     * @return mixed
+     * @throws GeneralException
+     */
     public function getAll($casa)
     {
         $result = $this->model->where('casa_id',$casa)->get();

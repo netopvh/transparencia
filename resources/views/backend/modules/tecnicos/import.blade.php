@@ -31,8 +31,7 @@
                         <span class="text-size-large"><span class="text-danger">Atenção! </span> Para que seja realizada a importação de informações para o
                         banco de dados, é necessário que o arquivo esteja em formato .XLSX ou .XLS, contendo apenas uma planilha com os dados dados.</span>
                         Siga o modelo abaixo <br><br>
-                        SESI = 1 <br>
-                        SENAI = 2
+                        <a href="{{ url('/files/modelos/CORPO_TECNICO.xlsx') }}" class="btn btn-primary"><i class="icon-download4"></i> Baixar Modelo</a>
                         <br>
                         <table class="table table-bordered table-condensed">
                             <thead>
@@ -43,7 +42,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
+                                    <td>SESI</td>
                                     <td>FULANO</td>
                                 </tr>
                             </tbody>
@@ -56,7 +55,7 @@
                                 <div class="col-xs-8">
                                     <div class="form-group">
                                         <label>Arquivo:</label>
-                                        <input type="file" class="form-control" name="arquivo" required>
+                                        <input type="file" class="file-styled" name="arquivo" required>
                                     </div>
                                 </div>
                             </div>

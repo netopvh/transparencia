@@ -4,12 +4,13 @@ namespace App\Repositories\Backend\Application;
 
 use App\Exceptions\Access\GeneralException;
 use Illuminate\Database\QueryException;
-use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Backend\Application\Contracts\DirigenteRepository;
+use Illuminate\Container\Container as Application;
 use App\Models\Dirigente;
+use App\Models\DirigenteFile;
+use App\Models\DirigenteNota;
 use Prettus\Validator\Contracts\ValidatorInterface;
-//use App\Validators\CasaValidator;
 
 /**
  * Class BackendApplicationCasaRepositoryEloquent
@@ -17,6 +18,18 @@ use Prettus\Validator\Contracts\ValidatorInterface;
  */
 class DirigenteRepositoryEloquent extends BaseRepository implements DirigenteRepository
 {
+
+    /**
+     * DirigenteRepositoryEloquent constructor.
+     * @param Application $app
+     * @param DirigenteNota $nota
+     * @param DirigenteFile $file
+     */
+    public function __construct(Application $app, DirigenteNota $nota, DirigenteFile $file)
+    {
+        parent::__construct($app, $nota, $file);
+    }
+
     /**
      * Specify Model class name
      *
@@ -26,8 +39,6 @@ class DirigenteRepositoryEloquent extends BaseRepository implements DirigenteRep
     {
         return Dirigente::class;
     }
-
-    
 
     /**
      * Boot up the repository, pushing criteria
@@ -134,12 +145,21 @@ class DirigenteRepositoryEloquent extends BaseRepository implements DirigenteRep
     public function importRecords(array $attributes)
     {
         try{
-            $this->model->query()->insert($attributes);
+            $data['casa_id'] = getCasaId($attributes['casa']);
+            $data['nome'] = strtoupper($attributes['nome']);
+            $this->model->create($data);
         }catch (QueryException $e){
             throw new GeneralException('Não foi possível importar registros! - Cod:'.$e->getCode());
         }
     }
 
+    /**
+     * Retorna todos os registros do banco de dados
+     *
+     * @param $casa
+     * @return mixed
+     * @throws GeneralException
+     */
     public function getAll($casa)
     {
         $result = $this->model->where('casa_id',$casa)->get();

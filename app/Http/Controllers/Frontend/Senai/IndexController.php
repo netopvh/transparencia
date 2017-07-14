@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Senai;
 
+use App\Enum\FilesTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Mail\ConfirmSent;
@@ -178,8 +179,12 @@ class IndexController extends Controller
     public function getRemuneratoria()
     {
         try {
+            //dd($this->remunera->getFiles(getCasaId('SESI')));
             return view('frontend.senai.modules.estrutura')
-                ->withRemunera($this->remunera->getAll(getCasaId('SENAI')));
+                ->withRemunera($this->remunera->getAll(getCasaId('SENAI')))
+                ->with('nota',$this->remunera->getNote(getCasaId('SENAI')))
+                ->with('type', FilesTipos::getConstants())
+                ->with('files',$this->remunera->getFiles(getCasaId('SENAI')));
         } catch (GeneralException $e) {
             abort(404, $e->getMessage());
         }
@@ -189,7 +194,10 @@ class IndexController extends Controller
     {
         try {
             return view('frontend.senai.modules.dirigentes')
-                ->withDirigentes($this->dirigente->getAll(getCasaId('SENAI')));
+                ->withDirigentes($this->dirigente->getAll(getCasaId('SENAI')))
+                ->with('nota',$this->dirigente->getNote(getCasaId('SENAI')))
+                ->with('type', FilesTipos::getConstants())
+                ->with('files',$this->dirigente->getFiles(getCasaId('SENAI')));
         } catch (GeneralException $e) {
             abort(404, $e->getMessage());
         }
@@ -199,7 +207,10 @@ class IndexController extends Controller
     {
         try {
             return view('frontend.senai.modules.tecnicos')
-                ->withTecnicos($this->tecnico->getAll(getCasaId('SENAI')));
+                ->withTecnicos($this->tecnico->getAll(getCasaId('SENAI')))
+                ->with('nota',$this->tecnico->getNote(getCasaId('SENAI')))
+                ->with('type', FilesTipos::getConstants())
+                ->with('files',$this->tecnico->getFiles(getCasaId('SENAI')));
         } catch (GeneralException $e) {
             abort(404, $e->getMessage());
         }

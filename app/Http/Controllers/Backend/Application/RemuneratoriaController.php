@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Backend\Application;
 
+use App\Enum\FilesTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Application\Contracts\CasaRepository;
@@ -29,6 +30,11 @@ class RemuneratoriaController extends Controller
      * @var CasaRepository
      */
     protected $casa;
+
+    /**
+     * @var $file
+     */
+    protected $file;
 
 
     /**
@@ -125,6 +131,12 @@ class RemuneratoriaController extends Controller
         }
     }
 
+    /**
+     * Remove registro do banco de dados
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         try{
@@ -136,15 +148,86 @@ class RemuneratoriaController extends Controller
             $cargo = $this->remuneratoria->find($id)->cargo;
             if($this->remuneratoria->delete($id)){
                 Log::write('event', 'Estrutura Remuneratoria ' . $cargo . ' foi removida por ' . auth()->user()->name);
-                notify('Registro removido com sucesso!', 'success');
-                return redirect()->route('admin.remunera.index');
             }
+            notify('Registro removido com sucesso!', 'success');
+            return redirect()->route('admin.remunera.index');
         }catch (GeneralException $e){
             notify('Erro:' . $e->getMessage(), 'danger');
             return redirect()->route('admin.remunera.index');
         }
     }
 
+    /**
+     * Localiza registro no banco de dados
+     *
+     * @param $casa
+     * @return mixed
+     */
+    public function viewNota($casa)
+    {
+        return view('backend.modules.remunera.notas')
+            ->with('nota', $this->remuneratoria->getNote($casa));
+    }
+
+    /**
+     * Grava Nota no banco de dados
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeNota(Request $request)
+    {
+        try{
+            if($this->remuneratoria->createNote($request->all())){
+                Log::write('event', 'Uma Nota  foi atualizada por ' . auth()->user()->name);
+            }
+            notify('Registro gravado com sucesso!', 'success');
+            return redirect()->route('admin.remunera.index');
+        }catch (GeneralException $e){
+            notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.remunera.index');
+        }
+    }
+
+    /**
+     *  Localiza registros e renderiza
+     *
+     * @param $casa
+     * @return mixed
+     */
+    public function viewFile($casa)
+    {
+        return view('backend.modules.remunera.files')
+            ->with('files',$this->remuneratoria->getFiles($casa))
+            ->with('types',FilesTipos::getConstants());
+    }
+
+    /**
+     * Armezena os arquivos no DB
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeFile(Request $request)
+    {
+        try {
+
+            if ($this->file = $request->file('files')->store('ldo','files')){
+                //adicionar o nome do arquivo no array de dados
+                $data = array_add($request->all(),'file',$this->file);
+                //Criar registro no DB
+                if ($this->remuneratoria->createFile($data)) {
+                    Log::write('event', 'Arquivo Tipo ' . $this->getTipos()[$request->type] . ' foi cadastrado por ' . auth()->user()->name);
+                }
+            }
+            notify()->flash('Registro cadastrado com sucesso!', 'success');
+            return redirect()->route('admin.remunera.index');
+
+        } catch (GeneralException $e) {
+            notify()->flash($e->getMessage(), 'danger');
+            return redirect()->route('admin.remunera.index');
+        }
+    }
 
     /**
      * Exibe a view de importação de dados
@@ -185,6 +268,11 @@ class RemuneratoriaController extends Controller
             notify('Erro:' . $e->getMessage(), 'danger');
             return redirect()->route('admin.remunera.index');
         }
+    }
+
+    private function getTipos()
+    {
+        return FilesTipos::getConstants();
     }
 
 }

@@ -29,22 +29,20 @@
                         <span class="text-size-large"><span class="text-danger">Atenção! </span> Para que seja realizada a importação de informações para o
                         banco de dados, é necessário que o arquivo esteja em formato .XLSX ou .XLS, contendo apenas uma planilha com os dados dados.</span>
                         Siga o modelo abaixo <br><br>
-                        SESI = 1 <br>
-                        SENAI = 2
-                        <br>
+                        <a href="{{ url('/files/modelos/TABELA_SALARIAL.xlsx') }}" class="btn btn-primary"><i class="icon-download4"></i> Baixar Modelo</a>
                         <table class="table table-bordered table-condensed">
                             <thead>
                                 <tr>
-                                    <th>CASA ID</th>
+                                    <th>CASA</th>
                                     <th>CARGO</th>
-                                    <th>PONTO INI</th>
-                                    <th>PONTO FIN</th>
+                                    <th>PONTO INICIAL</th>
+                                    <th>PONTO FINAL</th>
                                     <th>EMPREGADOS</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
+                                    <td>SESI</td>
                                     <td>ASSISTENTE ADMINISTRATIVO</td>
                                     <td>999,99</td>
                                     <td>999,99</td>
@@ -60,7 +58,7 @@
                                 <div class="col-xs-8">
                                     <div class="form-group">
                                         <label>Arquivo:</label>
-                                        <input type="file" class="form-control" name="arquivo" required>
+                                        <input type="file" class="file-styled" name="arquivo" required>
                                     </div>
                                 </div>
                             </div>

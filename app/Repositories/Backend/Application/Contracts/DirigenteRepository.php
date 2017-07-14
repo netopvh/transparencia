@@ -14,4 +14,8 @@ interface DirigenteRepository extends RepositoryInterface
     public function cleanDatabase();
     public function importRecords(array $attributes);
     public function getAll($casa);
+    public function getNote($casa);
+    public function createNote(array $attributes, array $values = []);
+    public function getFiles($casa);
+    public function createFile(array $attributes);
 }

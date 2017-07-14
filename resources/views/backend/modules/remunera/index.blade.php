@@ -7,6 +7,34 @@
 @stop
 
 @section('content')
+    <!-- Mini modal -->
+    <div id="modal_mini" class="modal fade">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Selecione a Casa</h5>
+                </div>
+
+                <div class="modal-body">
+                    <form action="">
+                        <select name="casa" class="form-control">
+                            <option value="">Selecione</option>
+                            @foreach($casas as $casa)
+                                <option value="{{ $casa->id }}" data-id="{{ $casa->id }}">{{ $casa->name }}</option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="send" class="btn btn-primary">Prosseguir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /mini modal -->
     <br>
     <div class="content">
         <div class="row">
@@ -32,6 +60,12 @@
                     <div class="container">
                         <a href="{{ route('admin.remunera.import') }}" class="btn btn-primary"><i
                                     class="icon-file-excel"></i> Importar do Excel</a>
+                        <button id="notas" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_mini"><i
+                                    class="icon-file-text3"></i> Notas Informativas
+                        </button>
+                        <button id="files" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_mini"><i
+                                    class="icon-arrow-up52"></i> Enviar Arquivos
+                        </button>
                     </div>
                     <br>
                     <table class="table table-bordered table-condensed">
@@ -64,12 +98,17 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="{{ route('admin.remunera.edit', ['id' => $remunera->id]) }}"><i class="icon-pencil7"></i> Editar</a></li>
                                                     <li>
-                                                        <form action="{{ route('admin.remunera.delete', ['id' => $remunera->id]) }}" method="post">
+                                                        <a href="{{ route('admin.remunera.edit', ['id' => $remunera->id]) }}"><i
+                                                                    class="icon-pencil7"></i> Editar</a></li>
+                                                    <li>
+                                                        <form action="{{ route('admin.remunera.delete', ['id' => $remunera->id]) }}"
+                                                              method="post">
                                                             {{ csrf_field() }}
                                                             {{ method_field('delete') }}
-                                                            <button  type="submit" class="button-clean-1"><i class="icon-trash space-right"></i> Excluir</button>
+                                                            <button type="submit" class="button-clean-1"><i
+                                                                        class="icon-trash space-right"></i> Excluir
+                                                            </button>
                                                         </form>
                                                     </li>
                                                 </ul>
@@ -80,7 +119,8 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="7" class="text-center"><span class="text-bold">Sem Registros Cadastrados</span></td>
+                                <td colspan="7" class="text-center"><span
+                                            class="text-bold">Sem Registros Cadastrados</span></td>
                             </tr>
                         @endif
                         </tbody>
@@ -105,13 +145,15 @@
                                 <div class="col-xs-5">
                                     <div class="form-group">
                                         <label class="control-label">Nome do Cargo:</label>
-                                        <input type="text" value="{{ old('cargo') }}" class="form-control upper" name="cargo" minlength="4" required>
+                                        <input type="text" value="{{ old('cargo') }}" class="form-control upper"
+                                               name="cargo" minlength="4" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <label class="control-label">Total de Empregados:</label>
-                                        <input type="number" value="{{ old('empregados') }}" class="form-control" name="empregados" required>
+                                        <input type="number" value="{{ old('empregados') }}" class="form-control"
+                                               name="empregados" required>
                                     </div>
                                 </div>
                             </div>
@@ -130,13 +172,17 @@
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <label>Ponto Inicial:</label>
-                                        <input type="text" value="{{ old('ponto_ini') }}" name="ponto_ini" class="form-control" data-prefix="R$ " data-thousands="." data-decimal="," required>
+                                        <input type="text" value="{{ old('ponto_ini') }}" name="ponto_ini"
+                                               class="form-control" data-prefix="R$ " data-thousands="."
+                                               data-decimal="," required>
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <label>Ponto Final:</label>
-                                        <input type="text" name="ponto_fin" value="{{ old('ponto_fin') }}" class="form-control" data-prefix="R$ " data-thousands="." data-decimal="," required>
+                                        <input type="text" name="ponto_fin" value="{{ old('ponto_fin') }}"
+                                               class="form-control" data-prefix="R$ " data-thousands="."
+                                               data-decimal="," required>
                                     </div>
                                 </div>
                             </div>

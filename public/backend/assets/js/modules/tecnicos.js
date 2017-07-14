@@ -62,6 +62,26 @@ $(function () {
 
     });
 
+    $('#notas').on('click', function () {
+        $('#send').attr('name', 'nota');
+    });
+
+    $('#files').on('click', function () {
+        $('#send').attr('name', 'files');
+    });
+
+    $('#send').on('click', function (event) {
+        url = window.location.href;
+        casa = $('select[name="casa"]').find(':selected').data('id');
+        if (casa != null) {
+            if ($('#send').attr('name') === 'nota') {
+                window.location.href = url + '/notas/' + casa;
+            } else if ($('#send').attr('name') === 'files') {
+                window.location.href = url + '/files/' + casa;
+            }
+        }
+    });
+
     var button = $('#button');
     var form = $('#formImport');
     var loader = $('#loader');
@@ -77,6 +97,12 @@ $(function () {
 
     $('.upper').bind('keyup',function (e) {
         nome.val((nome.val()).toUpperCase());
+    });
+
+    $(".file-styled").uniform({
+        fileButtonClass: 'action btn btn-default',
+        fileDefaultHtml: 'Selecione o Arquivo',
+        fileButtonHtml: 'Selecione'
     });
 });
 

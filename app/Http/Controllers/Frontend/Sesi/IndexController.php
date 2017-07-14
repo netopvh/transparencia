@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Sesi;
 
 use App\Enum\ContabilTipos;
+use App\Enum\FilesTipos;
 use App\Enum\IntegridadeTipos;
 use App\Enum\OrcamentoTipos;
 use App\Exceptions\Access\GeneralException;
@@ -179,7 +180,10 @@ class IndexController extends Controller
     {
         try {
             return view('frontend.sesi.modules.estrutura')
-                ->withRemunera($this->remunera->getAll(getCasaId('SESI')));
+                ->withRemunera($this->remunera->getAll(getCasaId('SESI')))
+                ->with('nota',$this->remunera->getNote(getCasaId('SESI')))
+                ->with('type', FilesTipos::getConstants())
+                ->with('files',$this->remunera->getFiles(getCasaId('SESI')));
         } catch (GeneralException $e) {
             abort(404, $e->getMessage());
         }
@@ -189,7 +193,10 @@ class IndexController extends Controller
     {
         try {
             return view('frontend.sesi.modules.dirigentes')
-                ->withDirigentes($this->dirigente->getAll(getCasaId('SESI')));
+                ->withDirigentes($this->dirigente->getAll(getCasaId('SESI')))
+                ->with('nota',$this->dirigente->getNote(getCasaId('SESI')))
+                ->with('type', FilesTipos::getConstants())
+                ->with('files',$this->dirigente->getFiles(getCasaId('SESI')));
         } catch (GeneralException $e) {
             abort(404, $e->getMessage());
         }
@@ -199,7 +206,10 @@ class IndexController extends Controller
     {
         try {
             return view('frontend.sesi.modules.tecnicos')
-                ->withTecnicos($this->tecnico->getAll(getCasaId('SESI')));
+                ->withTecnicos($this->tecnico->getAll(getCasaId('SESI')))
+                ->with('nota',$this->tecnico->getNote(getCasaId('SESI')))
+                ->with('type', FilesTipos::getConstants())
+                ->with('files',$this->tecnico->getFiles(getCasaId('SESI')));
         } catch (GeneralException $e) {
             abort(404, $e->getMessage());
         }

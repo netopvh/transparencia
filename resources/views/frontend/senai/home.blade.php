@@ -34,16 +34,16 @@
             <li><strong class="casa-color"><strong><a href="http://licitacao.fiero.org.br" target="_blank">Licitações e
                             Editais</a></strong></strong></li>
 
-            <li><strong class="casa-color"><strong><a href="#">Contratos e Convênio</a></strong></strong></li>
+            <li><strong class="casa-color"><strong><a href="{{ route('senai.convenio') }}">Contratos e Convênio</a></strong></strong></li>
 
             <li><strong class="casa-color"><strong><a href="{{ route('senai.gratuidade') }}">Gratuidade</a></strong></strong>
             </li>
 
             <li><strong class="casa-color"><strong><a href="{{ route('senai.integridade') }}">Integridade</a></strong></strong></li>
 
-            <li><strong class="casa-color"><strong><a href="#">Dados de Infraestrutura</a></strong></strong></li>
+            <li><strong class="casa-color"><strong><a href="{{ route('senai.infra') }}">Dados de Infraestrutura</a></strong></strong></li>
 
-            <li><strong class="casa-color"><strong><a href="#">Acesso a Transparência nos Departamentos
+            <li><strong class="casa-color"><strong><a href="http://www.portaldaindustria.com.br/senai/canais/transparencia/acesso-transparencia-dos-departamentos-regionais/">Acesso a Transparência nos Departamentos
                             Regionais</a></strong></strong></li>
 
         </ul>

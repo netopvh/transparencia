@@ -47,7 +47,7 @@
     @if(count($contas) >= 1)
         <h5>
             <strong>Última atualizaçao
-                em: </strong>{{ \Carbon\Carbon::parse($contas->last()->updated_at)->format('d/m/Y') }}
+                em: </strong>{{ $contas->last()->updated_at->format('d/m/Y') }}
         </h5>
     @else
         <h5>--</h5>

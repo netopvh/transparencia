@@ -15,5 +15,4 @@ interface RemuneratoriaRepository extends RepositoryInterface
     public function cleanDatabase();
     public function importRecords(array $attributes);
     public function getAll($casa);
-    
 }

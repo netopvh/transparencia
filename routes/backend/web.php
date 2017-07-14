@@ -64,6 +64,10 @@ Route::group(['namespace' => 'Application'], function(){
     });
     Route::group(['prefix' => 'remunera'], function(){
         Route::get('/','RemuneratoriaController@index')->name('admin.remunera.index');
+        Route::get('/notas/{casa}','RemuneratoriaController@viewNota')->name('admin.remunera.notas');
+        Route::post('/notas','RemuneratoriaController@storeNota')->name('admin.remunera.notas.store');
+        Route::get('/files/{casa}','RemuneratoriaController@viewFile')->name('admin.remunera.files');
+        Route::post('/files','RemuneratoriaController@storeFile')->name('admin.remunera.files.store');
         Route::post('/','RemuneratoriaController@store');
         Route::get('/import','RemuneratoriaController@viewImport')->name('admin.remunera.import');
         Route::post('/import','RemuneratoriaController@storeImport');
@@ -73,16 +77,24 @@ Route::group(['namespace' => 'Application'], function(){
     });
     Route::group(['prefix' => 'dirigentes'], function(){
         Route::get('/','DirigenteController@index')->name('admin.dirigentes.index');
+        Route::get('/notas/{casa}','DirigenteController@viewNota')->name('admin.dirigentes.notas');
+        Route::post('/notas','DirigenteController@storeNota')->name('admin.dirigentes.notas.store');
+        Route::get('/files/{casa}','DirigenteController@viewFile')->name('admin.dirigentes.files');
+        Route::post('/files','DirigenteController@storeFile')->name('admin.dirigentes.files.store');
         Route::post('/','DirigenteController@store');
         Route::get('/import','DirigenteController@viewImport')->name('admin.dirigentes.import');
         Route::post('/import','DirigenteController@storeImport');
         Route::get('/{id}','DirigenteController@edit')->name('admin.dirigentes.edit');
         Route::patch('/{id}','DirigenteController@update')->name('admin.dirigentes.update');
         Route::delete('/{id}','DirigenteController@delete')->name('admin.dirigentes.delete');
-        Route::post('/files','DirigenteController@filesImporter')->name('admin.dirigentes.files');
     });
+
     Route::group(['prefix' => 'tecnicos'], function(){
         Route::get('/','TecnicoController@index')->name('admin.tecnicos.index');
+        Route::get('/notas/{casa}','TecnicoController@viewNota')->name('admin.tecnicos.notas');
+        Route::post('/notas','TecnicoController@storeNota')->name('admin.tecnicos.notas.store');
+        Route::get('/files/{casa}','TecnicoController@viewFile')->name('admin.tecnicos.files');
+        Route::post('/files','TecnicoController@storeFile')->name('admin.tecnicos.files.store');
         Route::post('/','TecnicoController@store');
         Route::get('/import','TecnicoController@viewImport')->name('admin.tecnicos.import');
         Route::post('/import','TecnicoController@storeImport');

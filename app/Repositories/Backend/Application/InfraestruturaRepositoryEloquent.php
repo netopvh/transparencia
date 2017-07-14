@@ -2,15 +2,13 @@
 
 namespace App\Repositories\Backend\Application;
 
-use App\Exceptions\Access\GeneralException;
-use App\Models\Cidade;
 use App\Models\Infraestrutura;
 use App\Models\InfraestruturaAtuacao;
 use App\Repositories\Backend\Application\Contracts\InfraestruturaRepository;
-use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use GuzzleHttp\Client as GuzzHttpClient;
+use Illuminate\Container\Container as Application;
 
 /**
  * Class BackendApplicationCasaRepositoryEloquent
@@ -18,6 +16,15 @@ use GuzzleHttp\Client as GuzzHttpClient;
  */
 class InfraestruturaRepositoryEloquent extends BaseRepository implements InfraestruturaRepository
 {
+
+    private $atuacao;
+
+    public function __construct(Application $app, InfraestruturaAtuacao $atuacao)
+    {
+        parent::__construct($app);
+        $this->atuacao = $atuacao;
+    }
+
     /**
      * Specify Model class name
      *
@@ -58,38 +65,40 @@ class InfraestruturaRepositoryEloquent extends BaseRepository implements Infraes
      */
     public function import($attributes)
     {
-        $this->cleanRegisters($attributes);
 
         $client = new GuzzHttpClient();
         $apiRequest = $client->request('GET', 'http://ws.sistemaindustria.org.br/api-basi/v1/transparencia/entidades/' . $attributes['casa'] . '/categoriaAtivoRegioes/' . $attributes['categoria'] . '/estados/ro/unidades');
         $registers = json_decode($apiRequest->getBody()->getContents());
 
+        $this->cleanRegisters($attributes, $registers);
 
         foreach ($registers as $register) {
-            $model = $this->makeModel();
-            $model->id = $register->id;
-            $model->unidade = $register->nomeUnidade;
-            $model->endereco = $register->nomeRua . ',' . $register->numeroEndereco;
-            $model->bairro = $register->nomeBairro;
-            $model->cidade = $register->nomeCidade;
-            $model->cep = $register->cep;
-            $model->telefone = $register->telefone;
-            $model->codigo_categoria = $register->codigoCategoria;
-            $model->nome_categoria = $register->nomeCategoria;
-            $model->codigo_entidade = ($register->codigoEntidade == 2 ? 1 : 2);
-            $model->codigo_atuacao = $register->codigoAtuacao;
-            $model->nome_atuacao = $register->nomeAtuacao;
+            $infra = $this->model->newInstance([
+                'id' => $register->id,
+                'unidade' => $register->nomeUnidade,
+                'endereco' => $register->nomeRua . ',' . $register->numeroEndereco,
+                'bairro' => $register->nomeBairro,
+                'cidade' => $register->nomeCidade,
+                'cep' => $register->cep,
+                'telefone' => $register->telefone,
+                'codigo_categoria' => $register->codigoCategoria,
+                'nome_categoria' => $register->nomeCategoria,
+                'codigo_entidade' => ($register->codigoEntidade == 2 ? 1 : 2),
+                'codigo_atuacao' => $register->codigoAtuacao,
+                'nome_atuacao' => $register->nomeAtuacao
+            ]);
             if ($register->codigoAtuacao == 0) {
                 foreach ($register->atuacoes as $atuacao) {
-                    $infraAtua = new InfraestruturaAtuacao();
-                    $infraAtua->infraestrutura_id = $model->id;
-                    $infraAtua->codigo_entidade = $model->codigo_entidade;
-                    $infraAtua->codigo_atuacao = $atuacao->codigoAtuacao;
-                    $infraAtua->nome_atuacao = $atuacao->nomeAtuacao;
+                    $infraAtua = $this->atuacao->newInstance([
+                        'infraestrutura_id' => $infra->id,
+                        'codigo_entidade' => $infra->codigo_entidade,
+                        'codigo_atuacao' => $atuacao->codigoAtuacao,
+                        'nome_atuacao' => $atuacao->nomeAtuacao
+                    ]);
                     $infraAtua->save();
                 }
             }
-            $model->save();
+            $infra->save();
 
         }
     }
@@ -97,14 +106,18 @@ class InfraestruturaRepositoryEloquent extends BaseRepository implements Infraes
     /**
      * @param $attributes
      */
-    private function cleanRegisters($attributes)
+    private function cleanRegisters($attributes,$api)
     {
         $casa = $attributes['casa'] == 2 ? 1 : 2;
 
-        $this->model->newQuery()
-            ->where('codigo_entidade', $casa)
-            ->where('codigo_categoria', $attributes['categoria'])
-            ->delete();
+        $itens =[];
+        foreach ($api as $item) {
+            $itens[] = $item->id;
+        }
+
+        $this->model->newQuery()->where('codigo_entidade', $casa)->where('codigo_categoria', $attributes['categoria'])->delete();
+
+        $this->atuacao->newQuery()->where('codigo_entidade',$casa)->whereIn('infraestrutura_id',$itens)->delete();
     }
 
     /**
@@ -134,11 +147,11 @@ class InfraestruturaRepositoryEloquent extends BaseRepository implements Infraes
             ->get()->count();
 
         $dependencia = $this->model->newQuery()
-            ->join('infraestrutura_atuacao','infraestruturas.id','=','infraestrutura_atuacao.infraestrutura_id')
-            ->where('infraestrutura_atuacao.codigo_entidade',getCasaId($casa))
-            ->where('infraestrutura_atuacao.nome_atuacao','LIKE', '%' . $atuacao . '%')
+            ->join('infraestrutura_atuacao', 'infraestruturas.id', '=', 'infraestrutura_atuacao.infraestrutura_id')
+            ->where('infraestrutura_atuacao.codigo_entidade', getCasaId($casa))
+            ->where('infraestrutura_atuacao.nome_atuacao', 'LIKE', '%' . $atuacao . '%')
             ->get()
-        ->count();
+            ->count();
 
         return $all + $dependencia;
 
@@ -148,15 +161,15 @@ class InfraestruturaRepositoryEloquent extends BaseRepository implements Infraes
     {
 
         $all = $this->model->newQuery()
-            ->where('codigo_entidade',$casa)
-            ->where('nome_atuacao',$atuacao)
+            ->where('codigo_entidade', $casa)
+            ->where('nome_atuacao', $atuacao)
             ->where('codigo_categoria', $categoria)
             ->get()->toArray();
 
         $dependencia = $this->model->newQuery()
-            ->join('infraestrutura_atuacao','infraestruturas.id','=','infraestrutura_atuacao.infraestrutura_id')
-            ->where('infraestrutura_atuacao.codigo_entidade',$casa)
-            ->where('infraestrutura_atuacao.nome_atuacao','LIKE', '%' . $atuacao . '%')
+            ->join('infraestrutura_atuacao', 'infraestruturas.id', '=', 'infraestrutura_atuacao.infraestrutura_id')
+            ->where('infraestrutura_atuacao.codigo_entidade', $casa)
+            ->where('infraestrutura_atuacao.nome_atuacao', 'LIKE', '%' . $atuacao . '%')
             ->get()->toArray();
 
 

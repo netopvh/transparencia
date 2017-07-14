@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form action="{{ route('admin.dirigentes.files.store') }}" method="post"
+                        <form action="{{ route('admin.tecnicos.files.store') }}" method="post"
                               class="form-validate" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-bottom: 10px">

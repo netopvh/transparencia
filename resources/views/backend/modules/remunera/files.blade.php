@@ -1,6 +1,8 @@
 @extends('backend.layouts.master')
 
 @section('scripts-after')
+    <script type="text/javascript"
+            src="{{ asset('backend/assets/js/plugins/forms/mask/jquery-maskmoney/src/jquery.maskMoney.js') }}"></script>
     <script type="text/javascript" src="{{ asset('backend/assets/js/modules/remuneratoria.js') }}"></script>
 @stop
 
@@ -21,7 +23,7 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form action="{{ route('admin.dirigentes.files.store') }}" method="post"
+                        <form action="{{ route('admin.remunera.files.store') }}" method="post"
                               class="form-validate" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-bottom: 10px">

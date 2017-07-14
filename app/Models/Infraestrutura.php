@@ -11,7 +11,7 @@ class Infraestrutura extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id','unidade', 'endereco', 'bairro', 'cidade','cep','telefone','codigo_categoria','nome_categoria','codigo_entidade','codigo_atuacao'];
+    protected $fillable = ['id','unidade', 'endereco', 'bairro', 'cidade','cep','telefone','codigo_categoria','nome_categoria','codigo_entidade','codigo_atuacao','nome_atuacao'];
 
     public function atuacoes()
     {

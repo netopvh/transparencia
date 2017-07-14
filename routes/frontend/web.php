@@ -17,7 +17,7 @@ Route::group(['prefix' => 'sesi','namespace' => 'Sesi'], function(){
     Route::get('/modules/lei-de-diretrizes-orcamentarias','IndexController@getLdo')->name('sesi.ldo');
     Route::get('/modules/demonstracoes-contabeis','IndexController@getContabeis')->name('sesi.contabeis');
     //LDO ITENS
-    Route::get('/modules/execucao-orcamentaria-2017','IndexController@getExecucao')->name('sesi.execucao');
+    Route::get('/modules/execucao-orcamentaria','IndexController@getExecucao')->name('sesi.execucao');
     Route::get('/modules/estrutura','IndexController@getRemuneratoria')->name('sesi.remunera');
     Route::get('/modules/dirigentes','IndexController@getDirigentes')->name('sesi.dirigentes');
     Route::get('/modules/tecnicos','IndexController@getTecnicos')->name('sesi.tecnicos');
@@ -37,7 +37,7 @@ Route::group(['prefix' => 'senai','namespace' => 'Senai'], function(){
     Route::get('/modules/lei-de-diretrizes-orcamentarias','IndexController@getLdo')->name('senai.ldo');
     Route::get('/modules/demonstracoes-contabeis','IndexController@getContabeis')->name('senai.contabeis');
     //LDO ITENS
-    Route::get('/modules/execucao-orcamentaria-2017','IndexController@getExecucao')->name('senai.execucao');
+    Route::get('/modules/execucao-orcamentaria','IndexController@getExecucao')->name('senai.execucao');
     Route::get('/modules/estrutura','IndexController@getRemuneratoria')->name('senai.remunera');
     Route::get('/modules/dirigentes','IndexController@getDirigentes')->name('senai.dirigentes');
     Route::get('/modules/tecnicos','IndexController@getTecnicos')->name('senai.tecnicos');

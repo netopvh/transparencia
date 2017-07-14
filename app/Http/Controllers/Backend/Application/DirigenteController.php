@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Backend\Application;
 
+use App\Enum\FilesTipos;
 use App\Exceptions\Access\GeneralException;
 use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
@@ -31,6 +32,11 @@ class DirigenteController extends Controller
      */
     protected $casa;
 
+    /**
+     * @var $file
+     */
+    private $file;
+
 
     /**
      * PaginaController constructor.
@@ -47,7 +53,9 @@ class DirigenteController extends Controller
     }
 
     /**
-     * @return mixed
+     * Página inicial do módulo
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -60,20 +68,32 @@ class DirigenteController extends Controller
             ->withCasas($this->casa->all());
     }
 
+    /**
+     * Armazena registro no DB
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         try {
             if ($this->dirigente->create($request->all())) {
                 Log::write('event', 'Dirigente ' . $request->nome . ' foi cadastrado por ' . auth()->user()->name);
-                notify('Registro Cadastrado com sucesso!', 'success');
-                return redirect()->route('admin.dirigentes.index');
             }
+            notify('Registro Cadastrado com sucesso!', 'success');
+            return redirect()->route('admin.dirigentes.index');
         } catch (GeneralException $e) {
             notify('Erro:' . $e->getMessage(), 'danger');
             return redirect()->route('admin.dirigentes.index');
         }
     }
 
+    /**
+     * Localiza registro para edição
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function edit($id)
     {
         if (!Entrust::can('manage-rh')){
@@ -90,20 +110,33 @@ class DirigenteController extends Controller
         }
     }
 
+    /**
+     * Atualiza registro no DB
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         try {
             if ($this->dirigente->update($request->all(), $id)) {
                 Log::write('event', 'Dirigente ' . $request->nome . ' foi alterado por ' . auth()->user()->name);
-                notify('Registro alterado com sucesso!', 'success');
-                return redirect()->route('admin.dirigentes.index');
             }
+            notify('Registro alterado com sucesso!', 'success');
+            return redirect()->route('admin.dirigentes.index');
         } catch (GeneralException $e) {
             notify('Erro:' . $e->getMessage(), 'danger');
             return redirect()->route('admin.dirigentes.index');
         }
     }
 
+    /**
+     * Deleta registro do DB
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function delete($id)
     {
         if (!Entrust::can('manage-rh')){
@@ -114,20 +147,85 @@ class DirigenteController extends Controller
             $dirigente = $this->dirigente->find($id)->nome;
             if ($this->dirigente->delete($id)) {
                 Log::write('event', 'Dirigente ' . $dirigente . ' foi removido por ' . auth()->user()->name);
-                notify('Registro removido com sucesso!', 'success');
-                return redirect(url()->previous());
             }
+            notify('Registro removido com sucesso!', 'success');
+            return redirect(url()->previous());
         }catch (GeneralException $e){
             notify('Erro:' . $e->getMessage(), 'danger');
             return redirect()->route('admin.dirigentes.index');
         }
     }
 
-    public function filesImporter(Request $request)
+    /**
+     * Localiza registro no banco de dados
+     *
+     * @param $casa
+     * @return mixed
+     */
+    public function viewNota($casa)
     {
-        $return = $this->importFilesType($request->file('ods'), $request->file('pdf'), $request->file('xlsx'));
+        return view('backend.modules.dirigentes.notas')
+            ->with('nota', $this->dirigente->getNote($casa));
+    }
 
-        dd($return);
+    /**
+     * Grava Nota no banco de dados
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeNota(Request $request)
+    {
+        try{
+            if($this->dirigente->createNote($request->all())){
+                Log::write('event', 'Uma Nota  foi atualizada por ' . auth()->user()->name);
+            }
+            notify('Registro gravado com sucesso!', 'success');
+            return redirect()->route('admin.dirigentes.index');
+        }catch (GeneralException $e){
+            notify('Erro:' . $e->getMessage(), 'danger');
+            return redirect()->route('admin.dirigentes.index');
+        }
+    }
+
+    /**
+     *  Localiza registros e renderiza
+     *
+     * @param $casa
+     * @return mixed
+     */
+    public function viewFile($casa)
+    {
+        return view('backend.modules.dirigentes.files')
+            ->with('files',$this->dirigente->getFiles($casa))
+            ->with('types',FilesTipos::getConstants());
+    }
+
+    /**
+     * Armezena os arquivos no DB
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeFile(Request $request)
+    {
+        try {
+
+            if ($this->file = $request->file('files')->store('ldo','files')){
+                //adicionar o nome do arquivo no array de dados
+                $data = array_add($request->all(),'file',$this->file);
+                //Criar registro no DB
+                if ($this->dirigente->createFile($data)) {
+                    Log::write('event', 'Arquivo Tipo ' . $this->getTipos()[$request->type] . ' foi cadastrado por ' . auth()->user()->name);
+                }
+            }
+            notify()->flash('Registro cadastrado com sucesso!', 'success');
+            return redirect()->route('admin.dirigentes.index');
+
+        } catch (GeneralException $e) {
+            notify()->flash($e->getMessage(), 'danger');
+            return redirect()->route('admin.dirigentes.index');
+        }
     }
 
     /**
@@ -161,9 +259,9 @@ class DirigenteController extends Controller
                     });
                 });
                 Log::write('event', 'Lista de Dirigentes foram importados por ' . auth()->user()->name);
-                notify('Arquivos importados com sucesso!', 'success');
-                return redirect()->route('admin.dirigentes.index');
             }
+            notify('Arquivos importados com sucesso!', 'success');
+            return redirect()->route('admin.dirigentes.index');
 
         } catch (GeneralException $e) {
             notify('Erro:' . $e->getMessage(), 'danger');
@@ -171,17 +269,9 @@ class DirigenteController extends Controller
         }
     }
 
-    private function importFilesType($ods, $pdf, $xlsx)
+    private function getTipos()
     {
-        $files = [];
-        $files['ods'] = uniqid() . '.' . $ods->getClientOriginalExtension();
-        $files['pdf'] = uniqid() . '.' . $pdf->getClientOriginalExtension();
-        $files['xslx'] = uniqid() . '.' . $xlsx->getClientOriginalExtension();
-        UploadHelper::UploadFile($ods, "files/diversos", uniqid() . "_" . $ods->getClientOriginalName());
-        UploadHelper::UploadFile($ods, "files/diversos", uniqid() . "_" . $pdf->getClientOriginalName());
-        UploadHelper::UploadFile($ods, "files/diversos", uniqid() . "_" . $xlsx->getClientOriginalName());
-
-        return $files;
+        return FilesTipos::getConstants();
     }
 
 }

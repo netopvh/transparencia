@@ -1,12 +1,38 @@
 @extends('backend.layouts.master')
 
 @section('scripts-after')
-    <script type="text/javascript"
-            src="{{ asset('ackend/assets/js/plugins/forms/mask/jquery-maskmoney/src/jquery.maskMoney.js') }}"></script>
     <script type="text/javascript" src="{{ asset('backend/assets/js/modules/dirigentes.js') }}"></script>
 @stop
 
 @section('content')
+    <!-- Mini modal -->
+    <div id="modal_mini" class="modal fade">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Selecione a Casa</h5>
+                </div>
+
+                <div class="modal-body">
+                    <form action="">
+                        <select name="casa" class="form-control">
+                            <option value="">Selecione</option>
+                            @foreach($casas as $casa)
+                                <option value="{{ $casa->id }}" data-id="{{ $casa->id }}">{{ $casa->name }}</option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="send" class="btn btn-primary">Prosseguir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /mini modal -->
     <br>
     <div class="content">
         <div class="row">
@@ -32,6 +58,12 @@
                     <div class="container">
                         <a href="{{ route('admin.dirigentes.import') }}" class="btn btn-primary"><i
                                     class="icon-file-excel"></i> Importar do Excel</a>
+                        <button id="notas" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_mini"><i
+                                    class="icon-file-text3"></i> Notas Informativas
+                        </button>
+                        <button id="files" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_mini"><i
+                                    class="icon-arrow-up52"></i> Enviar Arquivos
+                        </button>
                     </div>
                     <br>
                     <table class="table table-bordered table-condensed">
