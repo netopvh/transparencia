@@ -76,7 +76,7 @@ $(function () {
                 success: function (response) {
                     for (var i = 0; i < response.length; i++) {
                         department_code = response[i].sigla;
-                        if (department_code === 'SESI-DN' || department_code === 'SENAI-DM') {
+                        if (department_code === 'SESI-DN') {
                             $.ajax({
                                 url: domain + '/transparencia/entidades/' + casa_code + '/departamentos/' + department_code + '/contratos',
                                 crossDomain: true,

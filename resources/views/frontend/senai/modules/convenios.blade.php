@@ -67,11 +67,20 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="6" class="text-center text-bold">Sem registros a exibir</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
                     </tr>
                 @endif
                 </tbody>
             </table>
+            <br>
+            @if(!count($convenios) >= 1)
+                <b>Nota: Não há dados a serem informados no período.</b>
+            @endif
         </div>
     </div>
 

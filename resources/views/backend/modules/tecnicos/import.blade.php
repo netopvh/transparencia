@@ -36,7 +36,7 @@
                         <table class="table table-bordered table-condensed">
                             <thead>
                                 <tr>
-                                    <th>CASA ID</th>
+                                    <th>CASA</th>
                                     <th>NOME</th>
                                 </tr>
                             </thead>
