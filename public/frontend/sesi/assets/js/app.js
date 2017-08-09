@@ -17,9 +17,9 @@ $(function () {
     var id_contrato = 0;
 
     //Development
-    var domain = 'http://portalh4.sistemaindustria.org.br:9080/api-basi/v1';
+    //var domain = 'http://portalh4.sistemaindustria.org.br:9080/api-basi/v1';
     //production
-    //var domain = 'http://ws.sistemaindustria.org.br/api-basi/v1';
+    var domain = 'http://ws.sistemaindustria.org.br/api-basi/v1';
 
     $( "#select-unidades-estados" ).change(function() {
         $("#container-resultado").text("");
@@ -76,7 +76,7 @@ $(function () {
                 success: function (response) {
                     for (var i = 0; i < response.length; i++) {
                         department_code = response[i].sigla;
-                        if (department_code === 'SESI-DN') {
+                        if (department_code === 'SESI-RO') {
                             $.ajax({
                                 url: domain + '/transparencia/entidades/' + casa_code + '/departamentos/' + department_code + '/contratos',
                                 crossDomain: true,
@@ -131,7 +131,8 @@ $(function () {
         valor = $(this).attr('data-valor');
         processo = $(this).attr('data-processo');
         //contract_data = $('#table-contract-' + contract_id);
-        table_modal = '<table width="100%">';
+        table_modal = '<table width="100%" class="c1 common-space table" style="width: 100%; font-size: 14px;">';
+        table_modal += '<tbody>';
         table_modal += '<tr>';
         table_modal += '<td width="50%"><b>Data do Contrato / Avença:</b></td>';
         table_modal += '<td align="right">' + avenca + '</td>';
@@ -141,11 +142,9 @@ $(function () {
         table_modal += '<td align="right">' + rateio + '</td>';
         table_modal += '</tr>';
         table_modal += '<tr>';
-        table_modal += '<tr>';
         table_modal += '<td width="50%"><b>Modalidade:</b></td>';
         table_modal += '<td align="right">' + modalidade + '</td>';
         table_modal += '</tr>';
-        table_modal += '<tr>';
         table_modal += '<tr>';
         table_modal += '<td width="50%"><b>Categoria:</b></td>';
         table_modal += '<td align="right">' + categoria + '</td>';
@@ -159,21 +158,18 @@ $(function () {
         table_modal += '<td align="right">' + razao + '</td>';
         table_modal += '</tr>';
         table_modal += '<tr>';
-        table_modal += '<tr>';
         table_modal += '<td width="50%"><b>Vigência:</b></td>';
         table_modal += '<td align="right">' + vigencia + '</td>';
         table_modal += '</tr>';
-        table_modal += '<tr>';
         table_modal += '<tr>';
         table_modal += '<td width="50%"><b>Valor:</b></td>';
         table_modal += '<td align="right">' + valor + '</td>';
         table_modal += '</tr>';
         table_modal += '<tr>';
-        table_modal += '<tr>';
         table_modal += '<td width="50%"><b>Processo:</b></td>';
         table_modal += '<td align="right">' + processo + '</td>';
         table_modal += '</tr>';
-        table_modal += '<tr>';
+        table_modal += '</tbody>';
         table_modal += '</table>';
         $('.modal-title').html('Contrato Nº ' + contract_number);
         $('#modal-contrato .modal-body').html(table_modal);

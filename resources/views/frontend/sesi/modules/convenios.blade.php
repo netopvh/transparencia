@@ -22,20 +22,22 @@
     <h4>Contratos</h4>
     <div class="row">
         <div class="col-md-12">
-            <table width="100%" id="table-contracts">
-                <thead>
-                <tr>
-                    <th>Nº do contrato</th>
-                    <th>Data do contrato / Avença</th>
-                    <th>Razão Social / Nome</th>
-                    <th>CNPJ</th>
-                    <th>Valor do contrato</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div style="overflow: auto; height: 600px;">
+                <table width="100%" id="table-contracts">
+                    <thead>
+                    <tr>
+                        <th>Nº do contrato</th>
+                        <th>Data do contrato / Avença</th>
+                        <th>Razão Social / Nome</th>
+                        <th>CNPJ</th>
+                        <th>Valor do contrato</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <br>

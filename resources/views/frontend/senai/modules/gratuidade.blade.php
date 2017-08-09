@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 c-18" style="color: #000;">
             <h2>Atuação do SENAI em Gratuidade Regimental</h2>
             <p class="text-justify">
                 O SENAI forma profissionais para 28 áreas da indústria brasileira,
@@ -53,6 +53,21 @@
                 Os Departamentos do SENAI, nacional e regionais, estão trabalhando para, em breve,
                 divulgar as suas ações e atividades gratuitas disponíveis.
             </p>
+            <p class="text-justify">
+                ___________________
+            </p>
+            <h5>
+                <span class="c14">
+                    <sup>(1)</sup> De acordo com o Regimento do SENAI (§1º do Art. 68),
+                    entende‐se como Receita Líquida de Contribuição Compulsória Geral, o valor correspondente a 92,5%
+                    (noventa e dois inteiros e cinco décimos por cento) da Receita Bruta de Contribuição Compulsória Geral
+                </span>
+            </h5>
+            <a style="color: #bd6b18; font-size: 15px;" href="https://static-cms-si.s3.amazonaws.com/media/filer_public/95/31/953130b0-c7d9-46c0-8f98-859dc9cb48a0/link_senai_gratuidade_fase_1_-_portal_da_industria.pdf" target="_blank">
+                <span class="icon fa fa-file" aria-hidden="true"></span>
+                Metodologia de Apuração da Gratuidade Regimental - SENAI
+                <span class="label label-default">76,1&nbsp;KB</span>
+            </a>
         </div>
     </div>
     <br><br>
