@@ -91,7 +91,6 @@
 </main>
 
 <footer class="footer">
-    @yield('footer')
     <section class="footer-mid">
         <div class="">
             <div class="container">
@@ -126,7 +125,6 @@
                         <div>
                             <h4 class="title b-15"><strong>Sede SESI Rondônia</strong></h4>
                             <p class="b-14">Rua Rui Barbosa, nº 1112</p>
-                            <p class="b-14">Brasília - DF CEP 70040-903</p>
                             <p class="b-14">Porto Velho - RO - CEP 76.801-186</p>
                             <p class="b-14">(69) 3216-3400</p>
                         </div>

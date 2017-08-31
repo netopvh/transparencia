@@ -21,47 +21,44 @@ $(function () {
     //production
     var domain = 'http://ws.sistemaindustria.org.br/api-basi/v1';
 
-    $( "#select-unidades-estados" ).change(function() {
-        $("#container-resultado").text("");
-        var UF = $(this).find('option:selected').attr("value");
-        var url = domain + '/transparencia/entidades/' + casa_code + '/estados/'+UF+'/unidades';
-        $.ajax({
-            url: url,
-            crossDomain: true,
-            method: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                $.each(response, function (name, value) {
-                    box = '<div class="col-xs-12 col-sm-6 col-md-4 nth">';
-                    box += '<div class="card bg-cinza-claro">';
-                    box += '<div>';
-                    box += '<div class="c-22 casa logo-sistema-s">=SESI=</div>';
-                    box += '</div>';
-                    box += '<div class="unititulo">';
-                    box += '<i class="fa fa-map-marker"></i>';
-                    box += '<div class="dc">';
-                    box += '<h3>'+value.nomeUnidade+'</h3>';
-                    box += '</div>';
-                    box += '</div>';
-                    box += '<div class="unitexto">';
-                    box += '<p><strong>Endereço:</strong> '+value.nomeRua+', '+value.numeroEndereco;
-                    box += '- '+ value.nomeBairro;
-                    box += '- '+value.nomeCidade+'</p>';
-                    box += '<p><strong>Tipo:</strong> '+value.tipoUnidade+'</p>';
-                    box += '<p><strong>Responsável:</strong> '+value.nomeResponsavel+'</p>';
-                    box += '<p><strong>Telefone:</strong> '+value.telefone+'</p>';
-                    box += '<p><strong>Site:</strong> '+value.site+'</p>';
-                    box += '<p><strong>Email:</strong> '+value.email+'</p>';
-                    box += '</div>';
-                    box += '</div>';
-                    box += '</div>';
-                    $('#container-resultado').append(box);
-                })
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $('#container-resultado').html('<p class="text-bold">Sem registros á exibir</p>');
-            }
-        });
+    $("#container-resultado").text("");
+    var urlUnidades = domain + '/transparencia/entidades/' + casa_code + '/estados/RO/unidades';
+    $.ajax({
+        url: urlUnidades,
+        crossDomain: true,
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            $.each(response, function (name, value) {
+                box = '<div class="col-xs-12 col-sm-6 col-md-4 nth">';
+                box += '<div class="card bg-cinza-claro">';
+                box += '<div>';
+                box += '<div class="c-22 casa logo-sistema-s">=SESI=</div>';
+                box += '</div>';
+                box += '<div class="unititulo">';
+                box += '<i class="fa fa-map-marker"></i>';
+                box += '<div class="dc">';
+                box += '<h3>'+value.nomeUnidade+'</h3>';
+                box += '</div>';
+                box += '</div>';
+                box += '<div class="unitexto">';
+                box += '<p><strong>Endereço:</strong> '+value.nomeRua+', '+value.numeroEndereco;
+                box += '- '+ value.nomeBairro;
+                box += '- '+value.nomeCidade+'</p>';
+                box += '<p><strong>Tipo:</strong> '+value.tipoUnidade+'</p>';
+                box += '<p><strong>Responsável:</strong> '+value.nomeResponsavel+'</p>';
+                box += '<p><strong>Telefone:</strong> '+value.telefone+'</p>';
+                box += '<p><strong>Site:</strong> '+value.site+'</p>';
+                box += '<p><strong>Email:</strong> '+value.email+'</p>';
+                box += '</div>';
+                box += '</div>';
+                box += '</div>';
+                $('#container-resultado').append(box);
+            })
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $('#container-resultado').html('<p class="text-bold">Sem registros á exibir</p>');
+        }
     });
 
 
@@ -197,8 +194,6 @@ $(function () {
     $('.modal-link').on("click", function () {
         $("#mdIntegracao_body").html("Carregando...");
         $("#modal_titulo").html($(this).data().titulo);
-
-        console.log(url);
 
 
         if ($(this).data().tipo === 1) {

@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="menu-estrutura">
-        <p>O Departamento Regional do SESI publica a seguir o seu orçamento e execução orçamentária para ano
+        <p>O Departamento Regional do SENAI publica a seguir o seu orçamento e execução orçamentária para ano
             de {{ date('Y') }}, a estrutura remuneratória e as relações com os nomes de seus dirigentes e membros do
             corpo técnico:</p>
 

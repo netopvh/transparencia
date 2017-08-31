@@ -4,6 +4,10 @@
     {!! Breadcrumbs::render('sesi.home') !!}
 @stop
 
+@section('sac-button')
+    @include('frontend.sesi.layouts.partials.sac-button')
+@stop
+
 @section('content')
     <div class="materia"><p>Apesar de ser uma entidade privada, o SESI/SENAI sempre teve a sua gestão - contábil,
             financeira, orçamentária, operacional e patrimonial - controlada e fiscalizada pelo Tribunal de Contas da
