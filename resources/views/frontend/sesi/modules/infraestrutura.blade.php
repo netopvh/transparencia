@@ -24,12 +24,14 @@
         <table class="table-custom">
             <thead>
             <tr>
+                <th></th>
                 <th colspan="2" class="left">
                     INFRAESTRUTURA
                 </th>
                 <th colspan="6" class="left">INFRAESTRUTURA POR ATUAÇÃO</th>
             </tr>
             <tr class="center">
+                <th>DR</th>
                 <th>Unidades Fixas</th>
                 <th>Unidades Móveis</th>
                 <th class="lining">Centro de Alimentação</th>
@@ -42,6 +44,7 @@
             </thead>
             <tbody>
             <tr>
+                <td><b>RO</b></td>
                 <td class="text-center"><a href="javascript:void(0)" data-id="1" data-casa="1" data-tipo="1" data-titulo="Unidades Fixas"
                                            class="modal-link">{{ $fixas }}</a></td>
                 <td class="text-center"><a href="javascript:void(0)" data-id="2" data-casa="1" data-tipo="1" data-titulo="Unidades Móveis"
