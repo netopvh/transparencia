@@ -146,14 +146,14 @@ class InfraestruturaRepositoryEloquent extends BaseRepository implements Infraes
             ->where('nome_atuacao', 'LIKE', '%' . $atuacao . '%')
             ->get()->count();
 
-        $dependencia = $this->model->newQuery()
+       /* $dependencia = $this->model->newQuery()
             ->join('infraestrutura_atuacao', 'infraestruturas.id', '=', 'infraestrutura_atuacao.infraestrutura_id')
             ->where('infraestrutura_atuacao.codigo_entidade', getCasaId($casa))
             ->where('infraestrutura_atuacao.nome_atuacao', 'LIKE', '%' . $atuacao . '%')
             ->get()
-            ->count();
+            ->count(); */
 
-        return $all + $dependencia;
+        return $all;
 
     }
 

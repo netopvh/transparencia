@@ -25,7 +25,7 @@
             <thead>
             <tr>
                 <th></th>
-                <th colspan="2" class="left">
+                <th colspan="3" class="left">
                     INFRAESTRUTURA
                 </th>
                 <th colspan="6" class="left">INFRAESTRUTURA POR ATUAÇÃO</th>
@@ -36,6 +36,7 @@
                 <th>Unidades Móveis</th>
                 <th class="lining">Centro de Alimentação</th>
                 <th>Centro de Cultura</th>
+                <th>Instituto de Inovação</th>
                 <th>Centro de Promoção da Saúde</th>
                 <th>Centro de Segurança e Saúde no Trabalho</th>
                 <th>Centro de Educação</th>
@@ -53,6 +54,8 @@
                                            data-titulo="Centro de Alimentação" class="modal-link">{{ $alimentacao }}</a></td>
                 <td class="text-center"><a href="javascript:void(0)" data-id="1" data-casa="1" data-tipo="2"
                                            data-titulo="Centro de Cultura" class="modal-link">{{ $cultura }}</a></td>
+                <td class="text-center"><a href="javascript:void(0)" data-id="1" data-casa="1" data-tipo="2"
+                                           data-titulo="Instituto de Inovação" class="modal-link">{{ $inovacao }}</a></td>
                 <td class="text-center"><a href="javascript:void(0)" data-id="1" data-casa="1" data-tipo="2"
                                            data-titulo="Centro de Promoção da Saúde" class="modal-link">{{ $saude }}</a></td>
                 <td class="text-center"><a href="javascript:void(0)" data-id="1" data-casa="1" data-tipo="2"

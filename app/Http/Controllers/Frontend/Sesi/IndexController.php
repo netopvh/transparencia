@@ -269,6 +269,7 @@ class IndexController extends Controller
             ->with('saude', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Promoção da Saúde'))
             ->with('trabalho', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Segurança e Saúde no Trabalho'))
             ->with('educacao', $this->infra->getAllCasaAtuacao('SESI', 'Centro de Educação'))
+            ->with('inovacao', $this->infra->getAllCasaAtuacao('SESI', 'Instituto de Inovação'))
             ->with('conjunta', $this->infra->getAllCasaAtuacao('SESI', 'Atuação Conjunta'));
     }
 
