@@ -166,17 +166,17 @@ class InfraestruturaRepositoryEloquent extends BaseRepository implements Infraes
             ->where('codigo_categoria', $categoria)
             ->get()->toArray();
 
-        $dependencia = $this->model->newQuery()
+        /*$dependencia = $this->model->newQuery()
             ->join('infraestrutura_atuacao', 'infraestruturas.id', '=', 'infraestrutura_atuacao.infraestrutura_id')
             ->where('infraestrutura_atuacao.codigo_entidade', $casa)
             ->where('infraestrutura_atuacao.nome_atuacao', 'LIKE', '%' . $atuacao . '%')
-            ->get()->toArray();
+            ->get()->toArray(); */
 
 
-        $arrayData = array_collapse([$all, $dependencia]);
+        //$arrayData = array_collapse([$all, $dependencia]);
 
 
-        return $arrayData;
+        return $all;
 
     }
 
